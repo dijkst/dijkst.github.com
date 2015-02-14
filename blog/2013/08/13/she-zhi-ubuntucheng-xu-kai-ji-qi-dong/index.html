@@ -1,0 +1,558 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>设置Ubuntu程序开机启动 - 第九块石头</title>
+  <meta name="author" content="dijkst">
+
+  
+  <meta name="description" content="以前配置系统启动项都是拿来能用就行，对于其中规则一点都不熟悉，这两天恰好遇到几篇通俗易懂的介绍，受益匪浅。 涉及到开机启动的配置文件在下面几个文件夹里： /etc/init.d 放着程序启动关闭重启的脚本
+/etc/rc(0-6).d里的文件都是/etc/init.d文件下的软链接，rc0.d &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dijkst.github.io/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="第九块石头" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39546615-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">第九块石头</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dijkst.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">设置Ubuntu程序开机启动</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-13T00:02:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>以前配置系统启动项都是拿来能用就行，对于其中规则一点都不熟悉，这两天恰好遇到几篇通俗易懂的介绍，受益匪浅。</p>
+
+<p>涉及到开机启动的配置文件在下面几个文件夹里：</p>
+
+<ul>
+<li>/etc/init.d 放着程序启动关闭重启的脚本</li>
+<li>/etc/rc(0-6).d里的文件都是/etc/init.d文件下的软链接，rc0.d rc1.d … 分别对应着linux不同的 <a href="http://wiki.ubuntu.org.cn/%E5%90%AF%E5%8A%A8#runlevel">runlevel</a></li>
+<li>/etc/default 里的文件添加一层控制是否启动某个程序的变量</li>
+</ul>
+
+
+<p>手工设置开机启动程序的步骤是这样的：</p>
+
+<ol>
+<li>在<code>/etc/init.d</code>里写一个启动脚本, 比如：some_program（启动脚本模板后面提供)</li>
+<li>使用 <code>sudo update-rc.d some_program defaults</code> 设置开机启动. 可以看到这个命令的工作是把 <code>/etc/init.d/some_program</code> 软链接到了 <code>/etc/rc(0-6).d</code> 里。</li>
+<li>现在重启系统, some_program 就会启动了。</li>
+</ol>
+
+
+<!-- more -->
+
+
+<p>很多程序安装好以后已经把启动脚本放在 <code>/etc/init.d</code> 里面了, 我们要启动它, 首先要试试：</p>
+
+<pre><code>sudo /etc/init.d/the_program start
+</code></pre>
+
+<p>如果提示正常则可以通过 <code>sudo update-rc.d the_program defaults</code> 来设置开机启动</p>
+
+<p>如果提示错误，很可能会提示 <code>/etc/default/the_program</code> 设置不让启动，需要修改一下 <code>/etc/default/the_program</code> 文件的配置。</p>
+
+<p>一些有用的命令：</p>
+
+<p>马上启动某个程序</p>
+
+<pre><code>sudo /etc/init.d/the_program start
+</code></pre>
+
+<p>马上停止某个程序</p>
+
+<pre><code>sudo /etc/init.d/the_program stop
+</code></pre>
+
+<p>设置某个已经设置过开机启动的程序不开机启动</p>
+
+<pre><code>sudo update-rc.d the_program disable
+</code></pre>
+
+<p>设置某个已经设置开机启动disable的程序开机启动</p>
+
+<pre><code>sudo update-rc.d the_program enable
+</code></pre>
+
+<p>init.d里面的脚本模板：（<a href="https://github.com/fhd/init-script-template">https://github.com/fhd/init-script-template</a>）</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/sh</span>
+</span><span class='line'><span class="c">### BEGIN INIT INFO</span>
+</span><span class='line'><span class="c"># Provides:         </span>
+</span><span class='line'><span class="c"># Required-Start:    $remote_fs $syslog</span>
+</span><span class='line'><span class="c"># Required-Stop:     $remote_fs $syslog</span>
+</span><span class='line'><span class="c"># Default-Start:     2 3 4 5</span>
+</span><span class='line'><span class="c"># Default-Stop:      0 1 6</span>
+</span><span class='line'><span class="c"># Short-Description: Start daemon at boot time</span>
+</span><span class='line'><span class="c"># Description:       Enable service provided by daemon.</span>
+</span><span class='line'><span class="c">### END INIT INFO</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'><span class="nv">user</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'><span class="nv">cmd</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">name</span><span class="o">=</span><span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span>
+</span><span class='line'><span class="nv">pid_file</span><span class="o">=</span><span class="s2">&quot;/var/run/$name.pid&quot;</span>
+</span><span class='line'><span class="nv">stdout_log</span><span class="o">=</span><span class="s2">&quot;/var/log/$name.log&quot;</span>
+</span><span class='line'><span class="nv">stderr_log</span><span class="o">=</span><span class="s2">&quot;/var/log/$name.err&quot;</span>
+</span><span class='line'>
+</span><span class='line'>get_pid<span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    cat <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>is_running<span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="o">[</span> -f <span class="s2">&quot;$pid_file&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> ps <span class="sb">`</span>get_pid<span class="sb">`</span> &gt; /dev/null 2&gt;&amp;1
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
+</span><span class='line'>    start<span class="o">)</span>
+</span><span class='line'>     <span class="k">if </span>is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Already started&quot;</span>
+</span><span class='line'>     <span class="k">else</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Starting $name&quot;</span>
+</span><span class='line'>         <span class="nb">cd</span> <span class="s2">&quot;$dir&quot;</span>
+</span><span class='line'>            sudo -u <span class="s2">&quot;$user&quot;</span> <span class="nv">$cmd</span> &gt; <span class="s2">&quot;$stdout_log&quot;</span> 2&gt; <span class="s2">&quot;$stderr_log&quot;</span> <span class="se">\</span>
+</span><span class='line'>          &amp; <span class="nb">echo</span> <span class="nv">$!</span> &gt; <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'>         <span class="k">if</span> ! is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">          </span><span class="nb">echo</span> <span class="s2">&quot;Unable to start, see $stdout_log and $stderr_log&quot;</span>
+</span><span class='line'>          <span class="nb">exit </span>1
+</span><span class='line'>         <span class="k">fi</span>
+</span><span class='line'><span class="k">     fi</span>
+</span><span class='line'>     ;;
+</span><span class='line'>    stop<span class="o">)</span>
+</span><span class='line'>     <span class="k">if </span>is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Stopping $name&quot;</span>
+</span><span class='line'>         <span class="nb">kill</span> <span class="sb">`</span>get_pid<span class="sb">`</span>
+</span><span class='line'>         rm <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'>     <span class="k">else</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Not running&quot;</span>
+</span><span class='line'>     <span class="k">fi</span>
+</span><span class='line'>     ;;
+</span><span class='line'>    restart<span class="o">)</span>
+</span><span class='line'>     <span class="nv">$0</span> stop
+</span><span class='line'>     <span class="nv">$0</span> start
+</span><span class='line'>     ;;
+</span><span class='line'>    status<span class="o">)</span>
+</span><span class='line'>     <span class="k">if </span>is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Running&quot;</span>
+</span><span class='line'>     <span class="k">else</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Stopped&quot;</span>
+</span><span class='line'>         <span class="nb">exit </span>1
+</span><span class='line'>     <span class="k">fi</span>
+</span><span class='line'>     ;;
+</span><span class='line'>    *<span class="o">)</span>
+</span><span class='line'>     <span class="nb">echo</span> <span class="s2">&quot;Usage: $0 {start|stop|restart|status}&quot;</span>
+</span><span class='line'>     <span class="nb">exit </span>1
+</span><span class='line'>     ;;
+</span><span class='line'><span class="k">esac</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">exit </span>0
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dijkst</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-13T00:02:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li/" title="Previous Post: 中国地图坐标偏移算法整理">&laquo; 中国地图坐标偏移算法整理</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa/" title="Next Post: iOS5 上 Gesture 和 UIButton 手势冲突解决方法">iOS5 上 Gesture 和 UIButton 手势冲突解决方法 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'dijkst';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/">让 Xcode 增加多 SDK 支持</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/25/1314/">1314</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (2)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+</section>
+<section>
+  <h1>My APPs</h1>
+    <ul id="appstore-apps"><style type="text/css">
+.flip-container, .front, .back {
+	width: 120px;
+	height: 120px;
+}
+.flip-container {
+  -webkit-perspective: 1000;
+	-moz-perspective: 1000;
+	perspective: 1000;
+}
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+	-webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.flipper {
+  -webkit-transition: 0.6s;
+	-webkit-transform-style: preserve-3d;
+
+	-moz-transition: 0.6s;
+	-moz-transform-style: preserve-3d;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+.front, .back {
+  -webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.front {
+	z-index: 2;
+}
+.back {
+	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+}
+</style>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish' src='http://a1863.phobos.apple.com/us/r30/Purple2/v4/55/7d/c0/557dc03e-cd9c-ac75-e2a7-78242ea50c79/mzl.vpfmgtuy.png' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+Duckipedia - A Wikipedia Reader
+</p>
+</div>
+</div>
+</li>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd' src='http://a153.phobos.apple.com/us/r30/Purple2/v4/28/4f/82/284f823d-1ec5-d58c-e231-a39157e279f7/mzl.zlpotobi.png' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+魔法灰姑娘
+</p>
+</div>
+</div>
+</li>
+</ul>
+</section>
+<section>
+  <h1>My Friends</h1>
+    <ul id="category-list">
+    	<li><a href="http://www.doruby.com">Square</a> <small>ruby & objc</small></li>
+    	<li><a href="http://manageyp.github.io">Henry</a> <small>You can do well, you must do well.</small></li>
+	</ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - dijkst -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dijkst';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dijkst.github.io/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/';
+        var disqus_url = 'http://dijkst.github.io/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

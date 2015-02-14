@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: iOS | 第九块石头]]></title>
+  <link href="http://dijkst.github.io/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://dijkst.github.io/"/>
+  <updated>2014-09-29T18:01:19+08:00</updated>
+  <id>http://dijkst.github.io/</id>
+  <author>
+    <name><![CDATA[dijkst]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[让 Xcode 增加多 SDK 支持]]></title>
+    <link href="http://dijkst.github.io/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/"/>
+    <updated>2014-09-29T17:21:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi</id>
+    <content type="html"><![CDATA[<p>Xcode 更新换代的时候，也就是 iOS 升级的时候，由于总总原因，可能需要对新的 iOS 做系统兼容，但是这个过程中，往往需要同时以旧的 Xcode 进行编译与发布。</p>
+
+<p>这就出现一个比较头疼的问题——Xcode 共存！</p>
+
+<p>由于 Xcode 是通过 AppStore 自动更新的，往往会覆盖旧版本的 Xcode。当然，我们可以在升级 Xcode 之前将 Xcode 复制出来一个备份，再升级。这样就有两个 Xcode 了！</p>
+
+<p>突然想，编译本质上就是 SDK 不同，我们直接把旧版本的 SDK 放到新版本的 Xcode 里面不就可以了吗？</p>
+
+<p>想到 Xcode 的 target 里面可以设置 <code>Base SDK</code>，默认不都是 <code>Latest SDK</code> 吗？下拉列表里面还真没有旧版本的 SDK，哪怕安装了旧版本的 Xcode。</p>
+
+<p>于是到旧版本 Xcode 里面找到旧版本的 SDK，放到新版本的 Xcode，重启 Xcode，即可选择 SDK 版本啦！</p>
+
+<p>SDK 路径： /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs</p>
+
+<!-- more -->
+
+
+<p><img src="/images/post/2014-09-29-rang-xcode-zeng-jia-duo-sdk-zhi-chi/1.png"></p>
+
+<p>这种方法只适用于你安装了对应版本的模拟器。例如 Xcode6 里面不能安装 iOS6 模拟器，哪怕拿了 SDK6，也是不能用的。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面]]></title>
+    <link href="http://dijkst.github.io/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/"/>
+    <updated>2014-01-16T14:58:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian</id>
+    <content type="html"><![CDATA[<p>以前做 iPhone 的开发时，经常需要做一个功能，例如“更新 App”，点击之后跳转到 AppStore 的下载页面，然而，今天发现了一个问题：</p>
+
+<p>我的跳转地址是 <code>itms-apps://itunes.apple.com/app/id438865278?mt=8</code>，这个地址是服务器返回的，我以前也是这么写的，应该没有问题。</p>
+
+<p>测试的妹子说，在 iOS6 上面，该地址只能打开 AppStore 的首页，不能进入下载页面，在 iOS5 和 iOS7 中都正常，iOS6 所有设备均失败（iPad3、4、mini 等等）。</p>
+
+<p>我尝试在 Safari 中输入该地址，发现也确实无法让 AppStore 进入下载界面。</p>
+
+<p>在 iPhone 的 iOS6 中，正常。</p>
+
+<p>因此估计是 iPad 的问题，上网搜了一下，发现这个问题是普遍存在的 —— 只在 iOS6 的 iPad 设备中出现！</p>
+
+<p>参考地址： <a href="https://discussions.apple.com/thread/4420524?tstart=0">https://discussions.apple.com/thread/4420524?tstart=0</a></p>
+
+<p><code>It apparently works with https, but http and itms-apps fail.</code></p>
+
+<p>将 <code>itms-apps</code> 替换为 <code>https</code> 即可正常。</p>
+
+<p>最后经过测试，使用 <code>https</code> 在 iPhone、iPad 上均可正常使用，不会跳转 Safari，完全不需要使用 <code>itms-apps</code>！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[不要在 Initializer 和 dealloc 方法中使用 setter 和 getter]]></title>
+    <link href="http://dijkst.github.io/blog/2013/12/07/bu-yao-zai-initializer-he-dealloc-fang-fa-zhong-shi-yong-setter-he-getter/"/>
+    <updated>2013-12-07T22:39:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/12/07/bu-yao-zai-initializer-he-dealloc-fang-fa-zhong-shi-yong-setter-he-getter</id>
+    <content type="html"><![CDATA[<p>今天和同事在争论 iOS 中，init 方法使用 <code>self.xxx = xx;</code> 是否合适的问题，以下面代码为导火索：</p>
+
+<p>```objective-c
+ &ndash; (id)initWithIconImage:(UIImage <em>)iconImage loadingImage:(UIImage </em>)loadingImage {</p>
+
+<pre><code> if (self = [self init]) {
+    self.iconImage = iconImage;
+ }
+ return self;
+</code></pre>
+
+<p> }
+```</p>
+
+<p>他的观点是 <code>self.iconImage = iconImage;</code> 应该改为 <code>_iconImage = [iconImage retain];</code>，理由是担心内存被强制释放，那么 <code>self.iconImage = xxx</code> 将会导致崩溃。</p>
+
+<p>我的观点是 <code>if (self = [self init])</code> 已经判断内存是否初始化正常了，不需要考虑 <code>self</code> 内存异常问题，所以不需要专门改成 <code>_iconImage = [iconImage retain];</code>，当然这么写也没错。</p>
+
+<p>看似一个挺无聊的争论，但是最后一个技术专家站出来，贴了个 Apple 的文档： <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/MemoryMgmt.pdf">Don’t Use Accessor Methods in Initializer Methods and dealloc</a></p>
+
+<blockquote><p>The only places you shouldn’t use accessor methods to set an instance variable are in initializer methods and dealloc.</p></blockquote>
+
+<p>看来我们争论的方向都错了，init 里面不用 setter 不是内存问题，而是<strong> setter 可能会触发其他的逻辑</strong>，例如重写的 setter 方法或者 KVC，将可能调用其他还没来得及 init 的变量，最终导致不可预计行为！</p>
+
+<p>颠覆了以前的使用方法~~</p>
+
+<p>不禁思考到其他语言，似乎都存在这种问题~~</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[UIScrollView 和 Swipe 手势的识别问题]]></title>
+    <link href="http://dijkst.github.io/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti/"/>
+    <updated>2013-09-04T15:40:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti</id>
+    <content type="html"><![CDATA[<p>UIScrollView 用得相当普遍，衍生出来的 UITableView 也用得不少。最近有人问我，当给 UIScrollView 加上左右滑动手势 UISwipeGesture 时，感觉好难滑动，必须要很平的左右划才会触发 Swipe，否则都是触发 UIScrollView 的滚动事件。</p>
+
+<p>这时候，我们会想到，不需要那么水平的滑动就好了，例如以滑动45度为分割线，滑动轨迹与水平线夹角在正负45度，都认为是水平滑动，超过45度，就认为是垂直滚动。</p>
+
+<p>看上去好像可以做。那么我们就要拦截发送给 UIScrollView 的手势——重载 UIScrollView 的手势响应方法：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nl">gestureRecognizerShouldBegin:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="n">gestureRecognizer</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">([</span><span class="n">gestureRecognizer</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIPanGestureRecognizer</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="p">[(</span><span class="n">UIPanGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="n">gestureRecognizer</span> <span class="nl">translationInView:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">((</span><span class="n">fabs</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">fabs</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">x</span><span class="p">))</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 判断角度 tan(45),这里需要通过正负来判断手势方向</span>
+</span><span class='line'>        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;横向手势&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nl">gestureRecognizerShouldBegin:</span><span class="n">gestureRecognizer</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>重载 UIScrollView，用这个新的对象，并且适当的调整其中的角度，来优化 APP 中的手势灵敏度。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS5 上 Gesture 和 UIButton 手势冲突解决方法]]></title>
+    <link href="http://dijkst.github.io/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa/"/>
+    <updated>2013-08-29T10:09:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa</id>
+    <content type="html"><![CDATA[<p>在一个 View 上面加一个 UIButton，指明一个 Action，很简单；在这个 View 上面加一个 Tap 手势，恩，也很简单。但是两者一起加，当我们点击 Button 时候，触发哪个呢？</p>
+
+<p>经过测试，当系统是 iOS5 及以下时，响应 Tap 手势；当系统是 iOS6 及以上时，响应 Button 事件！！</p>
+
+<p>那我们一般期望是什么行为呢？估计很多人都是想和 iOS6 那样，优先响应 Button 的事件。</p>
+
+<p>让 iOS5 及以下响应 Button 事件的方法：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="o">&amp;</span><span class="n">ndash</span><span class="p">;</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nl">gestureRecognizer:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">gestureRecognizer</span> <span class="nl">shouldReceiveTouch:</span><span class="p">(</span><span class="n">UITouch</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="p">)</span><span class="n">touch</span> <span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// Disallow recognition of tap gestures in the control.</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(([</span><span class="n">touch</span><span class="p">.</span><span class="n">view</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIControl</span> <span class="n">class</span><span class="p">]]))</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nl">gestureRecognizer:</span><span class="n">gestureRecognizer</span> <span class="nl">shouldReceiveTouch:</span><span class="n">touch</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>重载View，复写上面的方法即可。</p>
+]]></content>
+  </entry>
+  
+</feed>

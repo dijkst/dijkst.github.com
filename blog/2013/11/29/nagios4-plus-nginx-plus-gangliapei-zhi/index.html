@@ -1,0 +1,1077 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Nagios4+Nginx+Ganglia配置 - 第九块石头</title>
+  <meta name="author" content="dijkst">
+
+  
+  <meta name="description" content="本文参考 Nagios on nginx &amp; Ubuntu 12.04 最近需要在服务器上配置一个Nagios用于检测服务器的异常情况并报警，我们的服务器已经搭建好Ganglia，Nagios主要用于报警通知。现在最新的Nagios的版本已经到了4.0.2, 而apt- &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dijkst.github.io/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="第九块石头" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39546615-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">第九块石头</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dijkst.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Nagios4+Nginx+Ganglia配置</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-29T20:14:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>本文参考 <a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a></p>
+
+<p>最近需要在服务器上配置一个Nagios用于检测服务器的异常情况并报警，我们的服务器已经搭建好Ganglia，Nagios主要用于报警通知。现在最新的Nagios的版本已经到了4.0.2, 而apt-get只有nagios3, 并且似乎还自动装了apache, 这不是我们需要的。看了一些资料后得知一般情况下 nagios 应该安装在 /usr/local/nagios 文件夹下，这样安装插件的时候会少很多麻烦。 而按照ubuntu的习惯，配置文件我决定放在 /etc/nagios 文件夹里。</p>
+
+<p>首先介绍一下安装上面的配置需要了解的nagios的各个文件夹或者文件的用途</p>
+
+<blockquote><p>/usr/local/nagios/libexec 是nagios插件存放的位置， nagios配置中有个USER1指的就是这个文件夹的路径<br/>
+/etc/nagios/nagios.cfg 是nagios的主配置文件，它会引用到很多其它的配置文件，比如下面说到的objects文件夹下的所有配置<br/>
+/etc/nagios/objects 文件夹里有可以配置命令的 commands.cfg 可以配置联系方式的 contacts.cfg<br/>
+/etc/nagios/servers 这是我需要的一个文件夹，用于配置需要监控的服务的，需要在 /etc/nagios/nagios.cfg里取消掉相应行的注释</p></blockquote>
+
+<h3>下面是我的安装配置过程</h3>
+
+<h4>安装依赖</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install libperl-dev libpng12-dev libgd2-xpm-dev build-essential php5-gd wget libgd2-xpm</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!-- more -->
+
+
+<h4>创建 nagios 用户， 和 nagcmd 用户组</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>adduser --system --no-create-home --disabled-login --group nagios
+</span><span class='line'>groupadd nagcmd
+</span><span class='line'>usermod -G nagcmd nagios
+</span><span class='line'>usermod -a -G nagcmd www-data</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>在一个临时文件夹下下载解压 nagios 源码以及插件源码， 最新的源码可以在 <a href="http://www.nagios.org/download/">nagios.org</a> 上找到</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp
+</span><span class='line'>mkdir nagios
+</span><span class='line'>cd nagios
+</span><span class='line'>wget http://jaist.dl.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.2/nagios-4.0.2.tar.gz
+</span><span class='line'>wget https://www.nagios-plugins.org/download/nagios-plugins-1.5.tar.gz
+</span><span class='line'>tar xvf nagios-3.4.4.tar.gz
+</span><span class='line'>tar xvf nagios-plugins-1.4.16.tar.gz</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>配置 nagios 源码并编译安装</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp/nagios/nagios-4.0.2
+</span><span class='line'>
+</span><span class='line'>./configure --prefix /usr/local/nagios \
+</span><span class='line'>--sysconfdir=/etc/nagios \
+</span><span class='line'>--with-nagios-user=nagios \
+</span><span class='line'>--with-nagios-group=nagios \
+</span><span class='line'>--with-command-user=nagios \
+</span><span class='line'>--with-command-group=nagcmd
+</span><span class='line'>
+</span><span class='line'>make all
+</span><span class='line'>make install
+</span><span class='line'>make install-config
+</span><span class='line'>make install-commandmode</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装参考文章，需要 make install-init 的， 但我发现4.0.2版的 init 脚本用不了， 弄了好久最后在<a href="http://blacks3pt3mb3r.wordpress.com/tag/etcinit-dnagios-20-cant-open-etcrc-dinit-dfunctions/">All the geeky things</a> 这个博客里找到了一个稍微修改就可以使用的脚本。将它放到 /etc/init.d/nagios 即可</p>
+
+<h4>设置网站登录密码，参考 <a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a></h4>
+
+<h4>设置nagios的log的存放位置</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir /var/log/nagios
+</span><span class='line'>touch /var/log/nagios/nagios.log
+</span><span class='line'>chown nagios:nagios /var/log/nagios
+</span><span class='line'>vi /etc/nagios/nagios.cfg # 修改nagios.log的路径</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>安装插件, 插件将被安装在 /usr/local/nagios/libexec 里面</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp/nagios/nagios-plugins-1.5
+</span><span class='line'>./configure --with-nagios-user=nagios --with-nagios-group=nagios
+</span><span class='line'>make && make install</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>测试nagios的配置，并设置开机启动</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/usr/local/nagios/bin/nagios -v /etc/nagios/nagios.cfg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果没有问题，会提示一切正常</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod +x /etc/init.d/nagios
+</span><span class='line'>update-rc.d -f nagios defaults</span></code></pre></td></tr></table></div></figure>
+
+
+<p>到这里，只需要 service nagios start 就可以启动nagios了。想要在网页上看到nagios，需要安装nginx 和 fcgi</p>
+
+<h4>安装 nginx &amp; fcgi</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install nginx
+</span><span class='line'>apt-get install spawn-fcgi fcgiwrap</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这时需要确认php-fpm监听的地址，从配置文件<code>/etc/php5/fpm/pool.d/www.conf</code>中可以找到, 假设为 <code>unix:/var/run/php5-fpm.sock</code><br/>
+还需要确认<code>/var/run/fcgiwrap.socket</code>是否存在，如果不存在则要另外找出这个socket的位置</p>
+
+<h4>配置 nginx 并启动</h4>
+
+<p>这里并不设置密码（不是必须，但一般都要设置，参考<a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a>）</p>
+
+<p>添加nginx配置</p>
+
+<figure class='code'><figcaption><span>/etc/nginx/sites-available/nagios </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>server {
+</span><span class='line'>        listen   9981;
+</span><span class='line'>        root /var/www/html;
+</span><span class='line'>        index index.html index.htm;
+</span><span class='line'>        server_name localhost;
+</span><span class='line'>        
+</span><span class='line'>        location /nagios {
+</span><span class='line'>                index index.php;
+</span><span class='line'>                alias /usr/local/nagios/share/;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        location ~ ^/nagios/(.*\.php)$ {
+</span><span class='line'>                alias /usr/local/nagios/share/$1;
+</span><span class='line'>                include /etc/nginx/fastcgi_params;
+</span><span class='line'>                fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        location ~ \.cgi$ {
+</span><span class='line'>                root /usr/local/nagios/sbin/;
+</span><span class='line'>                rewrite ^/nagios/cgi-bin/(.*)\.cgi /$1.cgi break;
+</span><span class='line'>                fastcgi_param AUTH_USER $remote_user;
+</span><span class='line'>                fastcgi_param REMOTE_USER $remote_user;
+</span><span class='line'>                include /etc/nginx/fastcgi_params;
+</span><span class='line'>                fastcgi_pass unix:/var/run/fcgiwrap.socket;
+</span><span class='line'>        }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>启动nginx <code>service nginx start</code>, 这时打开 <a href="http://localhost:9981/nagios">http://localhost:9981/nagios</a> 应该可以看到打开监控网页了。</p>
+
+<h4>安装ganglia插件</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /usr/local/nagios/libexec/
+</span><span class='line'>touch check_ganglia.py
+</span><span class='line'>chown nagios:nagios check_ganglia.py
+</span><span class='line'>chmod +x check_ganglia.py
+</span><span class='line'>vi check_ganglia.py</span></code></pre></td></tr></table></div></figure>
+
+
+<p>贴下面代码</p>
+
+<figure class='code'><figcaption><span>/usr/local/nagios/libexec/check_ganglia.py </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">getopt</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">xml.parsers.expat</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">GParser</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span> <span class="o">=</span><span class="mi">0</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">inmetric</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">file</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">p</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">expat</span><span class="o">.</span><span class="n">ParserCreate</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">StartElementHandler</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">start_element</span>
+</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">EndElementHandler</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">end_element</span>
+</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">ParseFile</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Host/value not found&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">start_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;HOST&quot;</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">attrs</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">:</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">=</span><span class="mi">1</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">==</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;METRIC&quot;</span> <span class="ow">and</span> <span class="n">attrs</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">:</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">=</span><span class="n">attrs</span><span class="p">[</span><span class="s">&quot;VAL&quot;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">end_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;HOST&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">=</span><span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">usage</span><span class="p">():</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&quot;&quot;&quot;Usage: check_ganglia </span><span class="se">\</span>
+</span><span class='line'><span class="s">-h|--host= -m|--metric= -w|--warning= </span><span class="se">\</span>
+</span><span class='line'><span class="s">-c|--critical= [-s|--server=] [-p|--port=] &quot;&quot;&quot;</span>
+</span><span class='line'>  <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class='line'><span class="c">##############################################################</span>
+</span><span class='line'>  <span class="n">ganglia_host</span> <span class="o">=</span> <span class="s">&#39;127.0.0.1&#39;</span>
+</span><span class='line'>  <span class="n">ganglia_port</span> <span class="o">=</span> <span class="mi">8649</span>
+</span><span class='line'>  <span class="n">host</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>  <span class="n">metric</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>  <span class="n">warning</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>  <span class="n">critical</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">getopt</span><span class="o">.</span><span class="n">getopt</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
+</span><span class='line'>      <span class="s">&quot;h:m:w:c:s:p:&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="p">[</span><span class="s">&quot;host=&quot;</span><span class="p">,</span> <span class="s">&quot;metric=&quot;</span><span class="p">,</span> <span class="s">&quot;warning=&quot;</span><span class="p">,</span> <span class="s">&quot;critical=&quot;</span><span class="p">,</span> <span class="s">&quot;server=&quot;</span><span class="p">,</span> <span class="s">&quot;port=&quot;</span><span class="p">],</span>
+</span><span class='line'>      <span class="p">)</span>
+</span><span class='line'>  <span class="k">except</span> <span class="n">getopt</span><span class="o">.</span><span class="n">GetoptError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;check_gmond:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">usage</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-h&quot;</span><span class="p">,</span> <span class="s">&quot;--host&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">host</span> <span class="o">=</span> <span class="n">a</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-m&quot;</span><span class="p">,</span> <span class="s">&quot;--metric&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">metric</span> <span class="o">=</span> <span class="n">a</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-w&quot;</span><span class="p">,</span> <span class="s">&quot;--warning&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">warning</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-c&quot;</span><span class="p">,</span> <span class="s">&quot;--critical&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">critical</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-p&quot;</span><span class="p">,</span> <span class="s">&quot;--port&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">ganglia_port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-s&quot;</span><span class="p">,</span> <span class="s">&quot;--server&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">ganglia_host</span> <span class="o">=</span> <span class="n">a</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">critical</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">warning</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">metric</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">host</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">usage</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ganglia_host</span><span class="p">,</span><span class="n">ganglia_port</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">parser</span> <span class="o">=</span> <span class="n">GParser</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">value</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s">&quot;r&quot;</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;CHECKGANGLIA UNKNOWN: Error while getting value </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">critical</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;CHECKGANGLIA CRITICAL: </span><span class="si">%s</span><span class="s"> is </span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">elif</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">warning</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;CHECKGANGLIA WARNING: </span><span class="si">%s</span><span class="s"> is </span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;CHECKGANGLIA OK: </span><span class="si">%s</span><span class="s"> is </span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 <code>/etc/nagios/objects/commands.cfg</code> 添加上</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># check_ganglia
+</span><span class='line'>define command {
+</span><span class='line'>    command_name check_ganglia
+</span><span class='line'>    command_line $USER1$/check_ganglia.py -h $HOSTNAME$ -m $ARG1$ -w $ARG2$ -c $ARG3$
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>重启 nagios</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service nagios restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p>后面还需要配置nagios的service hosts hostgroups contacts， 这里不说了。have fun。</p>
+
+<h4>附带 /etc/init.d/nagios</h4>
+
+<figure class='code'><figcaption><span>nagios </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># pidfile: /var/nagios/nagios.pid
+</span><span class='line'>#
+</span><span class='line'>### BEGIN INIT INFO
+</span><span class='line'># Provides:      nagios
+</span><span class='line'># Required-Start:   $local_fs $syslog $network
+</span><span class='line'># Required-Stop:   $local_fs $syslog $network
+</span><span class='line'># Short-Description:   start and stop Nagios monitoring server
+</span><span class='line'># Description:      Nagios is is a service monitoring system
+</span><span class='line'>### END INIT INFO
+</span><span class='line'>
+</span><span class='line'># Source function library.
+</span><span class='line'># . /etc/rc.d/init.d/functions
+</span><span class='line'>. /lib/lsb/init-functions
+</span><span class='line'>
+</span><span class='line'>prefix="/usr/local/nagios"
+</span><span class='line'>exec_prefix="${prefix}"
+</span><span class='line'>exec="${exec_prefix}/bin/nagios"
+</span><span class='line'>prog="nagios"
+</span><span class='line'>config="/etc/nagios/nagios.cfg"
+</span><span class='line'>pidfile="${prefix}/var/nagios.lock"
+</span><span class='line'>user="nagios"
+</span><span class='line'>group="nagios"
+</span><span class='line'>checkconfig="false"
+</span><span class='line'>ramdiskdir="/var/nagios/ramcache"
+</span><span class='line'>
+</span><span class='line'>test -e /etc/sysconfig/$prog && . /etc/sysconfig/$prog
+</span><span class='line'>
+</span><span class='line'>lockfile=/var/lock/$prog
+</span><span class='line'>USE_RAMDISK=${USE_RAMDISK:-0}
+</span><span class='line'>
+</span><span class='line'>if test "$USE_RAMDISK" -ne 0 && test "$RAMDISK_SIZE"X != "X"; then
+</span><span class='line'>   ramdisk=`mount |grep "$ramdiskdir type tmpfs"`
+</span><span class='line'>   if [ "$ramdisk"X == "X" ]; then
+</span><span class='line'>      mkdir -p -m 0755 $ramdiskdir
+</span><span class='line'>      mount -t tmpfs -o size=${RAMDISK_SIZE}m tmpfs $ramdiskdir
+</span><span class='line'>      mkdir -p -m 0755 $ramdiskdir/checkresults
+</span><span class='line'>      chown -R $user:$group $ramdiskdir
+</span><span class='line'>   fi
+</span><span class='line'>fi
+</span><span class='line'>
+</span><span class='line'>check_config() {
+</span><span class='line'>   TMPFILE="/tmp/.configtest.$$"
+</span><span class='line'>   /usr/sbin/service nagios configtest > "$TMPFILE"
+</span><span class='line'>   WARN=`grep ^"Total Warnings:" "$TMPFILE" |awk -F: '{print \$2}' |sed s/' '//g`
+</span><span class='line'>   ERR=`grep ^"Total Errors:" "$TMPFILE" |awk -F: '{print \$2}' |sed s/' '//g`
+</span><span class='line'>
+</span><span class='line'>   if test "$WARN" = "0" && test "${ERR}" = "0"; then
+</span><span class='line'>      echo "OK - Configuration check verified" > /var/run/nagios.configtest
+</span><span class='line'>      chmod 0644 /var/run/nagios.configtest
+</span><span class='line'>      /bin/rm "$TMPFILE"
+</span><span class='line'>   return 0
+</span><span class='line'>   else
+</span><span class='line'>      # We'll write out the errors to a file we can have a
+</span><span class='line'>      # script watching for
+</span><span class='line'>      echo "WARNING: Errors in config files - see log for details: $TMPFILE" > /var/run/nagios.configtest
+</span><span class='line'>      egrep -i "(^warning|^error)" "$TMPFILE" >> /var/run/nagios.configtest
+</span><span class='line'>      chmod 0644 /var/run/nagios.configtest
+</span><span class='line'>      cat "$TMPFILE"
+</span><span class='line'>   exit 8
+</span><span class='line'>   fi
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>start() {
+</span><span class='line'>   test -x $exec || exit 5
+</span><span class='line'>   test -f $config || exit 6
+</span><span class='line'>   if test "$checkconfig" = "false"; then
+</span><span class='line'>      check_config
+</span><span class='line'>   fi
+</span><span class='line'>   echo -n $"Starting $prog: "
+</span><span class='line'>   # We need to _make sure_ the precache is there and verified
+</span><span class='line'>   # Raise priority to make it run better
+</span><span class='line'>   daemon --user=$user -- $exec -d $config
+</span><span class='line'>   #touch $lockfile
+</span><span class='line'>   retval=$?
+</span><span class='line'>   echo
+</span><span class='line'>   test $retval -eq 0 && touch $lockfile
+</span><span class='line'>   return $retval
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>stop() {
+</span><span class='line'>   echo -n $"Stopping $prog: "
+</span><span class='line'>   killproc -p ${pidfile}  $exec
+</span><span class='line'>   retval=$?
+</span><span class='line'>   echo
+</span><span class='line'>   test $retval -eq 0 && rm -f $lockfile
+</span><span class='line'>   return $retval
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>restart() {
+</span><span class='line'>   check_config
+</span><span class='line'>   checkconfig="true"
+</span><span class='line'>   stop
+</span><span class='line'>   start
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>reload() {
+</span><span class='line'>   echo -n $"Reloading $prog: "
+</span><span class='line'>   killproc -p ${pidfile} $exec -HUP
+</span><span class='line'>   RETVAL=$?
+</span><span class='line'>   echo
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>force_reload() {
+</span><span class='line'>   restart
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>case "$1" in
+</span><span class='line'>   start)
+</span><span class='line'>      status_of_proc $prog && exit 0
+</span><span class='line'>      $1
+</span><span class='line'>      ;;
+</span><span class='line'>   stop)
+</span><span class='line'>      status_of_proc $prog|| exit 0
+</span><span class='line'>      $1
+</span><span class='line'>      ;;
+</span><span class='line'>   restart)
+</span><span class='line'>      $1
+</span><span class='line'>      ;;
+</span><span class='line'>   reload)
+</span><span class='line'>      status_of_proc $prog || exit 7
+</span><span class='line'>      $1
+</span><span class='line'>      ;;
+</span><span class='line'>   force-reload)
+</span><span class='line'>      force_reload
+</span><span class='line'>      ;;
+</span><span class='line'>   status)
+</span><span class='line'>      status_of_proc $prog
+</span><span class='line'>      ;;
+</span><span class='line'>   condrestart|try-restart)
+</span><span class='line'>      status_of_proc $prog|| exit 0
+</span><span class='line'>      restart
+</span><span class='line'>      ;;
+</span><span class='line'>   configtest)
+</span><span class='line'>      $nice su -s /bin/bash - nagios -c "$corelimit >/dev/null 2>&1 ; $exec -vp $config"
+</span><span class='line'>      RETVAL=$?
+</span><span class='line'>      ;;
+</span><span class='line'>   *)
+</span><span class='line'>      echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"
+</span><span class='line'>      exit 2
+</span><span class='line'>esac
+</span><span class='line'>exit $?</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dijkst</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-29T20:14:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti/" title="Previous Post: UIScrollView 和 Swipe 手势的识别问题">&laquo; UIScrollView 和 Swipe 手势的识别问题</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/12/07/bu-yao-zai-initializer-he-dealloc-fang-fa-zhong-shi-yong-setter-he-getter/" title="Next Post: 不要在 Initializer 和 dealloc 方法中使用 setter 和 getter">不要在 Initializer 和 dealloc 方法中使用 setter 和 getter &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'dijkst';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/">让 Xcode 增加多 SDK 支持</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/25/1314/">1314</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (2)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+</section>
+<section>
+  <h1>My APPs</h1>
+    <ul id="appstore-apps"><style type="text/css">
+.flip-container, .front, .back {
+	width: 120px;
+	height: 120px;
+}
+.flip-container {
+  -webkit-perspective: 1000;
+	-moz-perspective: 1000;
+	perspective: 1000;
+}
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+	-webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.flipper {
+  -webkit-transition: 0.6s;
+	-webkit-transform-style: preserve-3d;
+
+	-moz-transition: 0.6s;
+	-moz-transform-style: preserve-3d;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+.front, .back {
+  -webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.front {
+	z-index: 2;
+}
+.back {
+	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+}
+</style>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish' src='http://a1863.phobos.apple.com/us/r30/Purple2/v4/55/7d/c0/557dc03e-cd9c-ac75-e2a7-78242ea50c79/mzl.vpfmgtuy.png' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+Duckipedia - A Wikipedia Reader
+</p>
+</div>
+</div>
+</li>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd' src='http://a153.phobos.apple.com/us/r30/Purple2/v4/28/4f/82/284f823d-1ec5-d58c-e231-a39157e279f7/mzl.zlpotobi.png' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+魔法灰姑娘
+</p>
+</div>
+</div>
+</li>
+</ul>
+</section>
+<section>
+  <h1>My Friends</h1>
+    <ul id="category-list">
+    	<li><a href="http://www.doruby.com">Square</a> <small>ruby & objc</small></li>
+    	<li><a href="http://manageyp.github.io">Henry</a> <small>You can do well, you must do well.</small></li>
+	</ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - dijkst -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dijkst';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dijkst.github.io/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/';
+        var disqus_url = 'http://dijkst.github.io/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

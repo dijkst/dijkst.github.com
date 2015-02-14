@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: windows | 第九块石头]]></title>
+  <link href="http://dijkst.github.io/blog/categories/windows/atom.xml" rel="self"/>
+  <link href="http://dijkst.github.io/"/>
+  <updated>2014-09-29T18:01:19+08:00</updated>
+  <id>http://dijkst.github.io/</id>
+  <author>
+    <name><![CDATA[dijkst]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Adobe CS6 官方简体中文原版下载收集]]></title>
+    <link href="http://dijkst.github.io/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/"/>
+    <updated>2013-08-09T13:08:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji</id>
+    <content type="html"><![CDATA[<p>不知道为啥，Adobe 官方下载的时候没有中文的选择？例如下载 PS 的地址：<a href="http://www.adobe.com/cfusion/tdrc/index.cfm?product=photoshop&amp;loc=cn">http://www.adobe.com/cfusion/tdrc/index.cfm?product=photoshop&amp;loc=cn</a>，只能选择英文……</p>
+
+<p>上网找了一下，官方是有中文版本下载的，只是不知道什么原因不显示……这里整理一下：</p>
+
+<p>Adobe Creative Suite 6 分为 <code>Design Standard</code>、<code>Design &amp; Web Premium</code>、<code>Production Premium</code>、<code>Master Collection</code> 四个版本，其实说白了，就是各种独立软件的打包……</p>
+
+<p>根据<a href="http://www.adobe.com/cn/products/creativesuite/buying-guide.html">官方说明</a>，可以看到下面这个表：</p>
+
+<!-- more -->
+
+
+<p><img src="/images/post/2013-08-09-adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/1.jpg"></p>
+
+<p>可以看出，Desgin &amp; Web Premium 是为图形设计师准备的，Production Premium 是为产品设计师准备的，Master Collection 是完整打包…… 不过疑惑的是，Master Collection 没有简体中文版~</p>
+
+<h3>下载地址</h3>
+
+<ol>
+<li>前往 <a href="http://www.adobe.com/cn/">http://www.adobe.com/cn/</a> 注册Adobe ID，如果已注册，忽略此步骤；</li>
+<li>下载任意一个 Adobe 产品的试用版<a href="http://www.adobe.com/cn/downloads/">http://www.adobe.com/cn/downloads</a>（只要点击下载按钮，弹出文件保存对话框，然后取消。获得session cookie即可）</li>
+<li>使用浏览器自带下载功能下载软件或者用迅雷离线下载均可。</li>
+</ol>
+
+
+<h5>套件下载地址</h5>
+
+<ul>
+<li><p>Adobe Creative Suite 6 Design Standard 简体中文版（设计标准版）制作具有感染力的印刷设计和数字出版物，完整版价格：9248元。<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DSGN/CS6/win32/DesignStandard_CS6_LS3.7z">DesignStandard_CS6_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DSGN/CS6/osx10/DesignStandard_CS6_LS3.dmg">DesignStandard_CS6_LS3.dmg</a></p></li>
+<li><p>Adobe Creative Suite 6 Design &amp; Web Premium 简体中文版（设计与网络高级版）为印刷、网络、平板电脑和智能手机提供创新理念，完整版价格：13516元。<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/WEBB/CS6/win32/WebPremium_LCS6_S3.7z">WebPremium_CS6_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/WEBB/CS6/osx10/WebPremium_CS6_LS3.dmg">WebPremium_CS6_LS3.dmg</a></p></li>
+<li><p>Adobe Creative Suite 6 Production Premium（产品高级版）完整版价格16895元。<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STVD/CS6/win32/ProductionPremium_LCS6_S7.7z">ProductionPremium_CS6_LS7.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STVD/CS6/osx10/ProductionPremium_CS6_LS7.dmg">ProductionPremium_CS6_LS7.dmg</a></p></li>
+<li><p>Adobe Creative Suite 6 Master Collection 繁体中文版（大师典藏版）：完整版价格23120元。<br/>
+(其中繁体版的Illustrator无法在简体系统打开，暂时没有找到解决方法，虽然用NTLEA可以正常运行，但是不是长远之道。需要用到的话，下载个AI简体中文版覆盖安装下试试看。)<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STAM/CS6/win32/MasterCollection_LCS6_S3.7z">MasterCollection_CS6_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STAM/CS6/osx10/MasterCollection_CS6_LS3.dmg">MasterCollection_CS6_LS3.dmg</a></p></li>
+<li><p>Adobe After Effects CS6<br/>
+下载地址：<a href="http://trials2.stage.adobe.com/AdobeProducts/AEFT/11/win64/AfterEffects_11_LS7.7z">AfterEffects_11_LS7.7z</a></p></li>
+</ul>
+
+
+<h5>单独软件下载地址</h5>
+
+<ul>
+<li><p>Adobe Photoshop CS6 Extended x86 x64- 运用专业级标准创作出具有震撼力的图像，格完整版价：4980元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PHSP/13/win32/PhotoshopL_13_S3.7z">Photoshop_13_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PHSP/13/win32/Photoshop_13_LS3.dmg">Photoshop_13_LS3.dmg</a></p></li>
+<li><p>Adobe Dreamweaver CS6 &ndash; 设计、开发和维护标准型网站和应用程序，格完整版价：2846元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DRWV/12/win32/Dreamweaver_S12_L3.exe">Dreamweaver_12_LS3.exe</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DRWV/12/win32/Dreamweaver_12_LS3.dmg">Dreamweaver_12_LS3.dmg</a></p></li>
+<li><p>Adobe Fireworks CS6- 弹指间就能设计最精美的网站和移动应用程序，格完整版价：2135元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FWKS/12/win32/Fireworks_S12_L3.exe">Fireworks_12_LS3.exe</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FWKS/12/win32/Fireworks_12_LS3.dmg">Fireworks_12_LS3.dmg</a></p></li>
+<li><p>Adobe Flash Professional CS6- 在设备中创建并发布丰富多彩的创意，格完整版价：4980元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FLPR/12/win32/FlashPro_S12_L3.exe">FlashPro_12_LS3.exe</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FLPR/12/win32/FlashPro_12_LS3.dmg">FlashPro_12_LS3.dmg</a></p></li>
+<li><p>Adobe Illustrator CS6 &ndash; 使用基本的矢量工具探索新途径，格完整版价：4269元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/ILST/16/win32/IllustratorL_16_S3.7z">Illustrator_16_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/ILST/16/win32/Illustrator_16_LS3.dmg">Illustrator_16_LS3.dmg</a></p></li>
+<li><p>Adobe InDesign CS6 &ndash; 为印刷和数字出版设计专业页面版面，格完整版价：4980元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/IDSN/8/win32/InDesigLn_8_S3.7z">InDesign_8_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/IDSN/8/win32/InDesign_8_LS3.dmg">InDesign_8_LS3.dmg</a></p></li>
+<li><p>Adobe Premiere Pro CS6 &ndash; 预订购按您需要的方式编辑，格完整版价：7114元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PPRO/6/win32/PremierePrLo_6_S7.7z">PremierePro_6_LS7.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PPRO/6/osx10/PremierePro_6_LS7.dmg">PremierePro_6_LS7.dmg</a></p></li>
+<li><p>Adobe After Effects CS6 &ndash; 自由发挥想象力，创建动态图像，格完整版价：8892元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/AEFT/11/win64/AfterEffectsL_11_S7.7z">AfterEffects_11_LS7.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/AEFT/11/win64/AfterEffects_11_LS7.dmg">AfterEffects_11_LS7.dmg</a></p></li>
+</ul>
+
+
+<h5>其他工具</h5>
+
+<p><a href="http://www.adobe.com/support/contact/cscleanertool.html">Adobe Cleaner Tool</a>
+用于清除 Adobe Creative Cloud, Adobe Creative Suite 6, Adobe Creative Suite 5 &ndash; 5.5, Adobe Creative Suite 4, Adobe Creative Suite 3 安装信息。</p>
+
+<h3>破解方法</h3>
+
+<p>破解文件：<br/>
+Windows 版：<a href="/media/2013-08-09-adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/CS6WindowsPatch.zip">CS6WindowsPatch.zip</a><br/>
+MAC 版：<a href="/media/2013-08-09-adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/amtlib.framework.zip">amtlib.framework.zip</a></p>
+
+<ul>
+<li><span class="fluo">安装时断开网络 </span>，输入序列号：<br/>
+<code>1325-0949-2080-9819-3777-3230</code><br/>
+<code>1325-0160-5283-9851-2671-8951</code><br/>
+<span class="fluo">请勿选择试用，选择试用将会导致Encore组件无法使用！</span></li>
+<li>套装安装后<span class="fluo">先运行一次PS </span>，否则PS不是Extended版。</li>
+<li>覆盖相应的文件，x86对应32位文件，x64对应64位文件，Acrobat 需要单独替换。分不清文件版本的，只要看文件大小差不多的，覆盖就可以了。</li>
+</ul>
+
+
+<p>已经选择了试用，导致<code>Encore</code>组件无法使用的话，将<code>Encore</code>的<code>amtlib.dll</code>换回原版，然后运行 <code>Encore</code> ，会要求输入序列号，输入后，再换回破解的<code>amtlib.dll</code>即可。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用Cygwin给Windows安装Linux命令行]]></title>
+    <link href="http://dijkst.github.io/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/"/>
+    <updated>2013-06-06T13:44:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing</id>
+    <content type="html"><![CDATA[<p>以前也考虑过给Windows装一套命令行，因为Windows的命令行和Mac、Linux等不一样，有些功能没有，最关键都是，命令不一样~我还得去记一套新的命令~而Windows都命令行又不常用，没必要去记。</p>
+
+<p>今天想远程控制家里的电脑，使用QQ的远程控制，经常发现无法发送鼠标事件到对方，于是又想到了用命令行远程登陆——当然Windows的远程登陆好多功能还是得用GUI来完成，好鸡肋啊~</p>
+
+<p>上网找了一下，找到<a href="http://www.cygwin.com">Cygwin</a>，看上去不错，试了下，还是能满足需求的。</p>
+
+<p>首先到<a href="http://www.cygwin.com">Cygwin</a>下载<a href="http://cygwin.com/setup.exe">setup.exe</a>。这个其实不只是一个安装包，还负责依赖的管理。</p>
+
+<!-- more -->
+
+
+<p>运行这个exe会有几个提示界面，比较简单，就不截图了，简单说下大概干嘛的：</p>
+
+<ul>
+<li>一个是安装位置，推荐放在<code>C:/Cygwin</code>目录下，避免路径空格和中文的影响，也注意不要放在太深的路径下面，以后你会体会到放在太深路径下的痛苦~</li>
+<li>一个是选择服务器镜像，中国一般选择<code>.cn</code>的吧~</li>
+<li>选择需要安装的功能和依赖，可以根据自己需要选择，默认是最小化安装。以后可以通过再次运行该exe来进行安装其他的功能</li>
+</ul>
+
+
+<p>安装完之后，会看到有一个<code>Cygwin Terminal</code>，打开即可以用Linux命令行了，例如<code>ls</code>、<code>pwd</code>等。</p>
+
+<p>可是只能在这个终端里面运行，显然不符合我们的需求。</p>
+
+<p>接下来，需要配置环境变量：<code>系统</code>&ndash;><code>高级系统设置</code>&ndash;><code>环境变量</code>，在<code>Path</code>里面加上<code>;C:\Cygwin\bin</code>，注意那个分号，是为了和前面的隔离。</p>
+
+<p><img src="/images/post/2013-06-06-shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/1.jpg"></p>
+
+<p>打开命令提示符，再试试<code>ls</code>便发现可以用了~</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sqlite | 第九块石头]]></title>
+  <link href="http://dijkst.github.io/blog/categories/sqlite/atom.xml" rel="self"/>
+  <link href="http://dijkst.github.io/"/>
+  <updated>2014-09-29T18:01:19+08:00</updated>
+  <id>http://dijkst.github.io/</id>
+  <author>
+    <name><![CDATA[dijkst]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SQLite加密版本SQLCipher编译过程——服务器]]></title>
+    <link href="http://dijkst.github.io/blog/2013/06/05/sqlitejia-mi-ban-ben-sqlcipherbian-yi-guo-cheng-fu-wu-qi/"/>
+    <updated>2013-06-05T10:42:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/06/05/sqlitejia-mi-ban-ben-sqlcipherbian-yi-guo-cheng-fu-wu-qi</id>
+    <content type="html"><![CDATA[<p>很早以前就接触到了SQLCipher，当时已经很完善了，不过很悲剧的发现，SQLCipher版本间不兼容，每更新一次都得重新编译一次，那叫一个悲剧啊~</p>
+
+<blockquote><p>SQLCipher is an open source library that provides transparent, secure 256-bit AES encryption of SQLite database files.</p></blockquote>
+
+<p>虽然SQLCipher是开源的，但是仅仅是开源的而已——你要自己编译，不想自己编译就得付费购买已经编译好的二进制文件~~</p>
+
+<p>木有钱，只好自己编译了。这里讲服务器端的编译过程。其实所谓的服务器，指的是Linux系的命令行核心的编译，例如centos、MacOSX等系统。</p>
+
+<!-- more -->
+
+
+<p>编译过程很简单：</p>
+
+<h4>1. 下载源代码</h4>
+
+<p>官方源代码：<a href="https://github.com/sqlcipher/sqlcipher">https://github.com/sqlcipher/sqlcipher</a></p>
+
+<h4>2. 编译</h4>
+
+<p>进入源代码目录：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>./configure &amp;mdash;enable-tempstore<span class="o">=</span>yes <span class="nv">CFLAGS</span><span class="o">=</span>&amp;ldquo;-DSQLITE_HAS_CODEC&amp;rdquo; <span class="nv">LDFLAGS</span><span class="o">=</span>&amp;ldquo;-lcrypto&amp;rdquo;
+</span><span class='line'>make
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>理论上需要OpenSSL库，可能是系统自带，也可能是之前装过，总之就是我还没遇到OpenSSL库找不到的现象~</p>
+
+<p>官方说明：<a href="http://sqlcipher.net/introduction/">http://sqlcipher.net/introduction/</a></p>
+
+<blockquote><p><strong>注意</strong>：由于SQLCipher是SQLite的另外一个版本，所以为了不影响系统的SQLite，和其他SQLCipher版本间的兼容问题，所以不能将编译生成的直接install到系统，可以做符号链接等方式来管理二进制版本。</p></blockquote>
+
+<h4>3. 验证编译是否成功</h4>
+
+<p>创建一个加密的数据，密码是<code>aaa</code>：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>./sqlite3 test.sqlite
+</span><span class='line'>SQLite version 3.7.14.1 2012-10-04 19:37:12
+</span><span class='line'>Enter &amp;ldquo;.help&amp;rdquo; <span class="k">for </span>instructions
+</span><span class='line'>Enter SQL statements terminated with a &amp;ldquo;;&amp;rdquo;
+</span><span class='line'>sqlite&gt; PRAGMA <span class="nv">key</span> <span class="o">=</span> &amp;lsquo;aaa&amp;rsquo;;
+</span><span class='line'>sqlite&gt; create table a<span class="o">(</span>ind int<span class="o">)</span>;
+</span><span class='line'>sqlite&gt; .tables
+</span><span class='line'>a
+</span><span class='line'>sqlite&gt; .quit
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>尝试不输入密码，直接读取数据库，理论上是读不到数据，或者报错：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>./sqlite3 test.sqlite
+</span><span class='line'>SQLite version 3.7.14.1 2012-10-04 19:37:12
+</span><span class='line'>Enter &amp;ldquo;.help&amp;rdquo; <span class="k">for </span>instructions
+</span><span class='line'>Enter SQL statements terminated with a &amp;ldquo;;&amp;rdquo;
+</span><span class='line'>sqlite&gt; .tables
+</span><span class='line'>sqlite&gt; .quit
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>尝试正确输入密码，应该成功读取：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>./sqlite3 test.sqlite
+</span><span class='line'>SQLite version 3.7.14.1 2012-10-04 19:37:12
+</span><span class='line'>Enter &amp;ldquo;.help&amp;rdquo; <span class="k">for </span>instructions
+</span><span class='line'>Enter SQL statements terminated with a &amp;ldquo;;&amp;rdquo;
+</span><span class='line'>sqlite&gt; PRAGMA <span class="nv">key</span> <span class="o">=</span> &amp;lsquo;aaa&amp;rsquo;;
+</span><span class='line'>sqlite&gt; .tables
+</span><span class='line'>a
+</span><span class='line'>sqlite&gt; .quit
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>上面三个流程都过说明编译成功！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[多线程下使用FMDB进行数据库访问和死锁问题]]></title>
+    <link href="http://dijkst.github.io/blog/2013/05/10/ios-duo-xian-cheng-xia-shi-yong-fmdbjin-xing-shu-ju-ku-fang-wen-he-si-suo-wen-ti/"/>
+    <updated>2013-05-10T19:07:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/05/10/ios-duo-xian-cheng-xia-shi-yong-fmdbjin-xing-shu-ju-ku-fang-wen-he-si-suo-wen-ti</id>
+    <content type="html"><![CDATA[<p>多线程访问数据库本身就存在分险，容易形成脏数据。幸好FMDB这个第三方库支持了多线程访问，从而解决了脏数据问题。然而也带来了死锁问题……</p>
+
+<p>先看看FMDB的多线程机制的原理。</p>
+
+<p>看了它的代码，发现其实很简单的一个思路，但是实现起来还真不容易，难怪花了好长时间才支持多线程！！它是生成一个请求队列，将一次事务进行封装放在队列中，只有一个事务完成了，才会进行下一个事务。这就出现了一种现象：如果某一个请求耗时过大，将会导致所有请求堵塞！！同时也要求：同一个线程中，在一个事务完成之前，不能进行下一个事务。</p>
+
+<!-- more -->
+
+
+<p>举个例子：</p>
+
+<p>```objectivec
+[self.dbQueue inTransaction:^(FMDatabase <em>db, BOOL </em>rollback) {</p>
+
+<pre><code>if ([db executeUpdate:sql]) {
+    [self increaseCounter];
+}
+</code></pre>
+
+<p>}];
+```
+这个方法在执行sql成功后，将会调用increaseCounter方法：</p>
+
+<p>```objectivec
+&ndash; (void)increaseCounter {</p>
+
+<pre><code>[self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+    [db executeQuery:@"insert ..."];
+}];
+</code></pre>
+
+<p>}
+```
+而increaseCounter方法中又增加一个事务，去执行另外一个sql语句。</p>
+
+<p>结果出现了这种现象：</p>
+
+<p>第一个事务没结束，第二个事务等待第一个事务结束，而第一个事务等待第二个事务返回状态，出现死锁！！</p>
+
+<p>正确的写法：</p>
+
+<p>```objectivec
+__block BOOL status = NO;
+[self.dbQueue inTransaction:^(FMDatabase <em>db, BOOL </em>rollback) {</p>
+
+<pre><code>status = [db executeUpdate:sql];
+</code></pre>
+
+<p>}];
+if (status) {</p>
+
+<pre><code>[self increaseCounter];
+</code></pre>
+
+<p>}
+```
+也就是将两个事务拆开。</p>
+
+<h2>总结：</h2>
+
+<ul>
+<li> 多线程编程应该尽量采用事务队列</li>
+<li> 事务队列与Mysql等的锁数据库效果相似，即事务完成前，其他线程以及本线程不能访问数据库（<strong><em>注意不是锁表，是锁库</em></strong>）</li>
+<li> 一个事务内应该只包含数据库请求语句，不应当包含其他逻辑</li>
+<li> 一个请求不应耗时过长，否则出现线程等待</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

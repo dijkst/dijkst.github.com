@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>中国地图坐标偏移算法整理 - 第九块石头</title>
+  <meta name="author" content="dijkst">
+
+  
+  <meta name="description" content="最近被天朝的火星坐标搞得头昏脑胀的，真不知道这个所谓的火星坐标到底是防国外军事打击的呢，还是为难我们这些苦逼的开发人员的~真的能防止国外非法使用吗？难道美国国防部也用 Google 地图？？？ 暂且不考虑这个不是我等草民能考虑的问题，先看看如何解决这种火星坐标导致的地图坐标不匹配的问题~ 首先， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dijkst.github.io/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="第九块石头" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39546615-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">第九块石头</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dijkst.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">中国地图坐标偏移算法整理</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-09T15:04:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>最近被天朝的火星坐标搞得头昏脑胀的，真不知道这个所谓的火星坐标到底是防国外军事打击的呢，还是为难我们这些苦逼的开发人员的~真的能防止国外非法使用吗？难道美国国防部也用 Google 地图？？？</p>
+
+<p>暂且不考虑这个不是我等草民能考虑的问题，先看看如何解决这种火星坐标导致的地图坐标不匹配的问题~</p>
+
+<p>首先，在天朝，所有的坐标都必须经过国家测绘局进行偏移，这里的坐标，包括某个景点的坐标，甚至是整张地图的坐标（地图是由多个建筑、地形坐标构成）！！而偏移算法目前在正规渠道来说是保密的，根据小伙伴们的观察，偏移量是不一定的，我就在想，一个正方形的建筑，经过这种偏移，会不会偏出一个梯形出来…………</p>
+
+<p>既然地图是偏移的，并非真实的地图，那么我们往地图上面标注景点或者建筑的时候，甚至标注用户当前位置时，就不能直接用 GPS 输出的真实值，而是得将 GPS 坐标也进行相同算法的偏移，然后放在地图上就感觉没偏移了——大家一起做漂移~</p>
+
+<p>所以市面上，就出现了一种现象，水货的 GPS 设备（有的手机也是），做定位的时候输出真实值，而中国市面上的地图，例如 Google 地图、百度地图等，都是必须遵守国家测绘局规定进行偏移的。所以出现了定位不准的问题。而行货 GPS 设备，由于是正规渠道，里面内置了偏移芯片，所以输出的定位坐标是偏移过的，放在 Google 地图上面就正常了！</p>
+
+<!-- more -->
+
+
+<p>其实，从正常的方式使用，例如买行货，用 Google、百度地图等，都是没偏移问题。如果遇到需要收集景点的坐标，也得用行货 GPS 设备，那么皆大欢喜！然而，有一个悲剧的问题发生了——香港、澳门不属于大陆，Google 还是采用真实的地图，而百度认为是中国，所以采用偏移的地图，这样就混乱了——同一个香港坐标，在百度和 Google 里面看到的差距很大~</p>
+
+<p>当然咯，最好的办法是，在香港和澳门收集坐标的时候，两套坐标都收集……可是事实上，我们经常没办法弄到……</p>
+
+<p>这时候就需要转换算法，将两种坐标算法进行互相转换——更悲剧的是，这个算法，真实坐标->火星坐标是保密的，火星坐标->真实坐标是不可逆的！！！</p>
+
+<p>不过，网络上，不知道从哪里出来了一套算法，我试了一下，还挺准的~</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">// Krasovsky 1940</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">// a = 6378245.0, 1/f = 298.3</span>
+</span><span class='line'><span class="c1">// b = a * (1 - f)</span>
+</span><span class='line'><span class="c1">// ee = (a^2 - b^2) / a^2;</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">double</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">6378245.0</span><span class="p">;</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">double</span> <span class="n">ee</span> <span class="o">=</span> <span class="mf">0.00669342162296594323</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">// World Geodetic System ==&gt; Mars Geodetic System</span>
+</span><span class='line'><span class="kt">BOOL</span> <span class="nf">outOfChina</span><span class="p">(</span><span class="n">CLLocationCoordinate2D</span> <span class="n">coordinate</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span> <span class="o">&lt;</span> <span class="mf">72.004</span> <span class="o">||</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span> <span class="o">&gt;</span> <span class="mf">137.8347</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span> <span class="o">&lt;</span> <span class="mf">0.8293</span> <span class="o">||</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span> <span class="o">&gt;</span> <span class="mf">55.8271</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">double</span> <span class="nf">transformLat</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mf">100.0</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">6.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mf">40.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">160.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="mf">12.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mi">320</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">M_PI</span> <span class="o">/</span> <span class="mf">30.0</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">static</span> <span class="kt">double</span> <span class="nf">transformLon</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">ret</span> <span class="o">=</span> <span class="mf">300.0</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">6.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mf">40.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">150.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">12.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mf">300.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">30.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 地球坐标系 (WGS-84) -&gt; 火星坐标系 (GCJ-02)</span>
+</span><span class='line'><span class="n">CLLocationCoordinate2D</span> <span class="nf">wgs2gcj</span><span class="p">(</span><span class="n">CLLocationCoordinate2D</span> <span class="n">coordinate</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">outOfChina</span><span class="p">(</span><span class="n">coordinate</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">coordinate</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">wgLat</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">wgLon</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">dLat</span> <span class="o">=</span> <span class="n">transformLat</span><span class="p">(</span><span class="n">wgLon</span> <span class="o">-</span> <span class="mf">105.0</span><span class="p">,</span> <span class="n">wgLat</span> <span class="o">-</span> <span class="mf">35.0</span><span class="p">);</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">dLon</span> <span class="o">=</span> <span class="n">transformLon</span><span class="p">(</span><span class="n">wgLon</span> <span class="o">-</span> <span class="mf">105.0</span><span class="p">,</span> <span class="n">wgLat</span> <span class="o">-</span> <span class="mf">35.0</span><span class="p">);</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">radLat</span> <span class="o">=</span> <span class="n">wgLat</span> <span class="o">/</span> <span class="mf">180.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">magic</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">radLat</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">magic</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ee</span> <span class="o">*</span> <span class="n">magic</span> <span class="o">*</span> <span class="n">magic</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">sqrtMagic</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">magic</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">dLat</span> <span class="o">=</span> <span class="p">(</span><span class="n">dLat</span> <span class="o">*</span> <span class="mf">180.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ee</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">magic</span> <span class="o">*</span> <span class="n">sqrtMagic</span><span class="p">)</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">dLon</span> <span class="o">=</span> <span class="p">(</span><span class="n">dLon</span> <span class="o">*</span> <span class="mf">180.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">sqrtMagic</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">radLat</span><span class="p">)</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">CLLocationCoordinate2DMake</span><span class="p">(</span><span class="n">wgLat</span> <span class="o">+</span> <span class="n">dLat</span><span class="p">,</span> <span class="n">wgLon</span> <span class="o">+</span> <span class="n">dLon</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 地球坐标系 (WGS-84) &lt;- 火星坐标系 (GCJ-02)</span>
+</span><span class='line'><span class="n">CLLocationCoordinate2D</span> <span class="nf">gcj2wgs</span><span class="p">(</span><span class="n">CLLocationCoordinate2D</span> <span class="n">coordinate</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">outOfChina</span><span class="p">(</span><span class="n">coordinate</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">coordinate</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">CLLocationCoordinate2D</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">wgs2gcj</span><span class="p">(</span><span class="n">coordinate</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">CLLocationCoordinate2DMake</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span> <span class="o">-</span> <span class="n">c2</span><span class="p">.</span><span class="n">latitude</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span> <span class="o">-</span> <span class="n">c2</span><span class="p">.</span><span class="n">longitude</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">const</span> <span class="kt">double</span> <span class="n">x_M_PI</span> <span class="o">=</span> <span class="n">M_PI</span> <span class="o">*</span> <span class="mf">3000.0</span> <span class="o">/</span> <span class="mf">180.0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 火星坐标系 (GCJ-02) -&gt; 百度坐标系 (BD-09)</span>
+</span><span class='line'><span class="n">CLLocationCoordinate2D</span> <span class="nf">bd_encrypt</span><span class="p">(</span><span class="n">CLLocationCoordinate2D</span> <span class="n">coordinate</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">z</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.00002</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">x_M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.000003</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x_M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">CLLocationCoordinate2DMake</span><span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.006</span><span class="p">,</span> <span class="n">z</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.0065</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 火星坐标系 (GCJ-02) &lt;- 百度坐标系 (BD-09)</span>
+</span><span class='line'><span class="n">CLLocationCoordinate2D</span> <span class="nf">bd_decrypt</span><span class="p">(</span><span class="n">CLLocationCoordinate2D</span> <span class="n">coordinate</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span> <span class="o">-</span> <span class="mf">0.0065</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span> <span class="o">-</span> <span class="mf">0.006</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">z</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.00002</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">x_M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.000003</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x_M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">CLLocationCoordinate2DMake</span><span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">z</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>百度坐标系是在火星坐标系上进行二次加密，所以当从真实坐标转换到百度坐标时，需要先转换为火星坐标，再转换为百度坐标。</p>
+
+<p>火星坐标转换为真实坐标是大概值，因为算法本身是不可逆的！</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dijkst</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-09T15:04:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>iOS</a>, <a class='category' href='/blog/categories/suan-fa/'>算法</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/" title="Previous Post: Adobe CS6 官方简体中文原版下载收集">&laquo; Adobe CS6 官方简体中文原版下载收集</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/" title="Next Post: 设置Ubuntu程序开机启动">设置Ubuntu程序开机启动 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'dijkst';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/">让 Xcode 增加多 SDK 支持</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/25/1314/">1314</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (2)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+</section>
+<section>
+  <h1>My APPs</h1>
+    <ul id="appstore-apps"><style type="text/css">
+.flip-container, .front, .back {
+	width: 120px;
+	height: 120px;
+}
+.flip-container {
+  -webkit-perspective: 1000;
+	-moz-perspective: 1000;
+	perspective: 1000;
+}
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+	-webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.flipper {
+  -webkit-transition: 0.6s;
+	-webkit-transform-style: preserve-3d;
+
+	-moz-transition: 0.6s;
+	-moz-transform-style: preserve-3d;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+.front, .back {
+  -webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.front {
+	z-index: 2;
+}
+.back {
+	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+}
+</style>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish' src='http://a1863.phobos.apple.com/us/r30/Purple2/v4/55/7d/c0/557dc03e-cd9c-ac75-e2a7-78242ea50c79/mzl.vpfmgtuy.png' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+Duckipedia - A Wikipedia Reader
+</p>
+</div>
+</div>
+</li>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd' src='http://a153.phobos.apple.com/us/r30/Purple2/v4/28/4f/82/284f823d-1ec5-d58c-e231-a39157e279f7/mzl.zlpotobi.png' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+魔法灰姑娘
+</p>
+</div>
+</div>
+</li>
+</ul>
+</section>
+<section>
+  <h1>My Friends</h1>
+    <ul id="category-list">
+    	<li><a href="http://www.doruby.com">Square</a> <small>ruby & objc</small></li>
+    	<li><a href="http://manageyp.github.io">Henry</a> <small>You can do well, you must do well.</small></li>
+	</ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - dijkst -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dijkst';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dijkst.github.io/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li/';
+        var disqus_url = 'http://dijkst.github.io/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

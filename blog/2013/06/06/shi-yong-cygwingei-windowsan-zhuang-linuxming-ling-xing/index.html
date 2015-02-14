@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>使用Cygwin给Windows安装Linux命令行 - 第九块石头</title>
+  <meta name="author" content="dijkst">
+
+  
+  <meta name="description" content="以前也考虑过给Windows装一套命令行，因为Windows的命令行和Mac、Linux等不一样，有些功能没有，最关键都是，命令不一样~我还得去记一套新的命令~而Windows都命令行又不常用，没必要去记。 今天想远程控制家里的电脑，使用QQ的远程控制，经常发现无法发送鼠标事件到对方， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dijkst.github.io/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="第九块石头" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39546615-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">第九块石头</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dijkst.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">使用Cygwin给Windows安装Linux命令行</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-06T13:44:00+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>以前也考虑过给Windows装一套命令行，因为Windows的命令行和Mac、Linux等不一样，有些功能没有，最关键都是，命令不一样~我还得去记一套新的命令~而Windows都命令行又不常用，没必要去记。</p>
+
+<p>今天想远程控制家里的电脑，使用QQ的远程控制，经常发现无法发送鼠标事件到对方，于是又想到了用命令行远程登陆——当然Windows的远程登陆好多功能还是得用GUI来完成，好鸡肋啊~</p>
+
+<p>上网找了一下，找到<a href="http://www.cygwin.com">Cygwin</a>，看上去不错，试了下，还是能满足需求的。</p>
+
+<p>首先到<a href="http://www.cygwin.com">Cygwin</a>下载<a href="http://cygwin.com/setup.exe">setup.exe</a>。这个其实不只是一个安装包，还负责依赖的管理。</p>
+
+<!-- more -->
+
+
+<p>运行这个exe会有几个提示界面，比较简单，就不截图了，简单说下大概干嘛的：</p>
+
+<ul>
+<li>一个是安装位置，推荐放在<code>C:/Cygwin</code>目录下，避免路径空格和中文的影响，也注意不要放在太深的路径下面，以后你会体会到放在太深路径下的痛苦~</li>
+<li>一个是选择服务器镜像，中国一般选择<code>.cn</code>的吧~</li>
+<li>选择需要安装的功能和依赖，可以根据自己需要选择，默认是最小化安装。以后可以通过再次运行该exe来进行安装其他的功能</li>
+</ul>
+
+
+<p>安装完之后，会看到有一个<code>Cygwin Terminal</code>，打开即可以用Linux命令行了，例如<code>ls</code>、<code>pwd</code>等。</p>
+
+<p>可是只能在这个终端里面运行，显然不符合我们的需求。</p>
+
+<p>接下来，需要配置环境变量：<code>系统</code>&ndash;><code>高级系统设置</code>&ndash;><code>环境变量</code>，在<code>Path</code>里面加上<code>;C:\Cygwin\bin</code>，注意那个分号，是为了和前面的隔离。</p>
+
+<p><img src="/images/post/2013-06-06-shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/1.jpg"></p>
+
+<p>打开命令提示符，再试试<code>ls</code>便发现可以用了~</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dijkst</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-06T13:44:00+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/windows/'>windows</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/05/gei-octopresszeng-jia-sheng-cheng-qrer-wei-ma-gong-neng/" title="Previous Post: 给Octopress增加生成QR二维码功能">&laquo; 给Octopress增加生成QR二维码功能</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/06/06/zai-xcodede-run-scriptli-diao-yong-pythonjiao-ben/" title="Next Post: 在XCode的Run Script里调用python脚本">在XCode的Run Script里调用python脚本 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'dijkst';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/">让 Xcode 增加多 SDK 支持</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/25/1314/">1314</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (2)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+</section>
+<section>
+  <h1>My APPs</h1>
+    <ul id="appstore-apps"><style type="text/css">
+.flip-container, .front, .back {
+	width: 120px;
+	height: 120px;
+}
+.flip-container {
+  -webkit-perspective: 1000;
+	-moz-perspective: 1000;
+	perspective: 1000;
+}
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+	-webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.flipper {
+  -webkit-transition: 0.6s;
+	-webkit-transform-style: preserve-3d;
+
+	-moz-transition: 0.6s;
+	-moz-transform-style: preserve-3d;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+.front, .back {
+  -webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.front {
+	z-index: 2;
+}
+.back {
+	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+}
+</style>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish' src='http://a1863.phobos.apple.com/us/r30/Purple2/v4/55/7d/c0/557dc03e-cd9c-ac75-e2a7-78242ea50c79/mzl.vpfmgtuy.png' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+Duckipedia - A Wikipedia Reader
+</p>
+</div>
+</div>
+</li>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd' src='http://a153.phobos.apple.com/us/r30/Purple2/v4/28/4f/82/284f823d-1ec5-d58c-e231-a39157e279f7/mzl.zlpotobi.png' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+魔法灰姑娘
+</p>
+</div>
+</div>
+</li>
+</ul>
+</section>
+<section>
+  <h1>My Friends</h1>
+    <ul id="category-list">
+    	<li><a href="http://www.doruby.com">Square</a> <small>ruby & objc</small></li>
+    	<li><a href="http://manageyp.github.io">Henry</a> <small>You can do well, you must do well.</small></li>
+	</ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - dijkst -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dijkst';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dijkst.github.io/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/';
+        var disqus_url = 'http://dijkst.github.io/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

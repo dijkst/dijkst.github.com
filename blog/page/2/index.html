@@ -1,0 +1,900 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>第九块石头</title>
+  <meta name="author" content="dijkst">
+
+  
+  <meta name="description" content="最近被天朝的火星坐标搞得头昏脑胀的，真不知道这个所谓的火星坐标到底是防国外军事打击的呢，还是为难我们这些苦逼的开发人员的~真的能防止国外非法使用吗？难道美国国防部也用 Google 地图？？？ 暂且不考虑这个不是我等草民能考虑的问题，先看看如何解决这种火星坐标导致的地图坐标不匹配的问题~ 首先， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dijkst.github.io/blog/page/2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="第九块石头" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39546615-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">第九块石头</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dijkst.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li/">中国地图坐标偏移算法整理</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-09T15:04:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近被天朝的火星坐标搞得头昏脑胀的，真不知道这个所谓的火星坐标到底是防国外军事打击的呢，还是为难我们这些苦逼的开发人员的~真的能防止国外非法使用吗？难道美国国防部也用 Google 地图？？？</p>
+
+<p>暂且不考虑这个不是我等草民能考虑的问题，先看看如何解决这种火星坐标导致的地图坐标不匹配的问题~</p>
+
+<p>首先，在天朝，所有的坐标都必须经过国家测绘局进行偏移，这里的坐标，包括某个景点的坐标，甚至是整张地图的坐标（地图是由多个建筑、地形坐标构成）！！而偏移算法目前在正规渠道来说是保密的，根据小伙伴们的观察，偏移量是不一定的，我就在想，一个正方形的建筑，经过这种偏移，会不会偏出一个梯形出来…………</p>
+
+<p>既然地图是偏移的，并非真实的地图，那么我们往地图上面标注景点或者建筑的时候，甚至标注用户当前位置时，就不能直接用 GPS 输出的真实值，而是得将 GPS 坐标也进行相同算法的偏移，然后放在地图上就感觉没偏移了——大家一起做漂移~</p>
+
+<p>所以市面上，就出现了一种现象，水货的 GPS 设备（有的手机也是），做定位的时候输出真实值，而中国市面上的地图，例如 Google 地图、百度地图等，都是必须遵守国家测绘局规定进行偏移的。所以出现了定位不准的问题。而行货 GPS 设备，由于是正规渠道，里面内置了偏移芯片，所以输出的定位坐标是偏移过的，放在 Google 地图上面就正常了！</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/">Adobe CS6 官方简体中文原版下载收集</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-09T13:08:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>不知道为啥，Adobe 官方下载的时候没有中文的选择？例如下载 PS 的地址：<a href="http://www.adobe.com/cfusion/tdrc/index.cfm?product=photoshop&amp;loc=cn">http://www.adobe.com/cfusion/tdrc/index.cfm?product=photoshop&amp;loc=cn</a>，只能选择英文……</p>
+
+<p>上网找了一下，官方是有中文版本下载的，只是不知道什么原因不显示……这里整理一下：</p>
+
+<p>Adobe Creative Suite 6 分为 <code>Design Standard</code>、<code>Design &amp; Web Premium</code>、<code>Production Premium</code>、<code>Master Collection</code> 四个版本，其实说白了，就是各种独立软件的打包……</p>
+
+<p>根据<a href="http://www.adobe.com/cn/products/creativesuite/buying-guide.html">官方说明</a>，可以看到下面这个表：</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/01/shi-yong-rsynctong-bu-bu-tong-ji-qi-shang-de-wen-jian/">使用rsync同步不同机器上的文件</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-01T16:28:00+08:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
+        
+         | <a href="/blog/2013/08/01/shi-yong-rsynctong-bu-bu-tong-ji-qi-shang-de-wen-jian/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>实验系统：Ubuntu</p>
+
+<p>我根据文章<a href="http://waiting.iteye.com/blog/643171">rsync 简明教程</a>试验成功后，发现Ubuntu自带有启动rsync守护程序的功能，于是决定使用Ubuntu自带的开机启动rsync方式，查看<code>/etc/init.d/rsync</code>里的代码可以知道它指定了rsync配置文件的路径：<code>/etc/rsyncd.conf</code>，如果没有这个路径，rsync daemon不会启动。</p>
+
+<p>于是创建一个/etc/rsyncd.conf 在里面填上：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>uid = root
+</span><span class='line'>gid = root
+</span><span class='line'>use chroot = yes
+</span><span class='line'>max connections = 10
+</span><span class='line'>syslog facility = local5
+</span><span class='line'>pid file = /var/run/rsyncd.pid
+</span><span class='line'>log file = /var/log/rsyncd.log
+</span><span class='line'>
+</span><span class='line'>[rsyncsrc]
+</span><span class='line'>        path = /home/vagrant/rsyncsrc
+</span><span class='line'>        list = yes
+</span><span class='line'>        ignore errors = yes
+</span><span class='line'>        auth users = admin
+</span><span class='line'>        secrets file = /etc/rsync/rsync.secrets
+</span><span class='line'>        comment = test rsync source</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的参数中，我对<code>use chroot</code>印象比较深刻，如果<code>use chroot</code> 指定为true，那么rsync在传输文件以前首先chroot到path参数所指定的目录下。这样做的原因是实现额外的安全保护，缺点是需要root权限，并且不能备份指向外部的符号连接所指向的目录文件。默认为true(摘抄来的)</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/01/shi-yong-rsynctong-bu-bu-tong-ji-qi-shang-de-wen-jian/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/24/shi-yong-drawinrect-hui-tu-shi-diu-shi-qing-xi-du-jie-jue-fang-fa/">使用 drawInRect 绘图时丢失清晰度解决方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-24T18:40:00+08:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/24/shi-yong-drawinrect-hui-tu-shi-diu-shi-qing-xi-du-jie-jue-fang-fa/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>有一个小需求，就是需要动态修改一张图片上面的数字，当然不能事先准备那么多数字的图片，所以就需要动态的在一个图片上面画数字。</p>
+
+<p>需求很简单，我首先这么实现：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;assemble-a&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">UIGraphicsBeginImageContext</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
+</span><span class='line'><span class="p">[</span><span class="n">image</span> <span class="nl">drawInRect:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">)];</span>
+</span><span class='line'><span class="n">UIImage</span> <span class="o">*</span><span class="n">newImage</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+</span><span class='line'><span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>画出来的图怎么看都模糊，刚开始没在意，以为就是这样的……</p>
+
+<p>然后给美女设计师看效果，直接回了一句——怎么这么糊……</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/07/24/shi-yong-drawinrect-hui-tu-shi-diu-shi-qing-xi-du-jie-jue-fang-fa/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/18/rang-xcodejing-tai-ku-bu-xu-yao-shi-yong-zhe-link-framework/">让 XCode 静态库不需要使用者 Link Framework</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-18T20:06:00+08:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/18/rang-xcodejing-tai-ku-bu-xu-yao-shi-yong-zhe-link-framework/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>有些情况下需要创建静态库给别人用，如果静态库里要引用很多 framework ，会给别人带来麻烦；特别是那些要设置为 optional 的 framework ，很容易导致在低版本系统上崩溃。</p>
+
+<p>一般情况下，静态库中大部分的 Objective-C framework 可以通过下面的方法来避免让使用者 link 。</p>
+
+<blockquote><p>首先，要测试一个 framework 是否已经被 link 到了程序中, 对于 Objective-C 的库可以通过<code>NSClassFromString</code>检测出来;<br/>
+如果那个 framework 没有被 link 进来，则使用<code>dlopen</code>加载 framework;<br/>
+使用 framework 中的类时，依然需要通过<code>NSClassFromString</code>。</p></blockquote>
+
+<p>整个过程所需的代码大致如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;dlfcn.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">NSClassFromString</span><span class="p">(</span><span class="s">@&quot;ASIdentifierManager&quot;</span><span class="p">)))</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">dlopen</span><span class="p">(</span><span class="s">&quot;/System/Library/Frameworks/AdSupport.framework/AdSupport&quot;</span><span class="p">,</span> <span class="n">RTLD_LOCAL</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">NSObject</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSClassFromString</span><span class="p">(</span><span class="s">@&quot;ASIdentifierManager&quot;</span><span class="p">)</span> <span class="nl">performSelector:</span><span class="n">NSSelectorFromString</span><span class="p">(</span><span class="s">@&quot;sharedManager&quot;</span><span class="p">)];</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">manager</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">manager</span> <span class="nl">performSelector:</span><span class="n">NSSelectorFromString</span><span class="p">(</span><span class="s">@&quot;advertisingIdentifier&quot;</span><span class="p">)];</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于 Objective-C 的类，使用起来毫无压力，有时还需要使用到 framework 中的常量。如果用到的常量不多，可以在<code>dlopen</code>后马上把需要的常量导进来，供之后使用。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="kt">void</span> <span class="o">*</span><span class="n">handle</span> <span class="o">=</span> <span class="n">dlopen</span><span class="p">(</span><span class="s">&quot;core telephony framework path&quot;</span><span class="p">,</span> <span class="n">RTLD_LOCAL</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">_k_CTCallStateDialing</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="n">dlsym</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s">&quot;CTCallStateDialing&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>还有一些我也不知怎么导入，例如枚举值，对于系统的 framework 我对它的稳定性比较有信心。通过看代码可以看出枚举值，可以直接使用枚举值对应的整数</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 1 == MessageComposeResultSent</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">....</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo/">让 Rails 支持 Response 数据 GZip 压缩</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-18T18:46:00+08:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>做网络请求时，一直想用 GZip 对 JSON 进行压缩后传输，但是一直没空弄，听说不难。这两天试了一下，果然不难。</p>
+
+<p>在 Rails 项目根目录下的<code>config.ru</code>，加入<code>use Rack::Deflater</code>，如下：</p>
+
+<figure class='code'><figcaption><span>config.ru </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># This file is used by Rack-based servers to start the application.</span>
+</span><span class='line'><span class="nb">require</span> <span class="o">::</span><span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;../config/environment&#39;</span><span class="p">,</span>  <span class="bp">__FILE__</span><span class="p">)</span>
+</span><span class='line'><span class="n">use</span> <span class="ss">Rack</span><span class="p">:</span><span class="ss">:Deflater</span>
+</span><span class='line'><span class="n">run</span> <span class="ss">Wending</span><span class="p">:</span><span class="ss">:Application</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重启服务器即可。</p>
+
+<p>如何判断是否生效了？那就来个测试。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang/">PCH 文件中进行全局 Import 的注意事项</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-17T19:05:00+08:00" pubdate data-updated="true">Jul 17<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>pch 文件可是个好东西，把常用的定义或者 import 放在 pch 中，这样在不用在项目中再引用和定义了，即可以做到全局 macro，又可以作为全局 import 用。</p>
+
+<p>然而最近在用 DTCoreText 和 ZipArchive 时，发现无论怎么调试，都无法编译通过，出现类似很多类名 not found，甚至是 NSString 都未找到！！</p>
+
+<p>后来研究了好久，原来这两个库有用 C 和 C++ 编译。而 pch 文件对于 C 的文件一样有效。试想一下，C 的代码引用 OC 的代码，会出现什么？当然是编译失败！</p>
+
+<p>问题找到了，如何让 C 的文件编译的时候不引用 OC 的代码呢？</p>
+
+<p>突然想起我们经常看到一个这个定义：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#ifdef __OBJC__
+</span><span class='line'>    #import &lt;UIKit/UIKit.h&gt;
+</span><span class='line'>    #import &lt;Foundation/Foundation.h&gt;
+</span><span class='line'>#endif</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看来这个<code>ifdef __OBJC__</code>就是用于判断是否是 OC 文件的！！我以前一直以为这个宏是判断项目是否用 OC 编译的！！当时还纳闷，啥时候会出现不用 OC 写 iOS 项目？</p>
+
+<p>因此，在原来的 pch 里面适当的将代码用这个<code>ifdef __OBJC__</code>包起来，就解决了 C 的文件引入 OC 代码的问题！！</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang/">rootViewController 更改动画的注意事项</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-11T20:17:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>Window</code>的<code>rootViewController</code>属性在 iOS5 之后都期望被设置，因为旋转等原因，controller 控制 View 比自己控制 View 更安全。</p>
+
+<p>但是突然出现一个需求，需要更换主<code>Window</code>的<code>rootViewController</code>，那如何做<code>UIView</code>动画呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">transitionWithView:</span><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span>
+</span><span class='line'>                  <span class="nl">duration:</span><span class="mf">0.4</span>
+</span><span class='line'>                   <span class="nl">options:</span><span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>
+</span><span class='line'>                <span class="nl">animations:</span><span class="o">^</span><span class="p">{</span>
+</span><span class='line'>                    <span class="p">[[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span> <span class="nl">setRootViewController:</span><span class="n">vc</span><span class="p">];</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>                <span class="nl">completion:</span><span class="nb">NULL</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>咋看之下没啥问题，运行起来也没问题。能成功实现替换为新的<code>vc</code>。</p>
+
+<p>然后出现一个很诡异的问题——如果设备是横的，新的<code>vc</code>对应的<code>View</code>会有一个旋转的动画，导致动画混乱，甚至很奇怪的动画。</p>
+
+<p>刚开始以为是<code>vc.view</code>加载太慢，后来没解决。Google 了一下，发现有人解决了。将上面的代码改为：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">transitionWithView:</span><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span>
+</span><span class='line'>                  <span class="nl">duration:</span><span class="mf">0.4</span>
+</span><span class='line'>                   <span class="nl">options:</span><span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>
+</span><span class='line'>                <span class="nl">animations:</span><span class="o">^</span><span class="p">{</span>
+</span><span class='line'>                    <span class="kt">BOOL</span> <span class="n">oldState</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIView</span> <span class="n">areAnimationsEnabled</span><span class="p">];</span>
+</span><span class='line'>                    <span class="p">[</span><span class="n">UIView</span> <span class="nl">setAnimationsEnabled:</span><span class="n">NO</span><span class="p">];</span>
+</span><span class='line'>                    <span class="p">[[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span> <span class="nl">setRootViewController:</span><span class="n">vc</span><span class="p">];</span>
+</span><span class='line'>                    <span class="p">[</span><span class="n">UIView</span> <span class="nl">setAnimationsEnabled:</span><span class="n">oldState</span><span class="p">];</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>                <span class="nl">completion:</span><span class="nb">NULL</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/">使用Uncrustify让iOS代码更漂亮</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-07T12:12:00+08:00" pubdate data-updated="true">Jul 7<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Github project: <a href="https://github.com/dijkst/uncrustify-config-ios">uncrustify-config-ios</a></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/">使用CocoaAsyncSocket发送TCP/UDP消息</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-02T17:19:00+08:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>习惯上每次使用一个类库的功能，我第一时间想到的都是Google那个类库的使用例子。这不是一个好习惯，这次我下载了CocoaAsyncSocket的代码，找了好一阵没找到满意的例子。灰心丧气之余想到很多用到我写的代码的人们也是不看文档，不看注释的。他们给我带来了巨大的困扰，而我现在也不看别人的注释和文档，假如CocoaAsyncSocket的作者要为我服务的话，那他肯定也会吐血不止。</p>
+
+<p>于是，我决定自力更生，从代码注释里找找我需要功能的用法。</p>
+
+<p>我需要的功能是，用TCP或者UDP发送一些数据给服务器，不用关心服务器是否收到数据。</p>
+
+<p>下面例子，只是TCP的发送过程，UDP请自行看注释。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/">让 Xcode 增加多 SDK 支持</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/25/1314/">1314</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (2)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+</section>
+<section>
+  <h1>My APPs</h1>
+    <ul id="appstore-apps"><style type="text/css">
+.flip-container, .front, .back {
+	width: 120px;
+	height: 120px;
+}
+.flip-container {
+  -webkit-perspective: 1000;
+	-moz-perspective: 1000;
+	perspective: 1000;
+}
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+	-webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.flipper {
+  -webkit-transition: 0.6s;
+	-webkit-transform-style: preserve-3d;
+
+	-moz-transition: 0.6s;
+	-moz-transform-style: preserve-3d;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+.front, .back {
+  -webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.front {
+	z-index: 2;
+}
+.back {
+	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+}
+</style>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish' src='http://a1863.phobos.apple.com/us/r30/Purple2/v4/55/7d/c0/557dc03e-cd9c-ac75-e2a7-78242ea50c79/mzl.vpfmgtuy.png' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+Duckipedia - A Wikipedia Reader
+</p>
+</div>
+</div>
+</li>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd' src='http://a153.phobos.apple.com/us/r30/Purple2/v4/28/4f/82/284f823d-1ec5-d58c-e231-a39157e279f7/mzl.zlpotobi.png' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+魔法灰姑娘
+</p>
+</div>
+</div>
+</li>
+</ul>
+</section>
+<section>
+  <h1>My Friends</h1>
+    <ul id="category-list">
+    	<li><a href="http://www.doruby.com">Square</a> <small>ruby & objc</small></li>
+    	<li><a href="http://manageyp.github.io">Henry</a> <small>You can do well, you must do well.</small></li>
+	</ul>
+</section>
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - dijkst -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dijkst';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

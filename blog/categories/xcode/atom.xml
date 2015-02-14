@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Xcode | 第九块石头]]></title>
+  <link href="http://dijkst.github.io/blog/categories/xcode/atom.xml" rel="self"/>
+  <link href="http://dijkst.github.io/"/>
+  <updated>2014-09-29T18:01:19+08:00</updated>
+  <id>http://dijkst.github.io/</id>
+  <author>
+    <name><![CDATA[dijkst]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[让 Xcode 增加多 SDK 支持]]></title>
+    <link href="http://dijkst.github.io/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/"/>
+    <updated>2014-09-29T17:21:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi</id>
+    <content type="html"><![CDATA[<p>Xcode 更新换代的时候，也就是 iOS 升级的时候，由于总总原因，可能需要对新的 iOS 做系统兼容，但是这个过程中，往往需要同时以旧的 Xcode 进行编译与发布。</p>
+
+<p>这就出现一个比较头疼的问题——Xcode 共存！</p>
+
+<p>由于 Xcode 是通过 AppStore 自动更新的，往往会覆盖旧版本的 Xcode。当然，我们可以在升级 Xcode 之前将 Xcode 复制出来一个备份，再升级。这样就有两个 Xcode 了！</p>
+
+<p>突然想，编译本质上就是 SDK 不同，我们直接把旧版本的 SDK 放到新版本的 Xcode 里面不就可以了吗？</p>
+
+<p>想到 Xcode 的 target 里面可以设置 <code>Base SDK</code>，默认不都是 <code>Latest SDK</code> 吗？下拉列表里面还真没有旧版本的 SDK，哪怕安装了旧版本的 Xcode。</p>
+
+<p>于是到旧版本 Xcode 里面找到旧版本的 SDK，放到新版本的 Xcode，重启 Xcode，即可选择 SDK 版本啦！</p>
+
+<p>SDK 路径： /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs</p>
+
+<!-- more -->
+
+
+<p><img src="/images/post/2014-09-29-rang-xcode-zeng-jia-duo-sdk-zhi-chi/1.png"></p>
+
+<p>这种方法只适用于你安装了对应版本的模拟器。例如 Xcode6 里面不能安装 iOS6 模拟器，哪怕拿了 SDK6，也是不能用的。</p>
+]]></content>
+  </entry>
+  
+</feed>

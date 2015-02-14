@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: OSX | 第九块石头]]></title>
+  <link href="http://dijkst.github.io/blog/categories/osx/atom.xml" rel="self"/>
+  <link href="http://dijkst.github.io/"/>
+  <updated>2014-09-29T18:01:19+08:00</updated>
+  <id>http://dijkst.github.io/</id>
+  <author>
+    <name><![CDATA[dijkst]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Adobe CS6 官方简体中文原版下载收集]]></title>
+    <link href="http://dijkst.github.io/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/"/>
+    <updated>2013-08-09T13:08:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji</id>
+    <content type="html"><![CDATA[<p>不知道为啥，Adobe 官方下载的时候没有中文的选择？例如下载 PS 的地址：<a href="http://www.adobe.com/cfusion/tdrc/index.cfm?product=photoshop&amp;loc=cn">http://www.adobe.com/cfusion/tdrc/index.cfm?product=photoshop&amp;loc=cn</a>，只能选择英文……</p>
+
+<p>上网找了一下，官方是有中文版本下载的，只是不知道什么原因不显示……这里整理一下：</p>
+
+<p>Adobe Creative Suite 6 分为 <code>Design Standard</code>、<code>Design &amp; Web Premium</code>、<code>Production Premium</code>、<code>Master Collection</code> 四个版本，其实说白了，就是各种独立软件的打包……</p>
+
+<p>根据<a href="http://www.adobe.com/cn/products/creativesuite/buying-guide.html">官方说明</a>，可以看到下面这个表：</p>
+
+<!-- more -->
+
+
+<p><img src="/images/post/2013-08-09-adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/1.jpg"></p>
+
+<p>可以看出，Desgin &amp; Web Premium 是为图形设计师准备的，Production Premium 是为产品设计师准备的，Master Collection 是完整打包…… 不过疑惑的是，Master Collection 没有简体中文版~</p>
+
+<h3>下载地址</h3>
+
+<ol>
+<li>前往 <a href="http://www.adobe.com/cn/">http://www.adobe.com/cn/</a> 注册Adobe ID，如果已注册，忽略此步骤；</li>
+<li>下载任意一个 Adobe 产品的试用版<a href="http://www.adobe.com/cn/downloads/">http://www.adobe.com/cn/downloads</a>（只要点击下载按钮，弹出文件保存对话框，然后取消。获得session cookie即可）</li>
+<li>使用浏览器自带下载功能下载软件或者用迅雷离线下载均可。</li>
+</ol>
+
+
+<h5>套件下载地址</h5>
+
+<ul>
+<li><p>Adobe Creative Suite 6 Design Standard 简体中文版（设计标准版）制作具有感染力的印刷设计和数字出版物，完整版价格：9248元。<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DSGN/CS6/win32/DesignStandard_CS6_LS3.7z">DesignStandard_CS6_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DSGN/CS6/osx10/DesignStandard_CS6_LS3.dmg">DesignStandard_CS6_LS3.dmg</a></p></li>
+<li><p>Adobe Creative Suite 6 Design &amp; Web Premium 简体中文版（设计与网络高级版）为印刷、网络、平板电脑和智能手机提供创新理念，完整版价格：13516元。<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/WEBB/CS6/win32/WebPremium_LCS6_S3.7z">WebPremium_CS6_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/WEBB/CS6/osx10/WebPremium_CS6_LS3.dmg">WebPremium_CS6_LS3.dmg</a></p></li>
+<li><p>Adobe Creative Suite 6 Production Premium（产品高级版）完整版价格16895元。<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STVD/CS6/win32/ProductionPremium_LCS6_S7.7z">ProductionPremium_CS6_LS7.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STVD/CS6/osx10/ProductionPremium_CS6_LS7.dmg">ProductionPremium_CS6_LS7.dmg</a></p></li>
+<li><p>Adobe Creative Suite 6 Master Collection 繁体中文版（大师典藏版）：完整版价格23120元。<br/>
+(其中繁体版的Illustrator无法在简体系统打开，暂时没有找到解决方法，虽然用NTLEA可以正常运行，但是不是长远之道。需要用到的话，下载个AI简体中文版覆盖安装下试试看。)<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STAM/CS6/win32/MasterCollection_LCS6_S3.7z">MasterCollection_CS6_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STAM/CS6/osx10/MasterCollection_CS6_LS3.dmg">MasterCollection_CS6_LS3.dmg</a></p></li>
+<li><p>Adobe After Effects CS6<br/>
+下载地址：<a href="http://trials2.stage.adobe.com/AdobeProducts/AEFT/11/win64/AfterEffects_11_LS7.7z">AfterEffects_11_LS7.7z</a></p></li>
+</ul>
+
+
+<h5>单独软件下载地址</h5>
+
+<ul>
+<li><p>Adobe Photoshop CS6 Extended x86 x64- 运用专业级标准创作出具有震撼力的图像，格完整版价：4980元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PHSP/13/win32/PhotoshopL_13_S3.7z">Photoshop_13_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PHSP/13/win32/Photoshop_13_LS3.dmg">Photoshop_13_LS3.dmg</a></p></li>
+<li><p>Adobe Dreamweaver CS6 &ndash; 设计、开发和维护标准型网站和应用程序，格完整版价：2846元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DRWV/12/win32/Dreamweaver_S12_L3.exe">Dreamweaver_12_LS3.exe</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DRWV/12/win32/Dreamweaver_12_LS3.dmg">Dreamweaver_12_LS3.dmg</a></p></li>
+<li><p>Adobe Fireworks CS6- 弹指间就能设计最精美的网站和移动应用程序，格完整版价：2135元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FWKS/12/win32/Fireworks_S12_L3.exe">Fireworks_12_LS3.exe</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FWKS/12/win32/Fireworks_12_LS3.dmg">Fireworks_12_LS3.dmg</a></p></li>
+<li><p>Adobe Flash Professional CS6- 在设备中创建并发布丰富多彩的创意，格完整版价：4980元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FLPR/12/win32/FlashPro_S12_L3.exe">FlashPro_12_LS3.exe</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FLPR/12/win32/FlashPro_12_LS3.dmg">FlashPro_12_LS3.dmg</a></p></li>
+<li><p>Adobe Illustrator CS6 &ndash; 使用基本的矢量工具探索新途径，格完整版价：4269元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/ILST/16/win32/IllustratorL_16_S3.7z">Illustrator_16_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/ILST/16/win32/Illustrator_16_LS3.dmg">Illustrator_16_LS3.dmg</a></p></li>
+<li><p>Adobe InDesign CS6 &ndash; 为印刷和数字出版设计专业页面版面，格完整版价：4980元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/IDSN/8/win32/InDesigLn_8_S3.7z">InDesign_8_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/IDSN/8/win32/InDesign_8_LS3.dmg">InDesign_8_LS3.dmg</a></p></li>
+<li><p>Adobe Premiere Pro CS6 &ndash; 预订购按您需要的方式编辑，格完整版价：7114元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PPRO/6/win32/PremierePrLo_6_S7.7z">PremierePro_6_LS7.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PPRO/6/osx10/PremierePro_6_LS7.dmg">PremierePro_6_LS7.dmg</a></p></li>
+<li><p>Adobe After Effects CS6 &ndash; 自由发挥想象力，创建动态图像，格完整版价：8892元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/AEFT/11/win64/AfterEffectsL_11_S7.7z">AfterEffects_11_LS7.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/AEFT/11/win64/AfterEffects_11_LS7.dmg">AfterEffects_11_LS7.dmg</a></p></li>
+</ul>
+
+
+<h5>其他工具</h5>
+
+<p><a href="http://www.adobe.com/support/contact/cscleanertool.html">Adobe Cleaner Tool</a>
+用于清除 Adobe Creative Cloud, Adobe Creative Suite 6, Adobe Creative Suite 5 &ndash; 5.5, Adobe Creative Suite 4, Adobe Creative Suite 3 安装信息。</p>
+
+<h3>破解方法</h3>
+
+<p>破解文件：<br/>
+Windows 版：<a href="/media/2013-08-09-adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/CS6WindowsPatch.zip">CS6WindowsPatch.zip</a><br/>
+MAC 版：<a href="/media/2013-08-09-adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/amtlib.framework.zip">amtlib.framework.zip</a></p>
+
+<ul>
+<li><span class="fluo">安装时断开网络 </span>，输入序列号：<br/>
+<code>1325-0949-2080-9819-3777-3230</code><br/>
+<code>1325-0160-5283-9851-2671-8951</code><br/>
+<span class="fluo">请勿选择试用，选择试用将会导致Encore组件无法使用！</span></li>
+<li>套装安装后<span class="fluo">先运行一次PS </span>，否则PS不是Extended版。</li>
+<li>覆盖相应的文件，x86对应32位文件，x64对应64位文件，Acrobat 需要单独替换。分不清文件版本的，只要看文件大小差不多的，覆盖就可以了。</li>
+</ul>
+
+
+<p>已经选择了试用，导致<code>Encore</code>组件无法使用的话，将<code>Encore</code>的<code>amtlib.dll</code>换回原版，然后运行 <code>Encore</code> ，会要求输入序列号，输入后，再换回破解的<code>amtlib.dll</code>即可。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MacOS常用小众软件收集]]></title>
+    <link href="http://dijkst.github.io/blog/2013/06/29/macoschang-yong-ruan-jian-shou-ji/"/>
+    <updated>2013-06-29T15:17:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/06/29/macoschang-yong-ruan-jian-shou-ji</id>
+    <content type="html"><![CDATA[<p>打算迁移系统了，但是不想采用升级的方式，毕竟一个系统用久了，有好多垃圾文件，无论是自己遗留的还是系统或者第三方软件遗留的，总之硬盘是越来越小了。既然打算升级，干脆来一个大换血吧。</p>
+
+<p>经常有收集各种小软件的习惯，有的确实很不错，有的可能则是新颖但是不实用，装了就没用过~~整理出个人觉得相当不错的，好装到新系统。</p>
+
+<p>以下软件都能正常运行于10.8系统。</p>
+
+<!-- more -->
+
+
+<h2>系统维护</h2>
+
+<h5><a href="http://bjango.com/mac/istatmenus/">iStat Menus</a></h5>
+
+<p>一款在菜单栏添加系统监控的软件，能够监控CPU、内存、网络、温度等，定制性比较高。收费软件。</p>
+
+<p><img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/istat_menus_1.jpg" alt="image" /></p>
+
+<p><img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/istat_menus_2.jpg" alt="image" /></p>
+
+<h5><a href="http://www.apple.com/downloads/dashboard/status/istatpro.html">iStat Pro</a></h5>
+
+<p>和iStat Menu不同的是，这是一个Dashboard插件，不像iStat Menu那样要在小小的菜单栏里面加监控，这个插件能一次性详细的查看系统资源状态，两者配合起来相当不错。</p>
+
+<p><img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/istat_pro.png" alt="image" /></p>
+
+<h5><a href="http://www.briksoftware.com/products/unplugged/#_zh">unplugged</a></h5>
+
+<p>当MacBook电源插入或者拔出时进行通知的一款小助手，和MacOS的消息中心集成。收费软件。</p>
+
+<p><img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/unplugged.png" alt="image" /></p>
+
+<h5><a href="http://gfx.io">gfxCardStatus</a></h5>
+
+<p>能指示出当前系统所使用的显卡类型——独立显卡还是集成显卡，在切换时会有消息中心通知，可以强制使用某一类型的显卡。免费、开源软件。</p>
+
+<p><img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/gfx_1.jpg" alt="image" /></p>
+
+<h5><a href="http://www.groths.org">Trim Enabler</a></h5>
+
+<p>Apple只能对自带的SSD开Trim，自己换的SSD不支持Trim，用这个软件可以启用Trim功能。注意，系统更新可能会让Trim失效，需要重新启用，启用一般需要重启。免费软件。</p>
+
+<h5><a href="http://pilotmoon.com/popclip/">PopClip</a></h5>
+
+<p>让鼠标选中文字也像iOS那样出现弹出窗口，可以复制、剪切等，支持安装插件，例如，打开文件路径、用终端运行等。收费软件。</p>
+
+<p><img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/popclip_pasteshot.png" alt="image" />
+<img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/popclip_searchshot.png" alt="image" />
+<img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/popclip_urlShotNew.png" alt="image" /></p>
+
+<h2>Safari扩展</h2>
+
+<h5><a href="http://www.scrolltotopbutton.com">Scroll To Top Button</a></h5>
+
+<p>Scroll To Top Button 是款非常实用的苹果 Safari 和 Google Chrome 浏览器扩展，能在网页边缘自动生成一个箭头按钮，点击即可回到网页顶部或底部，不用手指狂转鼠标滚轮了。箭头按钮的位置、颜色、大小等都能自定义。</p>
+
+<p><img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/scrolltotopbutton.png" alt="image" /></p>
+
+<h5><a href="http://hoyois.github.io/safariextensions/clicktoplugin/">ClickToFlash</a></h5>
+
+<p>很多网站上都有Flash，而Flash严重损耗CPU资源，导致风扇狂转~使用了这个插件能屏蔽所有Flash，遇到需要的Flash，只需要点击那个Flash，就能正常播放了，相当不错。</p>
+
+<p><img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/clicktoflash.jpg" alt="image" /></p>
+
+<h5><a href="http://zythum.sinaapp.com/youkuhtml5playerbookmark/">YouKu HTML5 Player</a></h5>
+
+<p>支持 优酷，土豆，搜狐视频，爱奇艺，乐视网，qq，迅雷离线，56视频 的单视频播放页面里面的Flash转换为HTML5，不仅减少CPU消耗，还去广告呢。</p>
+
+<h5><a href="http://canisbos.com/showpass">ShowPass</a></h5>
+
+<p>很多时候我们第一次在电脑上输入某网页的密码时选择让浏览器记住该，时间长了自己就把密码忘了。想看被浏览器记住的密码是什么？不好意思你只能看到一串 * 或 • ,安装这款扩展插件后，鼠标滑过密码框时，就能看到具体密码了。相当实用的一个插件。</p>
+
+<h2>实用软件</h2>
+
+<h5><a href="http://www.bettertouchtool.net">BetterTouchTool</a></h5>
+
+<p>一款完全定义鼠标、触摸板、键盘的神器，能够定义手势，不仅是触摸板，Apple Magic Mouse也支持手势定义！甚至可以定义快捷键启动APP等，强烈推荐。免费软件。</p>
+
+<p>另外这软件自带Windows 7那种，拖到屏幕顶部最大化，拖到左边左半屏幕这种Window Snapping功能。</p>
+
+<p><img src="/images/post/2013-06-29-macoschang-yong-ruan-jian-shou-ji/bettertouchtool.jpg" alt="image" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MacOS常用QuickLook扩展插件收集]]></title>
+    <link href="http://dijkst.github.io/blog/2013/06/29/tui-jian-ji-kuan-bu-cuo-de-quicklookkuo-zhan-cha-jian/"/>
+    <updated>2013-06-29T12:22:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/06/29/tui-jian-ji-kuan-bu-cuo-de-quicklookkuo-zhan-cha-jian</id>
+    <content type="html"><![CDATA[<p>MacOS里有一个相当人性化的功能——QuickLook，选中一个文件，不用打开它，只用按一下空格键，立即可以看到文件内容或者信息，相当快。然而悲剧的是，并不是所有文件类型都被支持的！！如果按了空格键，发现只是显示文件图标，只好很无奈的在按空格键把它关了，再去把文件打开，早知道就直接打开文件了~忧伤啊~</p>
+
+<p>上网找了一下，找到一些不错的QL扩展，分享一下。但是在分享以前，先说一下怎么安装扩展~</p>
+
+<p>将下载好的QL扩展放在<code>/资源库/QuickLook/</code>下，注销系统即可生效，不想注销的，可以用终端命令：</p>
+
+<p><code>
+qlmanage -r
+</code></p>
+
+<p>下面看看都有些啥好扩展：</p>
+
+<!-- more -->
+
+
+<h4><a href="https://github.com/whomwah/qlstephen">QuicklookStephen</a></h4>
+
+<p>快速浏览文本类型的文件。有的文本类型的文件，后缀可能不是txt等，QL默认是无法识别的，这个扩展能够将其他后缀的文本类型文件也显示出文本内容。支持<code>README</code>、<code>INSTALL</code>、<code>CapFile</code>、<code>CHANGELOG</code>等等，支持手动添加后缀和黑名单。</p>
+
+<h4><a href="https://github.com/downloads/Nyx0uf/qlImageSize/qlImageSize.qlgenerator.zip">qlimagesize</a></h4>
+
+<p>在浏览图片的时候，能在查看窗口的顶部标题栏显示图片的尺寸和体积大小。</p>
+
+<h4><a href="http://www.sagtau.com/quicklookjson.html">Quick Look JSON</a></h4>
+
+<p>高亮并格式化JSON文件。</p>
+
+<h4><a href="http://www.macmation.com/blog/2011/10/quicklook-plugin-for-mobile-provision-files/">MobileProvision</a></h4>
+
+<p>可以快速预览.mobileprovision内的信息以及过期时间等信息。</p>
+
+<h4><a href="http://www.mothersruin.com/software/SuspiciousPackage/">Suspicious Package Quick Look plugin</a></h4>
+
+<p>快速查看.pkg的内容，包括权限、安装脚本和包含的文件。</p>
+
+<h4><a href="http://macitbetter.com/BetterZip-Quick-Look-Generator/">BetterZip</a></h4>
+
+<p>ZIP, TAR, GZip, BZip2, ARJ, LZH, ISO, CHM, CAB, CPIO, RAR, 7-Zip, DEB, RPM, StuffIt&rsquo;s SIT, DiskDoubler, BinHex, MacBinary等格式预览。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[WIFI干扰排除的一些经验]]></title>
+    <link href="http://dijkst.github.io/blog/2013/06/02/wifigan-rao-pai-chu-de-yi-xie-jin-yan/"/>
+    <updated>2013-06-02T16:17:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/06/02/wifigan-rao-pai-chu-de-yi-xie-jin-yan</id>
+    <content type="html"><![CDATA[<p>最近发现WIFI丢包挺严重的，忽好忽坏。于是检查了一下WIFI，发现不知不觉中，小区内多了好多的WIFI热点，悲剧的是有的WIFI信号比我自己屋里的WIFI信号还强！！囧啊~~</p>
+
+<p>估计很有可能是WIFI干扰了，之前在薄荷曾经就处理过WIFI频率冲突的问题，于是解决起来就轻车熟路了。</p>
+
+<p>先查了一下周边的WIFI都用什么频道吧~按住<code>Option</code>点击mac的WIFI，会看到多出不少信息，里面有当前的连接的WIFI的信息，鼠标移到其他热点上，也会显示相应的频道等信息：</p>
+
+<!-- more -->
+
+
+<p><img src="/images/post/2013-06-02-wifigan-rao-pai-chu-de-yi-xie-jin-yan/1.jpg"></p>
+
+<p>记录下所有热点所用的频道，接下来我们需要找到空闲的频道。</p>
+
+<p>先普及一下WIFI的知识：</p>
+
+<p>WIFI使用的2.4GHz频段，这个频段所拥有的频道不多，而使用这种频段的设备倒是很多——微波炉、蓝牙、无绳电话（这个可能用得少了）等，因此都会对WIFI信号有很大的干扰性。</p>
+
+<p>最大的干扰就是WIFI AP间的同频道干扰和相邻频道干扰。</p>
+
+<p>相同频道干扰很好理解，同一个区域存在相同频道的AP，则会导致AP间竞争频道资源，最终会导致丢包。</p>
+
+<p>而相邻频道干扰就比较头疼了：</p>
+
+<p><img src="/images/post/2013-06-02-wifigan-rao-pai-chu-de-yi-xie-jin-yan/2.jpg"></p>
+
+<p>从上图可以看出，每一频道的信号都有一定的频宽，因此会出现相邻频道会有一定的重叠，为了保证信号的准确传输，AP会优先选择无干扰的频宽进行通讯，因此WIFI的速度就会降低；如果AP不能够避开重叠的部分，则会出现同频道干扰的现象——丢包。</p>
+
+<p>根据WIFI知识和当前环境，我们经常发现很难存在一个完全和其他AP无重叠的频道，这就是2.4GHz的网络的悲剧了。</p>
+
+<p>解决干扰的一些经验：</p>
+
+<ul>
+<li>不与其他AP同频道</li>
+<li>尽量减少和其他AP频道重叠量</li>
+<li>选择和信号弱的AP的频道进行重叠</li>
+<li>选择具有5GHz的双频AP，如AirPort</li>
+</ul>
+
+
+<p>5GHz的频宽是5.15GHz到5.85GHz，具有比2.4GHz更大的频宽（2.4GHz是2.4GHz到2.483GHz），而且目前使用5GHz的设备不多，不容易干扰。然而，5GHz传输距离不如2.4GHz远。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MacOS安装Cocoapods步骤]]></title>
+    <link href="http://dijkst.github.io/blog/2013/05/27/macosan-zhuang-cocoapodsbu-zou/"/>
+    <updated>2013-05-27T19:24:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/05/27/macosan-zhuang-cocoapodsbu-zou</id>
+    <content type="html"><![CDATA[<p>Cocoapods本身就是ruby的一个gem，所以没啥特殊的安装方式，但是很多iOS或者OSX开发人员都对ruby不熟悉，所以简单的总结一下。</p>
+
+<p>分为一下几步骤：</p>
+
+<blockquote><ol>
+<li>安装Command Line Tool (CLT)</li>
+<li>安装Homebrew</li>
+<li>安装rvm</li>
+<li>安装ruby</li>
+<li>安装cocoapods</li>
+</ol>
+</blockquote>
+
+<p>好像要装不少东西……其实都是一层一层的，CLT是必装的，homebrew管理一些依赖，rvm实现ruby虚拟机。已经安装有的可以跳过，也可以重新按照上面的步骤安装。</p>
+
+<p><strong>请先确保XCODE为最新版本！！！</strong></p>
+
+<h4>安装Command Line Tool （CLT）</h4>
+
+<p>在Xcode的<code>Preferences</code>&ndash;><code>Downloads</code>&ndash;><code>Components</code>里面可以直接安装，也可以到<a href="https://developer.apple.com/downloads/index.action">Apple</a>单独下载安装。</p>
+
+<!-- more -->
+
+
+<p>MacOSX 10.9 系统下，还需要执行命令行<code>xcode-select --install</code>！</p>
+
+<h4>安装Homebrew</h4>
+
+<p><code>
+$ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
+</code></p>
+
+<p>安装完成之后，执行诊断，检查是否有异常</p>
+
+<p><code>
+$ brew doctor
+</code></p>
+
+<p>正常是不会有问题的，如果提示存在旧版本的XCODE，最好删除，否则容易混乱CLT。</p>
+
+<p>接下来执行：</p>
+
+<p><code>
+$ brew update
+$ brew tap homebrew/dupes
+</code></p>
+
+<h4>安装rvm</h4>
+
+<p><code>
+$ \curl -L https://get.rvm.io | bash -s stable --autolibs=enable
+</code></p>
+
+<p>很慢，如果你是第一次装的话，要装各种依赖……</p>
+
+<h4>安装ruby</h4>
+
+<p>选择合适的ruby版本，选择cocoapods比较兼容的版本装，例如装2.0版本：</p>
+
+<p><code>
+$ rvm install 2.0
+</code></p>
+
+<h4>安装cocoapods</h4>
+
+<p><code>
+$ gem install cocoapods
+</code></p>
+
+<p>完工！</p>
+]]></content>
+  </entry>
+  
+</feed>

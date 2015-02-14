@@ -1,0 +1,2208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[第九块石头]]></title>
+  <link href="http://dijkst.github.io/atom.xml" rel="self"/>
+  <link href="http://dijkst.github.io/"/>
+  <updated>2014-09-29T18:01:19+08:00</updated>
+  <id>http://dijkst.github.io/</id>
+  <author>
+    <name><![CDATA[dijkst]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[让 Xcode 增加多 SDK 支持]]></title>
+    <link href="http://dijkst.github.io/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/"/>
+    <updated>2014-09-29T17:21:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi</id>
+    <content type="html"><![CDATA[<p>Xcode 更新换代的时候，也就是 iOS 升级的时候，由于总总原因，可能需要对新的 iOS 做系统兼容，但是这个过程中，往往需要同时以旧的 Xcode 进行编译与发布。</p>
+
+<p>这就出现一个比较头疼的问题——Xcode 共存！</p>
+
+<p>由于 Xcode 是通过 AppStore 自动更新的，往往会覆盖旧版本的 Xcode。当然，我们可以在升级 Xcode 之前将 Xcode 复制出来一个备份，再升级。这样就有两个 Xcode 了！</p>
+
+<p>突然想，编译本质上就是 SDK 不同，我们直接把旧版本的 SDK 放到新版本的 Xcode 里面不就可以了吗？</p>
+
+<p>想到 Xcode 的 target 里面可以设置 <code>Base SDK</code>，默认不都是 <code>Latest SDK</code> 吗？下拉列表里面还真没有旧版本的 SDK，哪怕安装了旧版本的 Xcode。</p>
+
+<p>于是到旧版本 Xcode 里面找到旧版本的 SDK，放到新版本的 Xcode，重启 Xcode，即可选择 SDK 版本啦！</p>
+
+<p>SDK 路径： /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs</p>
+
+<!-- more -->
+
+
+<p><img src="http://dijkst.github.io/images/post/2014-09-29-rang-xcode-zeng-jia-duo-sdk-zhi-chi/1.png"></p>
+
+<p>这种方法只适用于你安装了对应版本的模拟器。例如 Xcode6 里面不能安装 iOS6 模拟器，哪怕拿了 SDK6，也是不能用的。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git 同步远程 Tags]]></title>
+    <link href="http://dijkst.github.io/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/"/>
+    <updated>2014-02-10T11:35:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/02/10/git-tong-bu-yuan-cheng-tags</id>
+    <content type="html"><![CDATA[<p>一个项目做久了，Tag 越来越多，大多时候也不怎么关心 Tag，只有需要找以前的版本才会翻查一下。</p>
+
+<p>一不留神，发现服务器上的 Tag 好像被人整理了一下，而本地的 Tag 依然是老版本的，查了一下，似乎没有很好的方法保证服务器和本地的 tags 自动同步。</p>
+
+<p>只好每个客户端自行本地清理自己的 tags 了：</p>
+
+<p>git 1.7以上版本可以直接使用命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git fetch origin --prune --tags</span></code></pre></td></tr></table></div></figure>
+
+
+<p>git 1.7及以下版本需要先删除所有 tags 再 fetch 一次：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git tag -l | xargs git tag -d
+</span><span class='line'>git fetch</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[1314]]></title>
+    <link href="http://dijkst.github.io/blog/2014/01/25/1314/"/>
+    <updated>2014-01-25T20:53:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/01/25/1314</id>
+    <content type="html"><![CDATA[<p>再过几天就是春节了，本命年就这么悄无声息的过去了，接下来的“万马奔腾”来的太快了~</p>
+
+<h4>命运的转折——2013</h4>
+
+<p>7月底，我做了一个很重要的，可能会改变一生的决定——来杭州，进阿里~</p>
+
+<p>经过3个月的努力，历经十几次的电话面试、视频面试、现场面试。虽然能力的不足，经验的不足，最终不能成为一名正式的阿里人，但也算能走进了阿里这个大家庭。</p>
+
+<p>“Hey kid, welcome to Alibaba！”</p>
+
+<p>11月6日，怀着对未来伙伴的好奇，对即将开始的新的环境的憧憬，踏进了阿里的大门。面对人才济济的团队，我深深的感受到，虽然在以往的团队中，总是做为核心成员存在的我，面对新的伙伴，我也仅仅是一个“kid”，需要学习的还很多~</p>
+
+<p>运气很好，碰上一年一次的盛典——双十一！虽然大家都很累，但是依然战斗得很有激情，看着不断上升的流量曲线，不断刷新的用户反馈，从来没有感受的原来开发也是这么有激情的！</p>
+
+<p>紧接着的双十二，总算能亲自参与！！第一次参与这种规模的项目，心情说不激动那是不可能的，无形的压力迫使我不得不不断的优化自己的代码，提升自己的能力。因为我知道，我的任何一次失误，都可能给上亿的用户带来不可预计的后果。虽然我已经在不断的提醒自己，不断的激励自己，但是，还是不可避免的犯错了——一个小偷懒，把一段代码复制过来，忘记改变量名，结果导致一个配置未按预计生效！虽然 PD 很果断的采用了“降级”方案来规避了问题，尽量把影响减少到最低，但是也深深的给我上了一次课——复制粘贴永远是编程的大忌！！</p>
+
+<p>之后的日子，我又找回了曾经那种为了技术废寝忘食的感觉，好久没有这种感觉了。半年的荒废，都快忘了这种激情的感觉。</p>
+
+<p>在这里认识了很多很有意思的伙伴。我记得当初在面试一家公司的时候，CTO 问我为何会选择之前的那家公司，我总是回答，因为那里有我值得奋斗的团队。当然，我深信新的环境，也将遇到更多“臭气相投”的伙伴！在这里，有着追求完美技术的伙伴，有着统筹大局的伙伴，有着成熟稳重的伙伴，也有充满激情的伙伴，更有互相信任的伙伴！当然也有涉猎广泛的测试和稳重的 UED 和 PD ！</p>
+
+<p>当然，在这里，我见识到了大公司独有的开发流程和任务细化分工，这些都是我曾经欠缺的而又一直想补充的经历。</p>
+
+<p>虽然在这里只有短短的不到三个月，但是，却过得很充实。按照某人的一句话，不是在学习，就是在去学习的路上~</p>
+
+<h4>新的征程——2014</h4>
+
+<p>对于未知的旅途，总是有迷茫，总是想用各种计划去让它能够向着已知的方向行走。</p>
+
+<p>然而，过去的一年，让我知道了，无论如何的计划，永远无法做出一个正确的抉择，向着自己的目标前进，无论再多的变数，都只是让我的旅途充满多样的美景！</p>
+
+<p>2014，我要成长，我要成为一名真正的阿里人！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面]]></title>
+    <link href="http://dijkst.github.io/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/"/>
+    <updated>2014-01-16T14:58:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian</id>
+    <content type="html"><![CDATA[<p>以前做 iPhone 的开发时，经常需要做一个功能，例如“更新 App”，点击之后跳转到 AppStore 的下载页面，然而，今天发现了一个问题：</p>
+
+<p>我的跳转地址是 <code>itms-apps://itunes.apple.com/app/id438865278?mt=8</code>，这个地址是服务器返回的，我以前也是这么写的，应该没有问题。</p>
+
+<p>测试的妹子说，在 iOS6 上面，该地址只能打开 AppStore 的首页，不能进入下载页面，在 iOS5 和 iOS7 中都正常，iOS6 所有设备均失败（iPad3、4、mini 等等）。</p>
+
+<p>我尝试在 Safari 中输入该地址，发现也确实无法让 AppStore 进入下载界面。</p>
+
+<p>在 iPhone 的 iOS6 中，正常。</p>
+
+<p>因此估计是 iPad 的问题，上网搜了一下，发现这个问题是普遍存在的 —— 只在 iOS6 的 iPad 设备中出现！</p>
+
+<p>参考地址： <a href="https://discussions.apple.com/thread/4420524?tstart=0">https://discussions.apple.com/thread/4420524?tstart=0</a></p>
+
+<p><code>It apparently works with https, but http and itms-apps fail.</code></p>
+
+<p>将 <code>itms-apps</code> 替换为 <code>https</code> 即可正常。</p>
+
+<p>最后经过测试，使用 <code>https</code> 在 iPhone、iPad 上均可正常使用，不会跳转 Safari，完全不需要使用 <code>itms-apps</code>！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress在zsh下无法新建博客的问题]]></title>
+    <link href="http://dijkst.github.io/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/"/>
+    <updated>2013-12-07T23:27:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti</id>
+    <content type="html"><![CDATA[<p>转载自： <a href="http://fancyoung.com/blog/use-octopress-new-post-function-with-zsh/">http://fancyoung.com/blog/use-octopress-new-post-function-with-zsh/</a></p>
+
+<p>执行：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_post["arch-linux-reinstall-glibc.markdown"]`</span></code></pre></td></tr></table></div></figure>
+
+
+<p>报错：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>zsh: no matches found: new_post[arch-linux-reinstall-glibc]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>原因：zsh中若出现‘*’, ‘(’, ‘|’, ‘&lt;’, ‘[’, or ‘?’符号，则将其识别为查找文件名的通配符</p>
+
+<!-- more -->
+
+
+<p>快速解决：用引号括起来</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake "new_post[arch-linux-reinstall-glibc.markdown]"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>彻底解决：取消zsh的通配(GLOB), 在<code>.zshrc</code>中加入 <code>alias rake="noglob rake"</code></p>
+
+<p>PS：在 git 回滚操作</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git reset --soft HEAD^</span></code></pre></td></tr></table></div></figure>
+
+
+<p>出现报错：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>zsh: no matches found HEAD^</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也为同样原因，因为<code>^</code>也为正则中的符号， 需要转义为</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git reset --soft HEAD\^。</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考</h3>
+
+<p><a href="https://github.com/imathis/octopress/issues/117">Not compatible with Zsh</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[不要在 Initializer 和 dealloc 方法中使用 setter 和 getter]]></title>
+    <link href="http://dijkst.github.io/blog/2013/12/07/bu-yao-zai-initializer-he-dealloc-fang-fa-zhong-shi-yong-setter-he-getter/"/>
+    <updated>2013-12-07T22:39:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/12/07/bu-yao-zai-initializer-he-dealloc-fang-fa-zhong-shi-yong-setter-he-getter</id>
+    <content type="html"><![CDATA[<p>今天和同事在争论 iOS 中，init 方法使用 <code>self.xxx = xx;</code> 是否合适的问题，以下面代码为导火索：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nl">initWithIconImage:</span><span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">iconImage</span> <span class="nl">loadingImage:</span><span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">loadingImage</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">init</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">iconImage</span> <span class="o">=</span> <span class="n">iconImage</span><span class="p">;</span>
+</span><span class='line'>     <span class="p">}</span>
+</span><span class='line'>     <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>他的观点是 <code>self.iconImage = iconImage;</code> 应该改为 <code>_iconImage = [iconImage retain];</code>，理由是担心内存被强制释放，那么 <code>self.iconImage = xxx</code> 将会导致崩溃。</p>
+
+<p>我的观点是 <code>if (self = [self init])</code> 已经判断内存是否初始化正常了，不需要考虑 <code>self</code> 内存异常问题，所以不需要专门改成 <code>_iconImage = [iconImage retain];</code>，当然这么写也没错。</p>
+
+<p>看似一个挺无聊的争论，但是最后一个技术专家站出来，贴了个 Apple 的文档： <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/MemoryMgmt.pdf">Don’t Use Accessor Methods in Initializer Methods and dealloc</a></p>
+
+<blockquote><p>The only places you shouldn’t use accessor methods to set an instance variable are in initializer methods and dealloc.</p></blockquote>
+
+<p>看来我们争论的方向都错了，init 里面不用 setter 不是内存问题，而是<strong> setter 可能会触发其他的逻辑</strong>，例如重写的 setter 方法或者 KVC，将可能调用其他还没来得及 init 的变量，最终导致不可预计行为！</p>
+
+<p>颠覆了以前的使用方法~~</p>
+
+<p>不禁思考到其他语言，似乎都存在这种问题~~</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Nagios4+Nginx+Ganglia配置]]></title>
+    <link href="http://dijkst.github.io/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/"/>
+    <updated>2013-11-29T20:14:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi</id>
+    <content type="html"><![CDATA[<p>本文参考 <a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a></p>
+
+<p>最近需要在服务器上配置一个Nagios用于检测服务器的异常情况并报警，我们的服务器已经搭建好Ganglia，Nagios主要用于报警通知。现在最新的Nagios的版本已经到了4.0.2, 而apt-get只有nagios3, 并且似乎还自动装了apache, 这不是我们需要的。看了一些资料后得知一般情况下 nagios 应该安装在 /usr/local/nagios 文件夹下，这样安装插件的时候会少很多麻烦。 而按照ubuntu的习惯，配置文件我决定放在 /etc/nagios 文件夹里。</p>
+
+<p>首先介绍一下安装上面的配置需要了解的nagios的各个文件夹或者文件的用途</p>
+
+<blockquote><p>/usr/local/nagios/libexec 是nagios插件存放的位置， nagios配置中有个USER1指的就是这个文件夹的路径<br/>
+/etc/nagios/nagios.cfg 是nagios的主配置文件，它会引用到很多其它的配置文件，比如下面说到的objects文件夹下的所有配置<br/>
+/etc/nagios/objects 文件夹里有可以配置命令的 commands.cfg 可以配置联系方式的 contacts.cfg<br/>
+/etc/nagios/servers 这是我需要的一个文件夹，用于配置需要监控的服务的，需要在 /etc/nagios/nagios.cfg里取消掉相应行的注释</p></blockquote>
+
+<h3>下面是我的安装配置过程</h3>
+
+<h4>安装依赖</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install libperl-dev libpng12-dev libgd2-xpm-dev build-essential php5-gd wget libgd2-xpm</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!-- more -->
+
+
+<h4>创建 nagios 用户， 和 nagcmd 用户组</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>adduser --system --no-create-home --disabled-login --group nagios
+</span><span class='line'>groupadd nagcmd
+</span><span class='line'>usermod -G nagcmd nagios
+</span><span class='line'>usermod -a -G nagcmd www-data</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>在一个临时文件夹下下载解压 nagios 源码以及插件源码， 最新的源码可以在 <a href="http://www.nagios.org/download/">nagios.org</a> 上找到</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp
+</span><span class='line'>mkdir nagios
+</span><span class='line'>cd nagios
+</span><span class='line'>wget http://jaist.dl.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.2/nagios-4.0.2.tar.gz
+</span><span class='line'>wget https://www.nagios-plugins.org/download/nagios-plugins-1.5.tar.gz
+</span><span class='line'>tar xvf nagios-3.4.4.tar.gz
+</span><span class='line'>tar xvf nagios-plugins-1.4.16.tar.gz</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>配置 nagios 源码并编译安装</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp/nagios/nagios-4.0.2
+</span><span class='line'>
+</span><span class='line'>./configure --prefix /usr/local/nagios \
+</span><span class='line'>--sysconfdir=/etc/nagios \
+</span><span class='line'>--with-nagios-user=nagios \
+</span><span class='line'>--with-nagios-group=nagios \
+</span><span class='line'>--with-command-user=nagios \
+</span><span class='line'>--with-command-group=nagcmd
+</span><span class='line'>
+</span><span class='line'>make all
+</span><span class='line'>make install
+</span><span class='line'>make install-config
+</span><span class='line'>make install-commandmode</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装参考文章，需要 make install-init 的， 但我发现4.0.2版的 init 脚本用不了， 弄了好久最后在<a href="http://blacks3pt3mb3r.wordpress.com/tag/etcinit-dnagios-20-cant-open-etcrc-dinit-dfunctions/">All the geeky things</a> 这个博客里找到了一个稍微修改就可以使用的脚本。将它放到 /etc/init.d/nagios 即可</p>
+
+<h4>设置网站登录密码，参考 <a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a></h4>
+
+<h4>设置nagios的log的存放位置</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir /var/log/nagios
+</span><span class='line'>touch /var/log/nagios/nagios.log
+</span><span class='line'>chown nagios:nagios /var/log/nagios
+</span><span class='line'>vi /etc/nagios/nagios.cfg # 修改nagios.log的路径</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>安装插件, 插件将被安装在 /usr/local/nagios/libexec 里面</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~/tmp/nagios/nagios-plugins-1.5
+</span><span class='line'>./configure --with-nagios-user=nagios --with-nagios-group=nagios
+</span><span class='line'>make && make install</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>测试nagios的配置，并设置开机启动</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/usr/local/nagios/bin/nagios -v /etc/nagios/nagios.cfg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果没有问题，会提示一切正常</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod +x /etc/init.d/nagios
+</span><span class='line'>update-rc.d -f nagios defaults</span></code></pre></td></tr></table></div></figure>
+
+
+<p>到这里，只需要 service nagios start 就可以启动nagios了。想要在网页上看到nagios，需要安装nginx 和 fcgi</p>
+
+<h4>安装 nginx &amp; fcgi</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install nginx
+</span><span class='line'>apt-get install spawn-fcgi fcgiwrap</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这时需要确认php-fpm监听的地址，从配置文件<code>/etc/php5/fpm/pool.d/www.conf</code>中可以找到, 假设为 <code>unix:/var/run/php5-fpm.sock</code><br/>
+还需要确认<code>/var/run/fcgiwrap.socket</code>是否存在，如果不存在则要另外找出这个socket的位置</p>
+
+<h4>配置 nginx 并启动</h4>
+
+<p>这里并不设置密码（不是必须，但一般都要设置，参考<a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a>）</p>
+
+<p>添加nginx配置</p>
+
+<figure class='code'><figcaption><span>/etc/nginx/sites-available/nagios </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>server {
+</span><span class='line'>        listen   9981;
+</span><span class='line'>        root /var/www/html;
+</span><span class='line'>        index index.html index.htm;
+</span><span class='line'>        server_name localhost;
+</span><span class='line'>        
+</span><span class='line'>        location /nagios {
+</span><span class='line'>                index index.php;
+</span><span class='line'>                alias /usr/local/nagios/share/;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        location ~ ^/nagios/(.*\.php)$ {
+</span><span class='line'>                alias /usr/local/nagios/share/$1;
+</span><span class='line'>                include /etc/nginx/fastcgi_params;
+</span><span class='line'>                fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>        }
+</span><span class='line'>
+</span><span class='line'>        location ~ \.cgi$ {
+</span><span class='line'>                root /usr/local/nagios/sbin/;
+</span><span class='line'>                rewrite ^/nagios/cgi-bin/(.*)\.cgi /$1.cgi break;
+</span><span class='line'>                fastcgi_param AUTH_USER $remote_user;
+</span><span class='line'>                fastcgi_param REMOTE_USER $remote_user;
+</span><span class='line'>                include /etc/nginx/fastcgi_params;
+</span><span class='line'>                fastcgi_pass unix:/var/run/fcgiwrap.socket;
+</span><span class='line'>        }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>启动nginx <code>service nginx start</code>, 这时打开 <a href="http://localhost:9981/nagios">http://localhost:9981/nagios</a> 应该可以看到打开监控网页了。</p>
+
+<h4>安装ganglia插件</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /usr/local/nagios/libexec/
+</span><span class='line'>touch check_ganglia.py
+</span><span class='line'>chown nagios:nagios check_ganglia.py
+</span><span class='line'>chmod +x check_ganglia.py
+</span><span class='line'>vi check_ganglia.py</span></code></pre></td></tr></table></div></figure>
+
+
+<p>贴下面代码</p>
+
+<figure class='code'><figcaption><span>/usr/local/nagios/libexec/check_ganglia.py </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="c">#!/usr/bin/env python</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">getopt</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">xml.parsers.expat</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">GParser</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span> <span class="o">=</span><span class="mi">0</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">inmetric</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">file</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">p</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">expat</span><span class="o">.</span><span class="n">ParserCreate</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">StartElementHandler</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">start_element</span>
+</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">EndElementHandler</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">end_element</span>
+</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">ParseFile</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Host/value not found&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">start_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;HOST&quot;</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">attrs</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">:</span>
+</span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">=</span><span class="mi">1</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">==</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;METRIC&quot;</span> <span class="ow">and</span> <span class="n">attrs</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">:</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">=</span><span class="n">attrs</span><span class="p">[</span><span class="s">&quot;VAL&quot;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">end_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;HOST&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">=</span><span class="mi">0</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">usage</span><span class="p">():</span>
+</span><span class='line'>  <span class="k">print</span> <span class="s">&quot;&quot;&quot;Usage: check_ganglia </span><span class="se">\</span>
+</span><span class='line'><span class="s">-h|--host= -m|--metric= -w|--warning= </span><span class="se">\</span>
+</span><span class='line'><span class="s">-c|--critical= [-s|--server=] [-p|--port=] &quot;&quot;&quot;</span>
+</span><span class='line'>  <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class='line'><span class="c">##############################################################</span>
+</span><span class='line'>  <span class="n">ganglia_host</span> <span class="o">=</span> <span class="s">&#39;127.0.0.1&#39;</span>
+</span><span class='line'>  <span class="n">ganglia_port</span> <span class="o">=</span> <span class="mi">8649</span>
+</span><span class='line'>  <span class="n">host</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>  <span class="n">metric</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>  <span class="n">warning</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>  <span class="n">critical</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">getopt</span><span class="o">.</span><span class="n">getopt</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
+</span><span class='line'>      <span class="s">&quot;h:m:w:c:s:p:&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="p">[</span><span class="s">&quot;host=&quot;</span><span class="p">,</span> <span class="s">&quot;metric=&quot;</span><span class="p">,</span> <span class="s">&quot;warning=&quot;</span><span class="p">,</span> <span class="s">&quot;critical=&quot;</span><span class="p">,</span> <span class="s">&quot;server=&quot;</span><span class="p">,</span> <span class="s">&quot;port=&quot;</span><span class="p">],</span>
+</span><span class='line'>      <span class="p">)</span>
+</span><span class='line'>  <span class="k">except</span> <span class="n">getopt</span><span class="o">.</span><span class="n">GetoptError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;check_gmond:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">usage</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-h&quot;</span><span class="p">,</span> <span class="s">&quot;--host&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">host</span> <span class="o">=</span> <span class="n">a</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-m&quot;</span><span class="p">,</span> <span class="s">&quot;--metric&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">metric</span> <span class="o">=</span> <span class="n">a</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-w&quot;</span><span class="p">,</span> <span class="s">&quot;--warning&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">warning</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-c&quot;</span><span class="p">,</span> <span class="s">&quot;--critical&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">critical</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-p&quot;</span><span class="p">,</span> <span class="s">&quot;--port&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">ganglia_port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-s&quot;</span><span class="p">,</span> <span class="s">&quot;--server&quot;</span><span class="p">):</span>
+</span><span class='line'>       <span class="n">ganglia_host</span> <span class="o">=</span> <span class="n">a</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">critical</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">warning</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">metric</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">host</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">usage</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ganglia_host</span><span class="p">,</span><span class="n">ganglia_port</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">parser</span> <span class="o">=</span> <span class="n">GParser</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">value</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s">&quot;r&quot;</span><span class="p">))</span>
+</span><span class='line'>    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;CHECKGANGLIA UNKNOWN: Error while getting value </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">critical</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;CHECKGANGLIA CRITICAL: </span><span class="si">%s</span><span class="s"> is </span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">elif</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">warning</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;CHECKGANGLIA WARNING: </span><span class="si">%s</span><span class="s"> is </span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;CHECKGANGLIA OK: </span><span class="si">%s</span><span class="s"> is </span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 <code>/etc/nagios/objects/commands.cfg</code> 添加上</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># check_ganglia
+</span><span class='line'>define command {
+</span><span class='line'>    command_name check_ganglia
+</span><span class='line'>    command_line $USER1$/check_ganglia.py -h $HOSTNAME$ -m $ARG1$ -w $ARG2$ -c $ARG3$
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>重启 nagios</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service nagios restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p>后面还需要配置nagios的service hosts hostgroups contacts， 这里不说了。have fun。</p>
+
+<h4>附带 /etc/init.d/nagios</h4>
+
+<figure class='code'><figcaption><span>nagios </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># pidfile: /var/nagios/nagios.pid
+</span><span class='line'>#
+</span><span class='line'>### BEGIN INIT INFO
+</span><span class='line'># Provides:      nagios
+</span><span class='line'># Required-Start:   $local_fs $syslog $network
+</span><span class='line'># Required-Stop:   $local_fs $syslog $network
+</span><span class='line'># Short-Description:   start and stop Nagios monitoring server
+</span><span class='line'># Description:      Nagios is is a service monitoring system
+</span><span class='line'>### END INIT INFO
+</span><span class='line'>
+</span><span class='line'># Source function library.
+</span><span class='line'># . /etc/rc.d/init.d/functions
+</span><span class='line'>. /lib/lsb/init-functions
+</span><span class='line'>
+</span><span class='line'>prefix="/usr/local/nagios"
+</span><span class='line'>exec_prefix="${prefix}"
+</span><span class='line'>exec="${exec_prefix}/bin/nagios"
+</span><span class='line'>prog="nagios"
+</span><span class='line'>config="/etc/nagios/nagios.cfg"
+</span><span class='line'>pidfile="${prefix}/var/nagios.lock"
+</span><span class='line'>user="nagios"
+</span><span class='line'>group="nagios"
+</span><span class='line'>checkconfig="false"
+</span><span class='line'>ramdiskdir="/var/nagios/ramcache"
+</span><span class='line'>
+</span><span class='line'>test -e /etc/sysconfig/$prog && . /etc/sysconfig/$prog
+</span><span class='line'>
+</span><span class='line'>lockfile=/var/lock/$prog
+</span><span class='line'>USE_RAMDISK=${USE_RAMDISK:-0}
+</span><span class='line'>
+</span><span class='line'>if test "$USE_RAMDISK" -ne 0 && test "$RAMDISK_SIZE"X != "X"; then
+</span><span class='line'>   ramdisk=`mount |grep "$ramdiskdir type tmpfs"`
+</span><span class='line'>   if [ "$ramdisk"X == "X" ]; then
+</span><span class='line'>      mkdir -p -m 0755 $ramdiskdir
+</span><span class='line'>      mount -t tmpfs -o size=${RAMDISK_SIZE}m tmpfs $ramdiskdir
+</span><span class='line'>      mkdir -p -m 0755 $ramdiskdir/checkresults
+</span><span class='line'>      chown -R $user:$group $ramdiskdir
+</span><span class='line'>   fi
+</span><span class='line'>fi
+</span><span class='line'>
+</span><span class='line'>check_config() {
+</span><span class='line'>   TMPFILE="/tmp/.configtest.$$"
+</span><span class='line'>   /usr/sbin/service nagios configtest > "$TMPFILE"
+</span><span class='line'>   WARN=`grep ^"Total Warnings:" "$TMPFILE" |awk -F: '{print \$2}' |sed s/' '//g`
+</span><span class='line'>   ERR=`grep ^"Total Errors:" "$TMPFILE" |awk -F: '{print \$2}' |sed s/' '//g`
+</span><span class='line'>
+</span><span class='line'>   if test "$WARN" = "0" && test "${ERR}" = "0"; then
+</span><span class='line'>      echo "OK - Configuration check verified" > /var/run/nagios.configtest
+</span><span class='line'>      chmod 0644 /var/run/nagios.configtest
+</span><span class='line'>      /bin/rm "$TMPFILE"
+</span><span class='line'>   return 0
+</span><span class='line'>   else
+</span><span class='line'>      # We'll write out the errors to a file we can have a
+</span><span class='line'>      # script watching for
+</span><span class='line'>      echo "WARNING: Errors in config files - see log for details: $TMPFILE" > /var/run/nagios.configtest
+</span><span class='line'>      egrep -i "(^warning|^error)" "$TMPFILE" >> /var/run/nagios.configtest
+</span><span class='line'>      chmod 0644 /var/run/nagios.configtest
+</span><span class='line'>      cat "$TMPFILE"
+</span><span class='line'>   exit 8
+</span><span class='line'>   fi
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>start() {
+</span><span class='line'>   test -x $exec || exit 5
+</span><span class='line'>   test -f $config || exit 6
+</span><span class='line'>   if test "$checkconfig" = "false"; then
+</span><span class='line'>      check_config
+</span><span class='line'>   fi
+</span><span class='line'>   echo -n $"Starting $prog: "
+</span><span class='line'>   # We need to _make sure_ the precache is there and verified
+</span><span class='line'>   # Raise priority to make it run better
+</span><span class='line'>   daemon --user=$user -- $exec -d $config
+</span><span class='line'>   #touch $lockfile
+</span><span class='line'>   retval=$?
+</span><span class='line'>   echo
+</span><span class='line'>   test $retval -eq 0 && touch $lockfile
+</span><span class='line'>   return $retval
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>stop() {
+</span><span class='line'>   echo -n $"Stopping $prog: "
+</span><span class='line'>   killproc -p ${pidfile}  $exec
+</span><span class='line'>   retval=$?
+</span><span class='line'>   echo
+</span><span class='line'>   test $retval -eq 0 && rm -f $lockfile
+</span><span class='line'>   return $retval
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>restart() {
+</span><span class='line'>   check_config
+</span><span class='line'>   checkconfig="true"
+</span><span class='line'>   stop
+</span><span class='line'>   start
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>reload() {
+</span><span class='line'>   echo -n $"Reloading $prog: "
+</span><span class='line'>   killproc -p ${pidfile} $exec -HUP
+</span><span class='line'>   RETVAL=$?
+</span><span class='line'>   echo
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>force_reload() {
+</span><span class='line'>   restart
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>case "$1" in
+</span><span class='line'>   start)
+</span><span class='line'>      status_of_proc $prog && exit 0
+</span><span class='line'>      $1
+</span><span class='line'>      ;;
+</span><span class='line'>   stop)
+</span><span class='line'>      status_of_proc $prog|| exit 0
+</span><span class='line'>      $1
+</span><span class='line'>      ;;
+</span><span class='line'>   restart)
+</span><span class='line'>      $1
+</span><span class='line'>      ;;
+</span><span class='line'>   reload)
+</span><span class='line'>      status_of_proc $prog || exit 7
+</span><span class='line'>      $1
+</span><span class='line'>      ;;
+</span><span class='line'>   force-reload)
+</span><span class='line'>      force_reload
+</span><span class='line'>      ;;
+</span><span class='line'>   status)
+</span><span class='line'>      status_of_proc $prog
+</span><span class='line'>      ;;
+</span><span class='line'>   condrestart|try-restart)
+</span><span class='line'>      status_of_proc $prog|| exit 0
+</span><span class='line'>      restart
+</span><span class='line'>      ;;
+</span><span class='line'>   configtest)
+</span><span class='line'>      $nice su -s /bin/bash - nagios -c "$corelimit >/dev/null 2>&1 ; $exec -vp $config"
+</span><span class='line'>      RETVAL=$?
+</span><span class='line'>      ;;
+</span><span class='line'>   *)
+</span><span class='line'>      echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"
+</span><span class='line'>      exit 2
+</span><span class='line'>esac
+</span><span class='line'>exit $?</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[UIScrollView 和 Swipe 手势的识别问题]]></title>
+    <link href="http://dijkst.github.io/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti/"/>
+    <updated>2013-09-04T15:40:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti</id>
+    <content type="html"><![CDATA[<p>UIScrollView 用得相当普遍，衍生出来的 UITableView 也用得不少。最近有人问我，当给 UIScrollView 加上左右滑动手势 UISwipeGesture 时，感觉好难滑动，必须要很平的左右划才会触发 Swipe，否则都是触发 UIScrollView 的滚动事件。</p>
+
+<p>这时候，我们会想到，不需要那么水平的滑动就好了，例如以滑动45度为分割线，滑动轨迹与水平线夹角在正负45度，都认为是水平滑动，超过45度，就认为是垂直滚动。</p>
+
+<p>看上去好像可以做。那么我们就要拦截发送给 UIScrollView 的手势——重载 UIScrollView 的手势响应方法：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizerShouldBegin:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">gestureRecognizer</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIPanGestureRecognizer</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="p">[(</span><span class="n">UIPanGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="n">gestureRecognizer</span> <span class="nl">translationInView:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">((</span><span class="n">fabs</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">fabs</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">x</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 判断角度 tan(45),这里需要通过正负来判断手势方向</span>
+</span><span class='line'>            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;横向手势&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nl">gestureRecognizerShouldBegin:</span><span class="n">gestureRecognizer</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重载 UIScrollView，用这个新的对象，并且适当的调整其中的角度，来优化 APP 中的手势灵敏度。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS5 上 Gesture 和 UIButton 手势冲突解决方法]]></title>
+    <link href="http://dijkst.github.io/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa/"/>
+    <updated>2013-08-29T10:09:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa</id>
+    <content type="html"><![CDATA[<p>在一个 View 上面加一个 UIButton，指明一个 Action，很简单；在这个 View 上面加一个 Tap 手势，恩，也很简单。但是两者一起加，当我们点击 Button 时候，触发哪个呢？</p>
+
+<p>经过测试，当系统是 iOS5 及以下时，响应 Tap 手势；当系统是 iOS6 及以上时，响应 Button 事件！！</p>
+
+<p>那我们一般期望是什么行为呢？估计很多人都是想和 iOS6 那样，优先响应 Button 的事件。</p>
+
+<p>让 iOS5 及以下响应 Button 事件的方法：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizer:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="nf">shouldReceiveTouch:</span><span class="p">(</span><span class="n">UITouch</span> <span class="o">*</span><span class="p">)</span><span class="nv">touch</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Disallow recognition of tap gestures in the control.</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(([</span><span class="n">touch</span><span class="p">.</span><span class="n">view</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIControl</span> <span class="n">class</span><span class="p">]]))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nl">gestureRecognizer:</span><span class="n">gestureRecognizer</span> <span class="nl">shouldReceiveTouch:</span><span class="n">touch</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重载View，复写上面的方法即可。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[设置Ubuntu程序开机启动]]></title>
+    <link href="http://dijkst.github.io/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/"/>
+    <updated>2013-08-13T00:02:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong</id>
+    <content type="html"><![CDATA[<p>以前配置系统启动项都是拿来能用就行，对于其中规则一点都不熟悉，这两天恰好遇到几篇通俗易懂的介绍，受益匪浅。</p>
+
+<p>涉及到开机启动的配置文件在下面几个文件夹里：</p>
+
+<ul>
+<li>/etc/init.d 放着程序启动关闭重启的脚本</li>
+<li>/etc/rc(0-6).d里的文件都是/etc/init.d文件下的软链接，rc0.d rc1.d … 分别对应着linux不同的 <a href="http://wiki.ubuntu.org.cn/%E5%90%AF%E5%8A%A8#runlevel">runlevel</a></li>
+<li>/etc/default 里的文件添加一层控制是否启动某个程序的变量</li>
+</ul>
+
+
+<p>手工设置开机启动程序的步骤是这样的：</p>
+
+<ol>
+<li>在<code>/etc/init.d</code>里写一个启动脚本, 比如：some_program（启动脚本模板后面提供)</li>
+<li>使用 <code>sudo update-rc.d some_program defaults</code> 设置开机启动. 可以看到这个命令的工作是把 <code>/etc/init.d/some_program</code> 软链接到了 <code>/etc/rc(0-6).d</code> 里。</li>
+<li>现在重启系统, some_program 就会启动了。</li>
+</ol>
+
+
+<!-- more -->
+
+
+<p>很多程序安装好以后已经把启动脚本放在 <code>/etc/init.d</code> 里面了, 我们要启动它, 首先要试试：</p>
+
+<pre><code>sudo /etc/init.d/the_program start
+</code></pre>
+
+<p>如果提示正常则可以通过 <code>sudo update-rc.d the_program defaults</code> 来设置开机启动</p>
+
+<p>如果提示错误，很可能会提示 <code>/etc/default/the_program</code> 设置不让启动，需要修改一下 <code>/etc/default/the_program</code> 文件的配置。</p>
+
+<p>一些有用的命令：</p>
+
+<p>马上启动某个程序</p>
+
+<pre><code>sudo /etc/init.d/the_program start
+</code></pre>
+
+<p>马上停止某个程序</p>
+
+<pre><code>sudo /etc/init.d/the_program stop
+</code></pre>
+
+<p>设置某个已经设置过开机启动的程序不开机启动</p>
+
+<pre><code>sudo update-rc.d the_program disable
+</code></pre>
+
+<p>设置某个已经设置开机启动disable的程序开机启动</p>
+
+<pre><code>sudo update-rc.d the_program enable
+</code></pre>
+
+<p>init.d里面的脚本模板：（<a href="https://github.com/fhd/init-script-template">https://github.com/fhd/init-script-template</a>）</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/sh</span>
+</span><span class='line'><span class="c">### BEGIN INIT INFO</span>
+</span><span class='line'><span class="c"># Provides:         </span>
+</span><span class='line'><span class="c"># Required-Start:    $remote_fs $syslog</span>
+</span><span class='line'><span class="c"># Required-Stop:     $remote_fs $syslog</span>
+</span><span class='line'><span class="c"># Default-Start:     2 3 4 5</span>
+</span><span class='line'><span class="c"># Default-Stop:      0 1 6</span>
+</span><span class='line'><span class="c"># Short-Description: Start daemon at boot time</span>
+</span><span class='line'><span class="c"># Description:       Enable service provided by daemon.</span>
+</span><span class='line'><span class="c">### END INIT INFO</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'><span class="nv">user</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'><span class="nv">cmd</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">name</span><span class="o">=</span><span class="sb">`</span>basename <span class="nv">$0</span><span class="sb">`</span>
+</span><span class='line'><span class="nv">pid_file</span><span class="o">=</span><span class="s2">&quot;/var/run/$name.pid&quot;</span>
+</span><span class='line'><span class="nv">stdout_log</span><span class="o">=</span><span class="s2">&quot;/var/log/$name.log&quot;</span>
+</span><span class='line'><span class="nv">stderr_log</span><span class="o">=</span><span class="s2">&quot;/var/log/$name.err&quot;</span>
+</span><span class='line'>
+</span><span class='line'>get_pid<span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    cat <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>is_running<span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="o">[</span> -f <span class="s2">&quot;$pid_file&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> ps <span class="sb">`</span>get_pid<span class="sb">`</span> &gt; /dev/null 2&gt;&amp;1
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
+</span><span class='line'>    start<span class="o">)</span>
+</span><span class='line'>     <span class="k">if </span>is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Already started&quot;</span>
+</span><span class='line'>     <span class="k">else</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Starting $name&quot;</span>
+</span><span class='line'>         <span class="nb">cd</span> <span class="s2">&quot;$dir&quot;</span>
+</span><span class='line'>            sudo -u <span class="s2">&quot;$user&quot;</span> <span class="nv">$cmd</span> &gt; <span class="s2">&quot;$stdout_log&quot;</span> 2&gt; <span class="s2">&quot;$stderr_log&quot;</span> <span class="se">\</span>
+</span><span class='line'>          &amp; <span class="nb">echo</span> <span class="nv">$!</span> &gt; <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'>         <span class="k">if</span> ! is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">          </span><span class="nb">echo</span> <span class="s2">&quot;Unable to start, see $stdout_log and $stderr_log&quot;</span>
+</span><span class='line'>          <span class="nb">exit </span>1
+</span><span class='line'>         <span class="k">fi</span>
+</span><span class='line'><span class="k">     fi</span>
+</span><span class='line'>     ;;
+</span><span class='line'>    stop<span class="o">)</span>
+</span><span class='line'>     <span class="k">if </span>is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Stopping $name&quot;</span>
+</span><span class='line'>         <span class="nb">kill</span> <span class="sb">`</span>get_pid<span class="sb">`</span>
+</span><span class='line'>         rm <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'>     <span class="k">else</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Not running&quot;</span>
+</span><span class='line'>     <span class="k">fi</span>
+</span><span class='line'>     ;;
+</span><span class='line'>    restart<span class="o">)</span>
+</span><span class='line'>     <span class="nv">$0</span> stop
+</span><span class='line'>     <span class="nv">$0</span> start
+</span><span class='line'>     ;;
+</span><span class='line'>    status<span class="o">)</span>
+</span><span class='line'>     <span class="k">if </span>is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Running&quot;</span>
+</span><span class='line'>     <span class="k">else</span>
+</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Stopped&quot;</span>
+</span><span class='line'>         <span class="nb">exit </span>1
+</span><span class='line'>     <span class="k">fi</span>
+</span><span class='line'>     ;;
+</span><span class='line'>    *<span class="o">)</span>
+</span><span class='line'>     <span class="nb">echo</span> <span class="s2">&quot;Usage: $0 {start|stop|restart|status}&quot;</span>
+</span><span class='line'>     <span class="nb">exit </span>1
+</span><span class='line'>     ;;
+</span><span class='line'><span class="k">esac</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">exit </span>0
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[中国地图坐标偏移算法整理]]></title>
+    <link href="http://dijkst.github.io/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li/"/>
+    <updated>2013-08-09T15:04:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li</id>
+    <content type="html"><![CDATA[<p>最近被天朝的火星坐标搞得头昏脑胀的，真不知道这个所谓的火星坐标到底是防国外军事打击的呢，还是为难我们这些苦逼的开发人员的~真的能防止国外非法使用吗？难道美国国防部也用 Google 地图？？？</p>
+
+<p>暂且不考虑这个不是我等草民能考虑的问题，先看看如何解决这种火星坐标导致的地图坐标不匹配的问题~</p>
+
+<p>首先，在天朝，所有的坐标都必须经过国家测绘局进行偏移，这里的坐标，包括某个景点的坐标，甚至是整张地图的坐标（地图是由多个建筑、地形坐标构成）！！而偏移算法目前在正规渠道来说是保密的，根据小伙伴们的观察，偏移量是不一定的，我就在想，一个正方形的建筑，经过这种偏移，会不会偏出一个梯形出来…………</p>
+
+<p>既然地图是偏移的，并非真实的地图，那么我们往地图上面标注景点或者建筑的时候，甚至标注用户当前位置时，就不能直接用 GPS 输出的真实值，而是得将 GPS 坐标也进行相同算法的偏移，然后放在地图上就感觉没偏移了——大家一起做漂移~</p>
+
+<p>所以市面上，就出现了一种现象，水货的 GPS 设备（有的手机也是），做定位的时候输出真实值，而中国市面上的地图，例如 Google 地图、百度地图等，都是必须遵守国家测绘局规定进行偏移的。所以出现了定位不准的问题。而行货 GPS 设备，由于是正规渠道，里面内置了偏移芯片，所以输出的定位坐标是偏移过的，放在 Google 地图上面就正常了！</p>
+
+<!-- more -->
+
+
+<p>其实，从正常的方式使用，例如买行货，用 Google、百度地图等，都是没偏移问题。如果遇到需要收集景点的坐标，也得用行货 GPS 设备，那么皆大欢喜！然而，有一个悲剧的问题发生了——香港、澳门不属于大陆，Google 还是采用真实的地图，而百度认为是中国，所以采用偏移的地图，这样就混乱了——同一个香港坐标，在百度和 Google 里面看到的差距很大~</p>
+
+<p>当然咯，最好的办法是，在香港和澳门收集坐标的时候，两套坐标都收集……可是事实上，我们经常没办法弄到……</p>
+
+<p>这时候就需要转换算法，将两种坐标算法进行互相转换——更悲剧的是，这个算法，真实坐标->火星坐标是保密的，火星坐标->真实坐标是不可逆的！！！</p>
+
+<p>不过，网络上，不知道从哪里出来了一套算法，我试了一下，还挺准的~</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">// Krasovsky 1940</span>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">// a = 6378245.0, 1/f = 298.3</span>
+</span><span class='line'><span class="c1">// b = a * (1 - f)</span>
+</span><span class='line'><span class="c1">// ee = (a^2 - b^2) / a^2;</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">double</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">6378245.0</span><span class="p">;</span>
+</span><span class='line'><span class="k">const</span> <span class="kt">double</span> <span class="n">ee</span> <span class="o">=</span> <span class="mf">0.00669342162296594323</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//</span>
+</span><span class='line'><span class="c1">// World Geodetic System ==&gt; Mars Geodetic System</span>
+</span><span class='line'><span class="kt">BOOL</span> <span class="nf">outOfChina</span><span class="p">(</span><span class="n">CLLocationCoordinate2D</span> <span class="n">coordinate</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span> <span class="o">&lt;</span> <span class="mf">72.004</span> <span class="o">||</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span> <span class="o">&gt;</span> <span class="mf">137.8347</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span> <span class="o">&lt;</span> <span class="mf">0.8293</span> <span class="o">||</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span> <span class="o">&gt;</span> <span class="mf">55.8271</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">double</span> <span class="nf">transformLat</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="mf">100.0</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">6.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mf">40.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">160.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="mf">12.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mi">320</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">M_PI</span> <span class="o">/</span> <span class="mf">30.0</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">static</span> <span class="kt">double</span> <span class="nf">transformLon</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">ret</span> <span class="o">=</span> <span class="mf">300.0</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">6.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">20.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mf">40.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ret</span> <span class="o">+=</span> <span class="p">(</span><span class="mf">150.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">12.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">)</span> <span class="o">+</span> <span class="mf">300.0</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">30.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 地球坐标系 (WGS-84) -&gt; 火星坐标系 (GCJ-02)</span>
+</span><span class='line'><span class="n">CLLocationCoordinate2D</span> <span class="nf">wgs2gcj</span><span class="p">(</span><span class="n">CLLocationCoordinate2D</span> <span class="n">coordinate</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">outOfChina</span><span class="p">(</span><span class="n">coordinate</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">coordinate</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">wgLat</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">wgLon</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">dLat</span> <span class="o">=</span> <span class="n">transformLat</span><span class="p">(</span><span class="n">wgLon</span> <span class="o">-</span> <span class="mf">105.0</span><span class="p">,</span> <span class="n">wgLat</span> <span class="o">-</span> <span class="mf">35.0</span><span class="p">);</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">dLon</span> <span class="o">=</span> <span class="n">transformLon</span><span class="p">(</span><span class="n">wgLon</span> <span class="o">-</span> <span class="mf">105.0</span><span class="p">,</span> <span class="n">wgLat</span> <span class="o">-</span> <span class="mf">35.0</span><span class="p">);</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">radLat</span> <span class="o">=</span> <span class="n">wgLat</span> <span class="o">/</span> <span class="mf">180.0</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">magic</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">radLat</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">magic</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ee</span> <span class="o">*</span> <span class="n">magic</span> <span class="o">*</span> <span class="n">magic</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">sqrtMagic</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">magic</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">dLat</span> <span class="o">=</span> <span class="p">(</span><span class="n">dLat</span> <span class="o">*</span> <span class="mf">180.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ee</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">magic</span> <span class="o">*</span> <span class="n">sqrtMagic</span><span class="p">)</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">dLon</span> <span class="o">=</span> <span class="p">(</span><span class="n">dLon</span> <span class="o">*</span> <span class="mf">180.0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">sqrtMagic</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">radLat</span><span class="p">)</span> <span class="o">*</span> <span class="n">M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">CLLocationCoordinate2DMake</span><span class="p">(</span><span class="n">wgLat</span> <span class="o">+</span> <span class="n">dLat</span><span class="p">,</span> <span class="n">wgLon</span> <span class="o">+</span> <span class="n">dLon</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 地球坐标系 (WGS-84) &lt;- 火星坐标系 (GCJ-02)</span>
+</span><span class='line'><span class="n">CLLocationCoordinate2D</span> <span class="nf">gcj2wgs</span><span class="p">(</span><span class="n">CLLocationCoordinate2D</span> <span class="n">coordinate</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">outOfChina</span><span class="p">(</span><span class="n">coordinate</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">coordinate</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">CLLocationCoordinate2D</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">wgs2gcj</span><span class="p">(</span><span class="n">coordinate</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">CLLocationCoordinate2DMake</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span> <span class="o">-</span> <span class="n">c2</span><span class="p">.</span><span class="n">latitude</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span> <span class="o">-</span> <span class="n">c2</span><span class="p">.</span><span class="n">longitude</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">const</span> <span class="kt">double</span> <span class="n">x_M_PI</span> <span class="o">=</span> <span class="n">M_PI</span> <span class="o">*</span> <span class="mf">3000.0</span> <span class="o">/</span> <span class="mf">180.0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 火星坐标系 (GCJ-02) -&gt; 百度坐标系 (BD-09)</span>
+</span><span class='line'><span class="n">CLLocationCoordinate2D</span> <span class="nf">bd_encrypt</span><span class="p">(</span><span class="n">CLLocationCoordinate2D</span> <span class="n">coordinate</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">z</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.00002</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">x_M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.000003</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x_M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">CLLocationCoordinate2DMake</span><span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.006</span><span class="p">,</span> <span class="n">z</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.0065</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 火星坐标系 (GCJ-02) &lt;- 百度坐标系 (BD-09)</span>
+</span><span class='line'><span class="n">CLLocationCoordinate2D</span> <span class="nf">bd_decrypt</span><span class="p">(</span><span class="n">CLLocationCoordinate2D</span> <span class="n">coordinate</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span> <span class="o">-</span> <span class="mf">0.0065</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span> <span class="o">-</span> <span class="mf">0.006</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">z</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.00002</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">x_M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="kt">double</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.000003</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x_M_PI</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">CLLocationCoordinate2DMake</span><span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">z</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">));</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>百度坐标系是在火星坐标系上进行二次加密，所以当从真实坐标转换到百度坐标时，需要先转换为火星坐标，再转换为百度坐标。</p>
+
+<p>火星坐标转换为真实坐标是大概值，因为算法本身是不可逆的！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Adobe CS6 官方简体中文原版下载收集]]></title>
+    <link href="http://dijkst.github.io/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/"/>
+    <updated>2013-08-09T13:08:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji</id>
+    <content type="html"><![CDATA[<p>不知道为啥，Adobe 官方下载的时候没有中文的选择？例如下载 PS 的地址：<a href="http://www.adobe.com/cfusion/tdrc/index.cfm?product=photoshop&amp;loc=cn">http://www.adobe.com/cfusion/tdrc/index.cfm?product=photoshop&amp;loc=cn</a>，只能选择英文……</p>
+
+<p>上网找了一下，官方是有中文版本下载的，只是不知道什么原因不显示……这里整理一下：</p>
+
+<p>Adobe Creative Suite 6 分为 <code>Design Standard</code>、<code>Design &amp; Web Premium</code>、<code>Production Premium</code>、<code>Master Collection</code> 四个版本，其实说白了，就是各种独立软件的打包……</p>
+
+<p>根据<a href="http://www.adobe.com/cn/products/creativesuite/buying-guide.html">官方说明</a>，可以看到下面这个表：</p>
+
+<!-- more -->
+
+
+<p><img src="http://dijkst.github.io/images/post/2013-08-09-adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/1.jpg"></p>
+
+<p>可以看出，Desgin &amp; Web Premium 是为图形设计师准备的，Production Premium 是为产品设计师准备的，Master Collection 是完整打包…… 不过疑惑的是，Master Collection 没有简体中文版~</p>
+
+<h3>下载地址</h3>
+
+<ol>
+<li>前往 <a href="http://www.adobe.com/cn/">http://www.adobe.com/cn/</a> 注册Adobe ID，如果已注册，忽略此步骤；</li>
+<li>下载任意一个 Adobe 产品的试用版<a href="http://www.adobe.com/cn/downloads/">http://www.adobe.com/cn/downloads</a>（只要点击下载按钮，弹出文件保存对话框，然后取消。获得session cookie即可）</li>
+<li>使用浏览器自带下载功能下载软件或者用迅雷离线下载均可。</li>
+</ol>
+
+
+<h5>套件下载地址</h5>
+
+<ul>
+<li><p>Adobe Creative Suite 6 Design Standard 简体中文版（设计标准版）制作具有感染力的印刷设计和数字出版物，完整版价格：9248元。<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DSGN/CS6/win32/DesignStandard_CS6_LS3.7z">DesignStandard_CS6_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DSGN/CS6/osx10/DesignStandard_CS6_LS3.dmg">DesignStandard_CS6_LS3.dmg</a></p></li>
+<li><p>Adobe Creative Suite 6 Design &amp; Web Premium 简体中文版（设计与网络高级版）为印刷、网络、平板电脑和智能手机提供创新理念，完整版价格：13516元。<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/WEBB/CS6/win32/WebPremium_LCS6_S3.7z">WebPremium_CS6_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/WEBB/CS6/osx10/WebPremium_CS6_LS3.dmg">WebPremium_CS6_LS3.dmg</a></p></li>
+<li><p>Adobe Creative Suite 6 Production Premium（产品高级版）完整版价格16895元。<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STVD/CS6/win32/ProductionPremium_LCS6_S7.7z">ProductionPremium_CS6_LS7.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STVD/CS6/osx10/ProductionPremium_CS6_LS7.dmg">ProductionPremium_CS6_LS7.dmg</a></p></li>
+<li><p>Adobe Creative Suite 6 Master Collection 繁体中文版（大师典藏版）：完整版价格23120元。<br/>
+(其中繁体版的Illustrator无法在简体系统打开，暂时没有找到解决方法，虽然用NTLEA可以正常运行，但是不是长远之道。需要用到的话，下载个AI简体中文版覆盖安装下试试看。)<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STAM/CS6/win32/MasterCollection_LCS6_S3.7z">MasterCollection_CS6_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/STAM/CS6/osx10/MasterCollection_CS6_LS3.dmg">MasterCollection_CS6_LS3.dmg</a></p></li>
+<li><p>Adobe After Effects CS6<br/>
+下载地址：<a href="http://trials2.stage.adobe.com/AdobeProducts/AEFT/11/win64/AfterEffects_11_LS7.7z">AfterEffects_11_LS7.7z</a></p></li>
+</ul>
+
+
+<h5>单独软件下载地址</h5>
+
+<ul>
+<li><p>Adobe Photoshop CS6 Extended x86 x64- 运用专业级标准创作出具有震撼力的图像，格完整版价：4980元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PHSP/13/win32/PhotoshopL_13_S3.7z">Photoshop_13_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PHSP/13/win32/Photoshop_13_LS3.dmg">Photoshop_13_LS3.dmg</a></p></li>
+<li><p>Adobe Dreamweaver CS6 &ndash; 设计、开发和维护标准型网站和应用程序，格完整版价：2846元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DRWV/12/win32/Dreamweaver_S12_L3.exe">Dreamweaver_12_LS3.exe</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/DRWV/12/win32/Dreamweaver_12_LS3.dmg">Dreamweaver_12_LS3.dmg</a></p></li>
+<li><p>Adobe Fireworks CS6- 弹指间就能设计最精美的网站和移动应用程序，格完整版价：2135元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FWKS/12/win32/Fireworks_S12_L3.exe">Fireworks_12_LS3.exe</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FWKS/12/win32/Fireworks_12_LS3.dmg">Fireworks_12_LS3.dmg</a></p></li>
+<li><p>Adobe Flash Professional CS6- 在设备中创建并发布丰富多彩的创意，格完整版价：4980元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FLPR/12/win32/FlashPro_S12_L3.exe">FlashPro_12_LS3.exe</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/FLPR/12/win32/FlashPro_12_LS3.dmg">FlashPro_12_LS3.dmg</a></p></li>
+<li><p>Adobe Illustrator CS6 &ndash; 使用基本的矢量工具探索新途径，格完整版价：4269元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/ILST/16/win32/IllustratorL_16_S3.7z">Illustrator_16_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/ILST/16/win32/Illustrator_16_LS3.dmg">Illustrator_16_LS3.dmg</a></p></li>
+<li><p>Adobe InDesign CS6 &ndash; 为印刷和数字出版设计专业页面版面，格完整版价：4980元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/IDSN/8/win32/InDesigLn_8_S3.7z">InDesign_8_LS3.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/IDSN/8/win32/InDesign_8_LS3.dmg">InDesign_8_LS3.dmg</a></p></li>
+<li><p>Adobe Premiere Pro CS6 &ndash; 预订购按您需要的方式编辑，格完整版价：7114元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PPRO/6/win32/PremierePrLo_6_S7.7z">PremierePro_6_LS7.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/PPRO/6/osx10/PremierePro_6_LS7.dmg">PremierePro_6_LS7.dmg</a></p></li>
+<li><p>Adobe After Effects CS6 &ndash; 自由发挥想象力，创建动态图像，格完整版价：8892元<br/>
+Windows 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/AEFT/11/win64/AfterEffectsL_11_S7.7z">AfterEffects_11_LS7.7z</a><br/>
+MAC 版：<a href="http://trials2.stage.adobe.com/AdobeProducts/AEFT/11/win64/AfterEffects_11_LS7.dmg">AfterEffects_11_LS7.dmg</a></p></li>
+</ul>
+
+
+<h5>其他工具</h5>
+
+<p><a href="http://www.adobe.com/support/contact/cscleanertool.html">Adobe Cleaner Tool</a>
+用于清除 Adobe Creative Cloud, Adobe Creative Suite 6, Adobe Creative Suite 5 &ndash; 5.5, Adobe Creative Suite 4, Adobe Creative Suite 3 安装信息。</p>
+
+<h3>破解方法</h3>
+
+<p>破解文件：<br/>
+Windows 版：<a href="http://dijkst.github.io/media/2013-08-09-adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/CS6WindowsPatch.zip">CS6WindowsPatch.zip</a><br/>
+MAC 版：<a href="http://dijkst.github.io/media/2013-08-09-adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/amtlib.framework.zip">amtlib.framework.zip</a></p>
+
+<ul>
+<li><span class="fluo">安装时断开网络 </span>，输入序列号：<br/>
+<code>1325-0949-2080-9819-3777-3230</code><br/>
+<code>1325-0160-5283-9851-2671-8951</code><br/>
+<span class="fluo">请勿选择试用，选择试用将会导致Encore组件无法使用！</span></li>
+<li>套装安装后<span class="fluo">先运行一次PS </span>，否则PS不是Extended版。</li>
+<li>覆盖相应的文件，x86对应32位文件，x64对应64位文件，Acrobat 需要单独替换。分不清文件版本的，只要看文件大小差不多的，覆盖就可以了。</li>
+</ul>
+
+
+<p>已经选择了试用，导致<code>Encore</code>组件无法使用的话，将<code>Encore</code>的<code>amtlib.dll</code>换回原版，然后运行 <code>Encore</code> ，会要求输入序列号，输入后，再换回破解的<code>amtlib.dll</code>即可。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用rsync同步不同机器上的文件]]></title>
+    <link href="http://dijkst.github.io/blog/2013/08/01/shi-yong-rsynctong-bu-bu-tong-ji-qi-shang-de-wen-jian/"/>
+    <updated>2013-08-01T16:28:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/08/01/shi-yong-rsynctong-bu-bu-tong-ji-qi-shang-de-wen-jian</id>
+    <content type="html"><![CDATA[<p>实验系统：Ubuntu</p>
+
+<p>我根据文章<a href="http://waiting.iteye.com/blog/643171">rsync 简明教程</a>试验成功后，发现Ubuntu自带有启动rsync守护程序的功能，于是决定使用Ubuntu自带的开机启动rsync方式，查看<code>/etc/init.d/rsync</code>里的代码可以知道它指定了rsync配置文件的路径：<code>/etc/rsyncd.conf</code>，如果没有这个路径，rsync daemon不会启动。</p>
+
+<p>于是创建一个/etc/rsyncd.conf 在里面填上：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>uid = root
+</span><span class='line'>gid = root
+</span><span class='line'>use chroot = yes
+</span><span class='line'>max connections = 10
+</span><span class='line'>syslog facility = local5
+</span><span class='line'>pid file = /var/run/rsyncd.pid
+</span><span class='line'>log file = /var/log/rsyncd.log
+</span><span class='line'>
+</span><span class='line'>[rsyncsrc]
+</span><span class='line'>        path = /home/vagrant/rsyncsrc
+</span><span class='line'>        list = yes
+</span><span class='line'>        ignore errors = yes
+</span><span class='line'>        auth users = admin
+</span><span class='line'>        secrets file = /etc/rsync/rsync.secrets
+</span><span class='line'>        comment = test rsync source</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的参数中，我对<code>use chroot</code>印象比较深刻，如果<code>use chroot</code> 指定为true，那么rsync在传输文件以前首先chroot到path参数所指定的目录下。这样做的原因是实现额外的安全保护，缺点是需要root权限，并且不能备份指向外部的符号连接所指向的目录文件。默认为true(摘抄来的)</p>
+
+<!-- more -->
+
+
+<p>根据配置文件中写的路径，我创建一个权限600 <code>/etc/rsync/rsync.secrets</code>, 并填上：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>admin:whoisyou</span></code></pre></td></tr></table></div></figure>
+
+
+<p>要通过init.d启动rsync，还需要把<code>/etc/default/rsync</code>里的</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>RSYNC_ENABLE=false</span></code></pre></td></tr></table></div></figure>
+
+
+<p>改为</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>RSYNC_ENABLE=true</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>至于/etc/default这个文件夹的用处在super user 上找到的解释是：</p>
+
+<blockquote><p>The files in this dir basically contains configuration parameters. For example, if you have a service at /etc/init.d/test, the script first look at /etc/default/test before starting/stopping the test service, searching for config parameters.</p></blockquote>
+
+<p>改完后通过命令 <code>/etc/init.d/rsync start</code> 启动即可 （以后重启会自动启动）</p>
+
+<p>上面是服务器端的配置</p>
+
+<p>===</p>
+
+<p>下面是客户端：</p>
+
+<p>首先建立一个权限600的密码文件，如~/rsync.pas 里面填上：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>whoisyou</span></code></pre></td></tr></table></div></figure>
+
+
+<p>输入命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rsync -azh --password-file=~/rsync.pas admin@127.0.0.1::rsyncsrc ~/target/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我是在本机试验的，所以填127.0.0.1</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 drawInRect 绘图时丢失清晰度解决方法]]></title>
+    <link href="http://dijkst.github.io/blog/2013/07/24/shi-yong-drawinrect-hui-tu-shi-diu-shi-qing-xi-du-jie-jue-fang-fa/"/>
+    <updated>2013-07-24T18:40:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/07/24/shi-yong-drawinrect-hui-tu-shi-diu-shi-qing-xi-du-jie-jue-fang-fa</id>
+    <content type="html"><![CDATA[<p>有一个小需求，就是需要动态修改一张图片上面的数字，当然不能事先准备那么多数字的图片，所以就需要动态的在一个图片上面画数字。</p>
+
+<p>需求很简单，我首先这么实现：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;assemble-a&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">UIGraphicsBeginImageContext</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
+</span><span class='line'><span class="p">[</span><span class="n">image</span> <span class="nl">drawInRect:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">)];</span>
+</span><span class='line'><span class="n">UIImage</span> <span class="o">*</span><span class="n">newImage</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+</span><span class='line'><span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>画出来的图怎么看都模糊，刚开始没在意，以为就是这样的……</p>
+
+<p>然后给美女设计师看效果，直接回了一句——怎么这么糊……</p>
+
+<!--more-->
+
+
+<p>额，好像确实是越看越糊……</p>
+
+<p>既然是模糊了，极有可能是 scale 没有对。凡事先问 Google，还真有同样的问题的：</p>
+
+<p><a href="http://stackoverflow.com/questions/14729021/drawinrect-losing-quality-of-image-resolution">drawInRect: losing Quality of Image resolution</a></p>
+
+<p>解决方法就是用</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">,</span> <span class="n">NO</span><span class="p">,</span> <span class="p">[[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">scale</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>代替</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">UIGraphicsBeginImageContext</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[让 XCode 静态库不需要使用者 link framework]]></title>
+    <link href="http://dijkst.github.io/blog/2013/07/18/rang-xcodejing-tai-ku-bu-xu-yao-shi-yong-zhe-link-framework/"/>
+    <updated>2013-07-18T20:06:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/07/18/rang-xcodejing-tai-ku-bu-xu-yao-shi-yong-zhe-link-framework</id>
+    <content type="html"><![CDATA[<p>有些情况下需要创建静态库给别人用，如果静态库里要引用很多 framework ，会给别人带来麻烦；特别是那些要设置为 optional 的 framework ，很容易导致在低版本系统上崩溃。</p>
+
+<p>一般情况下，静态库中大部分的 Objective-C framework 可以通过下面的方法来避免让使用者 link 。</p>
+
+<blockquote><p>首先，要测试一个 framework 是否已经被 link 到了程序中, 对于 Objective-C 的库可以通过<code>NSClassFromString</code>检测出来;<br/>
+如果那个 framework 没有被 link 进来，则使用<code>dlopen</code>加载 framework;<br/>
+使用 framework 中的类时，依然需要通过<code>NSClassFromString</code>。</p></blockquote>
+
+<p>整个过程所需的代码大致如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#include &lt;stdlib.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;dlfcn.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">NSClassFromString</span><span class="p">(</span><span class="s">@&quot;ASIdentifierManager&quot;</span><span class="p">)))</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">dlopen</span><span class="p">(</span><span class="s">&quot;/System/Library/Frameworks/AdSupport.framework/AdSupport&quot;</span><span class="p">,</span> <span class="n">RTLD_LOCAL</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">NSObject</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSClassFromString</span><span class="p">(</span><span class="s">@&quot;ASIdentifierManager&quot;</span><span class="p">)</span> <span class="nl">performSelector:</span><span class="n">NSSelectorFromString</span><span class="p">(</span><span class="s">@&quot;sharedManager&quot;</span><span class="p">)];</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">manager</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">manager</span> <span class="nl">performSelector:</span><span class="n">NSSelectorFromString</span><span class="p">(</span><span class="s">@&quot;advertisingIdentifier&quot;</span><span class="p">)];</span>
+</span><span class='line'>  <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于 Objective-C 的类，使用起来毫无压力，有时还需要使用到 framework 中的常量。如果用到的常量不多，可以在<code>dlopen</code>后马上把需要的常量导进来，供之后使用。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="kt">void</span> <span class="o">*</span><span class="n">handle</span> <span class="o">=</span> <span class="n">dlopen</span><span class="p">(</span><span class="s">&quot;core telephony framework path&quot;</span><span class="p">,</span> <span class="n">RTLD_LOCAL</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">_k_CTCallStateDialing</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="n">dlsym</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s">&quot;CTCallStateDialing&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>还有一些我也不知怎么导入，例如枚举值，对于系统的 framework 我对它的稳定性比较有信心。通过看代码可以看出枚举值，可以直接使用枚举值对应的整数</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 1 == MessageComposeResultSent</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="p">....</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[让 Rails 支持 Response 数据 GZip 压缩]]></title>
+    <link href="http://dijkst.github.io/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo/"/>
+    <updated>2013-07-18T18:46:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo</id>
+    <content type="html"><![CDATA[<p>做网络请求时，一直想用 GZip 对 JSON 进行压缩后传输，但是一直没空弄，听说不难。这两天试了一下，果然不难。</p>
+
+<p>在 Rails 项目根目录下的<code>config.ru</code>，加入<code>use Rack::Deflater</code>，如下：</p>
+
+<figure class='code'><figcaption><span>config.ru </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># This file is used by Rack-based servers to start the application.</span>
+</span><span class='line'><span class="nb">require</span> <span class="o">::</span><span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;../config/environment&#39;</span><span class="p">,</span>  <span class="bp">__FILE__</span><span class="p">)</span>
+</span><span class='line'><span class="n">use</span> <span class="ss">Rack</span><span class="p">:</span><span class="ss">:Deflater</span>
+</span><span class='line'><span class="n">run</span> <span class="ss">Wending</span><span class="p">:</span><span class="ss">:Application</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重启服务器即可。</p>
+
+<p>如何判断是否生效了？那就来个测试。</p>
+
+<!-- more -->
+
+
+<p>先看看没有 GZip 压缩是什么样子的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl http://localhost:4100/ <span class="c"># 域名和端口根据自己实际更改</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再看看使用了 GZip 压缩是什么样子的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl http://localhost:4100/ -H <span class="s2">&quot;Acc-Encoding: gzip, deflate&quot;</span> <span class="c"># 域名和端口根据自己实际更改</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们会看到采用了 GZip 后，输出的是乱码的，也不难看出，短了不少~这样就代表 GZip 设置成功了！</p>
+
+<p>那该怎么用呢？</p>
+
+<p>刚刚测试的时候其实都说明了：只需要在 request header 里面注明<code>Acc-Encoding: gzip, deflate</code>即可。其实说白了，是否用 GZip 压缩，还是客户端决定，客户端要非压缩的数据，服务器就给非压缩的数据；客户端要压缩的数据，服务器就给压缩的数据。默认当然是不压缩啦。</p>
+
+<p>那在 iOS 上该如何用呢？</p>
+
+<p>以 ASIHTTPRequest 为例：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIHTTPRequest</span> <span class="nl">requestWithURL:</span><span class="p">...];</span>
+</span><span class='line'><span class="p">[</span><span class="n">request</span> <span class="nl">setAllowCompressedResponse:</span><span class="n">YES</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>请求的时候设置<code>allowCompressedResponse</code>为<code>YES</code>即可。</p>
+
+<h5>可能遇到的问题：</h5>
+
+<p>如果服务器返回的不是 JSON 等数据，而是企图下载文件，且客户端依然请求 GZip，还是会被压缩（虽然这个压缩可能会越压越大）。强制不压缩，就是忽略那个 request header，可以这么做：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">check_update_data</span>
+</span><span class='line'>    <span class="n">send_file</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="ss">:x_sendfile</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">headers</span><span class="o">[</span><span class="s1">&#39;Content-Length&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">request</span><span class="o">.</span><span class="n">env</span><span class="o">[</span><span class="s1">&#39;HTTP_ACCEPT_ENCODING&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>将<code>HTTP_ACCEPT_ENCODING</code>设置为<code>nil</code>即可。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PCH 文件中进行全局 import 的注意事项]]></title>
+    <link href="http://dijkst.github.io/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang/"/>
+    <updated>2013-07-17T19:05:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang</id>
+    <content type="html"><![CDATA[<p>pch 文件可是个好东西，把常用的定义或者 import 放在 pch 中，这样在不用在项目中再引用和定义了，即可以做到全局 macro，又可以作为全局 import 用。</p>
+
+<p>然而最近在用 DTCoreText 和 ZipArchive 时，发现无论怎么调试，都无法编译通过，出现类似很多类名 not found，甚至是 NSString 都未找到！！</p>
+
+<p>后来研究了好久，原来这两个库有用 C 和 C++ 编译。而 pch 文件对于 C 的文件一样有效。试想一下，C 的代码引用 OC 的代码，会出现什么？当然是编译失败！</p>
+
+<p>问题找到了，如何让 C 的文件编译的时候不引用 OC 的代码呢？</p>
+
+<p>突然想起我们经常看到一个这个定义：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#ifdef __OBJC__
+</span><span class='line'>    #import &lt;UIKit/UIKit.h&gt;
+</span><span class='line'>    #import &lt;Foundation/Foundation.h&gt;
+</span><span class='line'>#endif</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看来这个<code>ifdef __OBJC__</code>就是用于判断是否是 OC 文件的！！我以前一直以为这个宏是判断项目是否用 OC 编译的！！当时还纳闷，啥时候会出现不用 OC 写 iOS 项目？</p>
+
+<p>因此，在原来的 pch 里面适当的将代码用这个<code>ifdef __OBJC__</code>包起来，就解决了 C 的文件引入 OC 代码的问题！！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[rootViewController 更改动画的注意事项]]></title>
+    <link href="http://dijkst.github.io/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang/"/>
+    <updated>2013-07-11T20:17:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang</id>
+    <content type="html"><![CDATA[<p><code>Window</code>的<code>rootViewController</code>属性在 iOS5 之后都期望被设置，因为旋转等原因，controller 控制 View 比自己控制 View 更安全。</p>
+
+<p>但是突然出现一个需求，需要更换主<code>Window</code>的<code>rootViewController</code>，那如何做<code>UIView</code>动画呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">transitionWithView:</span><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span>
+</span><span class='line'>                  <span class="nl">duration:</span><span class="mf">0.4</span>
+</span><span class='line'>                   <span class="nl">options:</span><span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>
+</span><span class='line'>                <span class="nl">animations:</span><span class="o">^</span><span class="p">{</span>
+</span><span class='line'>                    <span class="p">[[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span> <span class="nl">setRootViewController:</span><span class="n">vc</span><span class="p">];</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>                <span class="nl">completion:</span><span class="nb">NULL</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>咋看之下没啥问题，运行起来也没问题。能成功实现替换为新的<code>vc</code>。</p>
+
+<p>然后出现一个很诡异的问题——如果设备是横的，新的<code>vc</code>对应的<code>View</code>会有一个旋转的动画，导致动画混乱，甚至很奇怪的动画。</p>
+
+<p>刚开始以为是<code>vc.view</code>加载太慢，后来没解决。Google 了一下，发现有人解决了。将上面的代码改为：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">transitionWithView:</span><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span>
+</span><span class='line'>                  <span class="nl">duration:</span><span class="mf">0.4</span>
+</span><span class='line'>                   <span class="nl">options:</span><span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>
+</span><span class='line'>                <span class="nl">animations:</span><span class="o">^</span><span class="p">{</span>
+</span><span class='line'>                    <span class="kt">BOOL</span> <span class="n">oldState</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIView</span> <span class="n">areAnimationsEnabled</span><span class="p">];</span>
+</span><span class='line'>                    <span class="p">[</span><span class="n">UIView</span> <span class="nl">setAnimationsEnabled:</span><span class="n">NO</span><span class="p">];</span>
+</span><span class='line'>                    <span class="p">[[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span> <span class="nl">setRootViewController:</span><span class="n">vc</span><span class="p">];</span>
+</span><span class='line'>                    <span class="p">[</span><span class="n">UIView</span> <span class="nl">setAnimationsEnabled:</span><span class="n">oldState</span><span class="p">];</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>                <span class="nl">completion:</span><span class="nb">NULL</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用Uncrustify让iOS代码更漂亮]]></title>
+    <link href="http://dijkst.github.io/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/"/>
+    <updated>2013-07-07T12:12:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang</id>
+    <content type="html"><![CDATA[<p>Github project: <a href="https://github.com/dijkst/uncrustify-config-ios">uncrustify-config-ios</a></p>
+
+<!-- more -->
+
+
+<p>uncrustify config for iOS developer</p>
+
+<h2>What is it</h2>
+
+<p>Uncrustify make code format beautiful. It needs configrations, I couldn&rsquo;t find a good configuration for iOS developer on Objective-C.</p>
+
+<p>Here&rsquo;s a repo collecting pretty uncrustify config for iOS developer.</p>
+
+<p>You can distribute your configurations over pull request.</p>
+
+<h2>Requirements</h2>
+
+<ol>
+<li>Tested with Xcode 4.6+ (also works in Xcode 5) on OS X 10.7 or higher.</li>
+<li>Uncrustify 0.60 higher (0.60 has a bug for Objective-C block, so install master HEAD or higher in the future)</li>
+<li>BBUncrustifyPlugin-Xcode</li>
+</ol>
+
+
+<h2>Installation</h2>
+
+<ol>
+<li>using <a href="http://brew.sh/">HomeBrew</a> install Uncrustify</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install uncrustify --HEARD</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>install <a href="https://github.com/benoitsan/BBUncrustifyPlugin-Xcode/blob/master/README.md#installation">BBUncrustifyPlugin-Xcode</a></li>
+<li>clone this repo to <code>~/.uncrustify/</code> or other folder as <a href="https://github.com/benoitsan/BBUncrustifyPlugin-Xcode/blob/master/README.md#how-to-customize-the-uncrustify-configuration">BBUncrustifyPlugin-Xcode</a> said.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/dijkst/uncrustify-config-ios.git ~/.uncrustify</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Example</h2>
+
+<h4>align code:</h4>
+
+<p>before:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionEvictCommentInsertion</span> <span class="o">=</span> <span class="s">@&quot;evictCommentInsertion&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionSourceFilename</span> <span class="o">=</span> <span class="s">@&quot;sourceFilename&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionSupplementalConfigurationFolders</span> <span class="o">=</span> <span class="s">@&quot;supplementalConfigurationFolders&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>after:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionEvictCommentInsertion</span>            <span class="o">=</span> <span class="s">@&quot;evictCommentInsertion&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionSourceFilename</span>                   <span class="o">=</span> <span class="s">@&quot;sourceFilename&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionSupplementalConfigurationFolders</span> <span class="o">=</span> <span class="s">@&quot;supplementalConfigurationFolders&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>remove space:</h4>
+
+<p>before:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span><span class="p">(</span> <span class="kt">void</span> <span class="p">)</span><span class="nf">viewWillEnter</span> <span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>after:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillEnter</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>insert newline between methods</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">a</span> <span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">b</span><span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>after:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">a</span> <span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">b</span> <span class="p">{</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and so on.</p>
+
+<h2>License</h2>
+
+<p>uncrustify-config-ios is available under the MIT license.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用CocoaAsyncSocket发送TCP/UDP消息]]></title>
+    <link href="http://dijkst.github.io/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/"/>
+    <updated>2013-07-02T17:19:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi</id>
+    <content type="html"><![CDATA[<p>习惯上每次使用一个类库的功能，我第一时间想到的都是Google那个类库的使用例子。这不是一个好习惯，这次我下载了CocoaAsyncSocket的代码，找了好一阵没找到满意的例子。灰心丧气之余想到很多用到我写的代码的人们也是不看文档，不看注释的。他们给我带来了巨大的困扰，而我现在也不看别人的注释和文档，假如CocoaAsyncSocket的作者要为我服务的话，那他肯定也会吐血不止。</p>
+
+<p>于是，我决定自力更生，从代码注释里找找我需要功能的用法。</p>
+
+<p>我需要的功能是，用TCP或者UDP发送一些数据给服务器，不用关心服务器是否收到数据。</p>
+
+<p>下面例子，只是TCP的发送过程，UDP请自行看注释。</p>
+
+<!-- more -->
+
+
+<p>TCP连接发送过程中会出现的问题：</p>
+
+<blockquote><p>1，Host， 端口什么的可能是无意义的值，还没开始connect就已经失败了<br/>
+2，远程地址连不上，或者中途断线，算作connect失败<br/>
+3，我上面需要的功能只是发送数据，发送完就没事了，需要在发送完后断开连接</p></blockquote>
+
+<p>考虑完上面问题，得到的代码如下：</p>
+
+<figure class='code'><figcaption><span>tcp_sender.m </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &quot;GCDAsyncSocket.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#define kTCPSenderTag 123</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">TCPSender</span><span class="p">()</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">retain</span><span class="p">)</span> <span class="n">GCDAsyncSocket</span> <span class="o">*</span><span class="n">socket</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">TCPSender</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sendMessage:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">msg</span> <span class="nf">toHost:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">host</span> <span class="nf">port:</span><span class="p">(</span><span class="n">UInt16</span><span class="p">)</span><span class="nv">port</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">self</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithMessage:</span><span class="n">msg</span> <span class="nl">host:</span><span class="n">host</span> <span class="nl">port:</span><span class="n">port</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithMessage:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">msg</span> <span class="nf">host:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">host</span> <span class="nf">port:</span><span class="p">(</span><span class="n">UInt16</span><span class="p">)</span><span class="nv">port</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">msg</span> <span class="o">||</span> <span class="o">!</span><span class="n">host</span> <span class="o">||</span> <span class="o">!</span><span class="n">port</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="p">[</span><span class="n">self</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">GCDAsyncSocket</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithDelegate:</span><span class="n">self</span> <span class="nl">delegateQueue:</span><span class="n">dispatch_get_main_queue</span><span class="p">()]</span> <span class="n">autorelease</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="nl">connectToHost:</span><span class="n">host</span> <span class="nl">onPort:</span><span class="n">port</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>            <span class="p">[</span><span class="n">self</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'>            <span class="n">self</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">NSData</span> <span class="o">*</span><span class="n">msgData</span> <span class="o">=</span> <span class="p">[</span><span class="n">msg</span> <span class="nl">dataUsingEncoding:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+</span><span class='line'>            <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="nl">writeData:</span><span class="n">msgData</span> <span class="nl">withTimeout:</span><span class="mi">30</span> <span class="nl">tag:</span><span class="n">kTCPSenderTag</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="n">isConnected</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="n">disconnect</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">dealloc</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">socket:</span><span class="p">(</span><span class="n">GCDAsyncSocket</span> <span class="o">*</span><span class="p">)</span><span class="nv">sock</span> <span class="nf">didWriteDataWithTag:</span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="nv">tag</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="n">disconnect</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">socketDidDisconnect:</span><span class="p">(</span><span class="n">GCDAsyncSocket</span> <span class="o">*</span><span class="p">)</span><span class="nv">sock</span> <span class="nf">withError:</span><span class="p">(</span><span class="n">NSError</span> <span class="o">*</span><span class="p">)</span><span class="nv">err</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="n">release</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+</feed>

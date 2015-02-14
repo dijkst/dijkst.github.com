@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>推送技术(APNS)四——服务器 - 第九块石头</title>
+  <meta name="author" content="dijkst">
+
+  
+  <meta name="description" content="服务器有三件事要做： 发送消息
+处理异常消息
+收集卸载设备 发送消息 APNS服务器分为两种，sanbox（开发测试用）和production（上线服务器用）： sanbox: gateway.sandbox.push.apple.com:2195
+production: feedback. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://dijkst.github.io/blog/2013/05/18/tui-song-ji-zhu-apns-si-fu-wu-qi">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="第九块石头" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39546615-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">第九块石头</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:dijkst.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">推送技术(APNS)四——服务器</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-18T20:18:00+08:00" pubdate data-updated="true">May 18<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>服务器有三件事要做：</p>
+
+<ul>
+<li>发送消息</li>
+<li>处理异常消息</li>
+<li>收集卸载设备</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>发送消息</h3>
+
+<p>APNS服务器分为两种，sanbox（开发测试用）和production（上线服务器用）：</p>
+
+<ul>
+<li>sanbox:     <code>gateway.sandbox.push.apple.com</code>:2195</li>
+<li>production: <code>feedback.sandbox.push.apple.com</code>:2196</li>
+</ul>
+
+
+<p>自己的服务器和Apple的APNS通讯，有两种格式——简单格式与增强格式，推荐使用增强格式，能获取到异常消息ID。</p>
+
+<p>增强格式：</p>
+
+<p><img src="http://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Art/aps_binary_provider_2.jpg"></p>
+
+<p>从图中可以看出：</p>
+
+<ul>
+<li>可以对消息进行编号，在发送异常的时候，Apple将会返回异常的编号，供服务器后续处理</li>
+<li>可以设置过期时间，在时间超过后，用户还没满足接收条件，则这个消息将会被丢弃</li>
+<li>token长度貌似是固定的……</li>
+<li>消息内容不得超过256字节</li>
+<li>消息内容为JSON格式，可以为UTF8编码，也可以为Unicode编码，建议用UTF8，中文会大大减少长度</li>
+</ul>
+
+
+<blockquote><p>当发送成功，Apple不会返回任何信息<br/>
+当发送异常，Apple会返回错误信息，并关闭连接，这时候应该跳过错误的信息，重新连接，从错误信息后面继续发（Apple会忽略错误信息后面的信息，所以哪怕你信息已经发送过了，还得再发一次）</p></blockquote>
+
+<h3>处理异常</h3>
+
+<p>异常返回格式：</p>
+
+<p><img src="http://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Art/aps_binary_error.jpg"></p>
+
+<p>异常状态码：</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Status code  </th>
+<th> Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> 0 </td>
+<td> No errors encountered</td>
+</tr>
+<tr>
+<td></td>
+<td> 1 </td>
+<td> Processing error</td>
+</tr>
+<tr>
+<td></td>
+<td> 2 </td>
+<td> Missing device token</td>
+</tr>
+<tr>
+<td></td>
+<td> 3 </td>
+<td> Missing topic</td>
+</tr>
+<tr>
+<td></td>
+<td> 4 </td>
+<td> Missing payload</td>
+</tr>
+<tr>
+<td></td>
+<td> 5 </td>
+<td> Invalid token size</td>
+</tr>
+<tr>
+<td></td>
+<td> 6 </td>
+<td> Invalid topic size</td>
+</tr>
+<tr>
+<td></td>
+<td> 7 </td>
+<td> Invalid payload size</td>
+</tr>
+<tr>
+<td></td>
+<td> 8 </td>
+<td> Invalid token</td>
+</tr>
+<tr>
+<td></td>
+<td> 10 </td>
+<td> Shutdown</td>
+</tr>
+<tr>
+<td></td>
+<td> 255 </td>
+<td> None (unknown)</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>处理卸载</h3>
+
+<p>用户卸载了App，我们就不需要对该用户再发送，以免浪费带宽，拖慢发送速度。</p>
+
+<p>需要发起新的SSL连接到APNS获取卸载设备Token：</p>
+
+<ul>
+<li>sanbox: <code>feedback.sandbox.push.apple.com:2196</code></li>
+<li>production: <code>feedback.push.apple.com:2196</code></li>
+</ul>
+
+
+<p>格式：</p>
+
+<p><img src="http://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Art/aps_feedback_binary.jpg"></p>
+
+<h3>常见问题：</h3>
+
+<ol>
+<li>发送信息或者收集反馈时，提示<code>SSL_connect returned=1 errno=0 state=SSLv3 read server session ticket A: sslv3 alert certificate expired</code><br/>
+原因：证书过期<br/>
+解决方法：从Apple那里重新申请SSL证书，替换即可。不影响已经上线的App。</li>
+<li>发送信息过程中，突然出现<code>Write failed: Broken pipe</code><br/>
+原因：因为某种原因，例如发送了错误的token等，导致Apple强行关闭了SSL连接。<br/>
+解决方法：跳过最后一次发送的信息，重新连接，继续发送错误信息之后的信息。</li>
+<li>经常收不到<br/>
+原因：Apple不保证送达率<br/>
+解决方法：无</li>
+<li>可不可以只弹出气泡，没有文本显示？<br/>
+可以，aps节点里面不要有alert。扩展出去，甚至可以发送用户完全不知道的信息，用来触发App执行某种动作，或者触发APNS的feedback功能，从而收集卸载量</li>
+<li>Apple发送成功没有返回状态，会不会出现是异常但是异常信息还没返回的现象，从而导致逻辑混乱？<br/>
+会出现，因此可以采取分批发送，发送一批等1秒，来检查发送状态，不用每发一条检查一下。</li>
+<li>feedback会返回多久前的数据？<br/>
+从上次连接feedback服务器到当前之间的数据。每次连接后都会清空数据。</li>
+</ol>
+
+
+<p>官方参考文档:<a href="http://developer.apple.com/library/ios/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/CommunicatingWIthAPS.html">Provider Communication with Apple Push Notification Service</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dijkst</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-18T20:18:00+08:00" pubdate data-updated="true">May 18<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/17/tui-song-ji-zhu-apns-san-ke-hu-duan/" title="Previous Post: 推送技术(APNS)三——客户端">&laquo; 推送技术(APNS)三——客户端</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/20/arczhong-jing-que-de-dui-xiang-sheng-cun-qi/" title="Next Post: ARC中精确的对象生存期">ARC中精确的对象生存期 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><div id="disqus_thread"></div>
+<script type="text/javascript">
+var disqus_shortname = 'dijkst';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/">让 Xcode 增加多 SDK 支持</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/25/1314/">1314</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (2)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+</section>
+<section>
+  <h1>My APPs</h1>
+    <ul id="appstore-apps"><style type="text/css">
+.flip-container, .front, .back {
+	width: 120px;
+	height: 120px;
+}
+.flip-container {
+  -webkit-perspective: 1000;
+	-moz-perspective: 1000;
+	perspective: 1000;
+}
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+	-webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+.flipper {
+  -webkit-transition: 0.6s;
+	-webkit-transform-style: preserve-3d;
+
+	-moz-transition: 0.6s;
+	-moz-transform-style: preserve-3d;
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+.front, .back {
+  -webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.front {
+	z-index: 2;
+}
+.back {
+	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+}
+</style>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish' src='http://a1863.phobos.apple.com/us/r30/Purple2/v4/55/7d/c0/557dc03e-cd9c-ac75-e2a7-78242ea50c79/mzl.vpfmgtuy.png' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-sidetrip-wikish_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+Duckipedia - A Wikipedia Reader
+</p>
+</div>
+</div>
+</li>
+
+<li>
+<div align='center'>
+<div class="flip-container" ontouchstart='this.classList.toggle('hover');' style='margin-bottom: 10px'>
+<div class="flipper" style='text-align: center' align='center'>
+<div class='front'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd' src='http://a153.phobos.apple.com/us/r30/Purple2/v4/28/4f/82/284f823d-1ec5-d58c-e231-a39157e279f7/mzl.zlpotobi.png' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+<div class='back'>
+<a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
+  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+</a>
+</div>
+</div>
+</div>
+<div>
+<p style='text-align: center'>
+魔法灰姑娘
+</p>
+</div>
+</div>
+</li>
+</ul>
+</section>
+<section>
+  <h1>My Friends</h1>
+    <ul id="category-list">
+    	<li><a href="http://www.doruby.com">Square</a> <small>ruby & objc</small></li>
+    	<li><a href="http://manageyp.github.io">Henry</a> <small>You can do well, you must do well.</small></li>
+	</ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - dijkst -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'dijkst';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dijkst.github.io/blog/2013/05/18/tui-song-ji-zhu-apns-si-fu-wu-qi/';
+        var disqus_url = 'http://dijkst.github.io/blog/2013/05/18/tui-song-ji-zhu-apns-si-fu-wu-qi/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

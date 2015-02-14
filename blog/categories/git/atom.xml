@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Git | 第九块石头]]></title>
+  <link href="http://dijkst.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://dijkst.github.io/"/>
+  <updated>2014-09-29T18:01:19+08:00</updated>
+  <id>http://dijkst.github.io/</id>
+  <author>
+    <name><![CDATA[dijkst]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Git 同步远程 Tags]]></title>
+    <link href="http://dijkst.github.io/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/"/>
+    <updated>2014-02-10T11:35:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/02/10/git-tong-bu-yuan-cheng-tags</id>
+    <content type="html"><![CDATA[<p>一个项目做久了，Tag 越来越多，大多时候也不怎么关心 Tag，只有需要找以前的版本才会翻查一下。</p>
+
+<p>一不留神，发现服务器上的 Tag 好像被人整理了一下，而本地的 Tag 依然是老版本的，查了一下，似乎没有很好的方法保证服务器和本地的 tags 自动同步。</p>
+
+<p>只好每个客户端自行本地清理自己的 tags 了：</p>
+
+<p>git 1.7以上版本可以直接使用命令：</p>
+
+<p><code>
+git fetch origin --prune --tags
+</code></p>
+
+<p>git 1.7及以下版本需要先删除所有 tags 再 fetch 一次：
+<code>
+git tag -l | xargs git tag -d
+git fetch
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

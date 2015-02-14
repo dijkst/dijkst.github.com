@@ -1,0 +1,1250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: linux | 第九块石头]]></title>
+  <link href="http://dijkst.github.io/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://dijkst.github.io/"/>
+  <updated>2014-09-29T18:01:19+08:00</updated>
+  <id>http://dijkst.github.io/</id>
+  <author>
+    <name><![CDATA[dijkst]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Nagios4+Nginx+Ganglia配置]]></title>
+    <link href="http://dijkst.github.io/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/"/>
+    <updated>2013-11-29T20:14:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi</id>
+    <content type="html"><![CDATA[<p>本文参考 <a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a></p>
+
+<p>最近需要在服务器上配置一个Nagios用于检测服务器的异常情况并报警，我们的服务器已经搭建好Ganglia，Nagios主要用于报警通知。现在最新的Nagios的版本已经到了4.0.2, 而apt-get只有nagios3, 并且似乎还自动装了apache, 这不是我们需要的。看了一些资料后得知一般情况下 nagios 应该安装在 /usr/local/nagios 文件夹下，这样安装插件的时候会少很多麻烦。 而按照ubuntu的习惯，配置文件我决定放在 /etc/nagios 文件夹里。</p>
+
+<p>首先介绍一下安装上面的配置需要了解的nagios的各个文件夹或者文件的用途</p>
+
+<blockquote><p>/usr/local/nagios/libexec 是nagios插件存放的位置， nagios配置中有个USER1指的就是这个文件夹的路径<br/>
+/etc/nagios/nagios.cfg 是nagios的主配置文件，它会引用到很多其它的配置文件，比如下面说到的objects文件夹下的所有配置<br/>
+/etc/nagios/objects 文件夹里有可以配置命令的 commands.cfg 可以配置联系方式的 contacts.cfg<br/>
+/etc/nagios/servers 这是我需要的一个文件夹，用于配置需要监控的服务的，需要在 /etc/nagios/nagios.cfg里取消掉相应行的注释</p></blockquote>
+
+<h3>下面是我的安装配置过程</h3>
+
+<h4>安装依赖</h4>
+
+<p>```</p>
+
+<pre><code>apt-get install libperl-dev libpng12-dev libgd2-xpm-dev build-essential php5-gd wget libgd2-xpm
+</code></pre>
+
+<p>```</p>
+
+<!-- more -->
+
+
+<h4>创建 nagios 用户， 和 nagcmd 用户组</h4>
+
+<p>```</p>
+
+<pre><code>adduser --system --no-create-home --disabled-login --group nagios
+groupadd nagcmd
+usermod -G nagcmd nagios
+usermod -a -G nagcmd www-data
+</code></pre>
+
+<p>```</p>
+
+<h4>在一个临时文件夹下下载解压 nagios 源码以及插件源码， 最新的源码可以在 <a href="http://www.nagios.org/download/">nagios.org</a> 上找到</h4>
+
+<p>```</p>
+
+<pre><code>cd ~/tmp
+mkdir nagios
+cd nagios
+wget http://jaist.dl.sourceforge.net/project/nagios/nagios-4.x/nagios-4.0.2/nagios-4.0.2.tar.gz
+wget https://www.nagios-plugins.org/download/nagios-plugins-1.5.tar.gz
+tar xvf nagios-3.4.4.tar.gz
+tar xvf nagios-plugins-1.4.16.tar.gz
+</code></pre>
+
+<p>```</p>
+
+<h4>配置 nagios 源码并编译安装</h4>
+
+<p>```</p>
+
+<pre><code>cd ~/tmp/nagios/nagios-4.0.2
+
+./configure --prefix /usr/local/nagios \
+--sysconfdir=/etc/nagios \
+--with-nagios-user=nagios \
+--with-nagios-group=nagios \
+--with-command-user=nagios \
+--with-command-group=nagcmd
+
+make all
+make install
+make install-config
+make install-commandmode
+</code></pre>
+
+<p>```</p>
+
+<p>安装参考文章，需要 make install-init 的， 但我发现4.0.2版的 init 脚本用不了， 弄了好久最后在<a href="http://blacks3pt3mb3r.wordpress.com/tag/etcinit-dnagios-20-cant-open-etcrc-dinit-dfunctions/">All the geeky things</a> 这个博客里找到了一个稍微修改就可以使用的脚本。将它放到 /etc/init.d/nagios 即可</p>
+
+<h4>设置网站登录密码，参考 <a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a></h4>
+
+<h4>设置nagios的log的存放位置</h4>
+
+<p>```</p>
+
+<pre><code>mkdir /var/log/nagios
+touch /var/log/nagios/nagios.log
+chown nagios:nagios /var/log/nagios
+vi /etc/nagios/nagios.cfg # 修改nagios.log的路径
+</code></pre>
+
+<p>```</p>
+
+<h4>安装插件, 插件将被安装在 /usr/local/nagios/libexec 里面</h4>
+
+<p>```</p>
+
+<pre><code>cd ~/tmp/nagios/nagios-plugins-1.5
+./configure --with-nagios-user=nagios --with-nagios-group=nagios
+make &amp;&amp; make install
+</code></pre>
+
+<p>```</p>
+
+<h4>测试nagios的配置，并设置开机启动</h4>
+
+<p>```</p>
+
+<pre><code>/usr/local/nagios/bin/nagios -v /etc/nagios/nagios.cfg
+</code></pre>
+
+<p>```</p>
+
+<p>如果没有问题，会提示一切正常</p>
+
+<p>```</p>
+
+<pre><code>chmod +x /etc/init.d/nagios
+update-rc.d -f nagios defaults
+</code></pre>
+
+<p>```</p>
+
+<p>到这里，只需要 service nagios start 就可以启动nagios了。想要在网页上看到nagios，需要安装nginx 和 fcgi</p>
+
+<h4>安装 nginx &amp; fcgi</h4>
+
+<p>```</p>
+
+<pre><code>apt-get install nginx
+apt-get install spawn-fcgi fcgiwrap
+</code></pre>
+
+<p>```</p>
+
+<p>这时需要确认php-fpm监听的地址，从配置文件<code>/etc/php5/fpm/pool.d/www.conf</code>中可以找到, 假设为 <code>unix:/var/run/php5-fpm.sock</code><br/>
+还需要确认<code>/var/run/fcgiwrap.socket</code>是否存在，如果不存在则要另外找出这个socket的位置</p>
+
+<h4>配置 nginx 并启动</h4>
+
+<p>这里并不设置密码（不是必须，但一般都要设置，参考<a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a>）</p>
+
+<p>添加nginx配置</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/etc/nginx/sites-available/nagios </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>server {&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>    listen   9981;
+</span><span class='line'>    root /var/www/html;
+</span><span class='line'>    index index.html index.htm;
+</span><span class='line'>    server_name localhost;
+</span><span class='line'>
+</span><span class='line'>    location /nagios {
+</span><span class='line'>            index index.php;
+</span><span class='line'>            alias /usr/local/nagios/share/;
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    location ~ ^/nagios/(.*\.php)$ {
+</span><span class='line'>            alias /usr/local/nagios/share/$1;
+</span><span class='line'>            include /etc/nginx/fastcgi_params;
+</span><span class='line'>            fastcgi_pass unix:/var/run/php5-fpm.sock;
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    location ~ \.cgi$ {
+</span><span class='line'>            root /usr/local/nagios/sbin/;
+</span><span class='line'>            rewrite ^/nagios/cgi-bin/(.*)\.cgi /$1.cgi break;
+</span><span class='line'>            fastcgi_param AUTH_USER $remote_user;
+</span><span class='line'>            fastcgi_param REMOTE_USER $remote_user;
+</span><span class='line'>            include /etc/nginx/fastcgi_params;
+</span><span class='line'>            fastcgi_pass unix:/var/run/fcgiwrap.socket;
+</span><span class='line'>    }
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>启动nginx <code>service nginx start</code>, 这时打开 <a href="http://localhost:9981/nagios">http://localhost:9981/nagios</a> 应该可以看到打开监控网页了。</p>
+
+<h4>安装ganglia插件</h4>
+
+<p><code>
+cd /usr/local/nagios/libexec/
+touch check_ganglia.py
+chown nagios:nagios check_ganglia.py
+chmod +x check_ganglia.py
+vi check_ganglia.py
+</code>
+贴下面代码</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/usr/local/nagios/libexec/check_ganglia.py </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="err">!</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">env</span> <span class="n">python</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">getopt</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">socket</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">xml.parsers.expat</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">class</span> <span class="nc">GParser</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">def</span> <span class="err">&lt;</span><span class="nf">strong</span><span class="o">&gt;</span><span class="n">init</span><span class="o">&lt;/</span><span class="n">strong</span><span class="o">&gt;</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="bp">self</span><span class="o">.</span><span class="n">inhost</span> <span class="o">=</span><span class="mi">0</span>
+</span><span class='line'><span class="bp">self</span><span class="o">.</span><span class="n">inmetric</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'><span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
+</span><span class='line'><span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">file</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">p</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">expat</span><span class="o">.</span><span class="n">ParserCreate</span><span class="p">()</span>
+</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="n">StartElementHandler</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">start_element</span>
+</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="n">EndElementHandler</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">end_element</span>
+</span><span class='line'><span class="n">p</span><span class="o">.</span><span class="n">ParseFile</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+</span><span class='line'><span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Host/value not found&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="nf">start_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;HOST&quot;</span><span class="p">:</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">attrs</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">:</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">=</span><span class="mi">1</span>
+</span><span class='line'><span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">==</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;METRIC&quot;</span> <span class="ow">and</span> <span class="n">attrs</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">:</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">=</span><span class="n">attrs</span><span class="p">[</span><span class="s">&quot;VAL&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="nf">end_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s">&quot;HOST&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">inhost</span><span class="o">=</span><span class="mi">0</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">usage</span><span class="p">():</span>
+</span><span class='line'>  <span class="k">print</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">Usage</span><span class="p">:</span> <span class="n">check_ganglia</span> \
+</span><span class='line'><span class="o">-</span><span class="n">h</span><span class="o">|&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="n">host</span><span class="o">=</span> <span class="o">-</span><span class="n">m</span><span class="o">|&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="n">metric</span><span class="o">=</span> <span class="o">-</span><span class="n">w</span><span class="o">|&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="n">warning</span><span class="o">=</span> \
+</span><span class='line'><span class="o">-</span><span class="n">c</span><span class="o">|&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="n">critical</span><span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span><span class="o">|&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="n">server</span><span class="o">=</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span><span class="o">|&amp;</span><span class="n">mdash</span><span class="p">;</span><span class="n">port</span><span class="o">=</span><span class="p">]</span> <span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">if</span> <span class="o">&lt;</span><span class="n">strong</span><span class="o">&gt;</span><span class="n">name</span><span class="o">&lt;/</span><span class="n">strong</span><span class="o">&gt;</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">strong</span><span class="o">&gt;</span><span class="n">main</span><span class="o">&lt;/</span><span class="n">strong</span><span class="o">&gt;&amp;</span><span class="n">rdquo</span><span class="p">;:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h6</span><span class="o">&gt;</span><span class="c">#&lt;/h6&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">ganglia_host</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">ganglia_port</span> <span class="o">=</span> <span class="mi">8649</span>
+</span><span class='line'>  <span class="n">host</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>  <span class="n">metric</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>  <span class="n">warning</span> <span class="o">=</span> <span class="bp">None</span>
+</span><span class='line'>  <span class="n">critical</span> <span class="o">=</span> <span class="bp">None</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">try</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">getopt</span><span class="o">.</span><span class="n">getopt</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
+</span><span class='line'>  <span class="s">&quot;h:m:w:c:s:p:&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">[</span><span class="s">&quot;host=&quot;</span><span class="p">,</span> <span class="s">&quot;metric=&quot;</span><span class="p">,</span> <span class="s">&quot;warning=&quot;</span><span class="p">,</span> <span class="s">&quot;critical=&quot;</span><span class="p">,</span> <span class="s">&quot;server=&quot;</span><span class="p">,</span> <span class="s">&quot;port=&quot;</span><span class="p">],</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">except</span> <span class="n">getopt</span><span class="o">.</span><span class="n">GetoptError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">print</span> <span class="s">&quot;check_gmond:&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'><span class="n">usage</span><span class="p">()</span>
+</span><span class='line'><span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-h&quot;</span><span class="p">,</span> <span class="s">&quot;--host&quot;</span><span class="p">):</span>
+</span><span class='line'>   <span class="n">host</span> <span class="o">=</span> <span class="n">a</span>
+</span><span class='line'><span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-m&quot;</span><span class="p">,</span> <span class="s">&quot;--metric&quot;</span><span class="p">):</span>
+</span><span class='line'>   <span class="n">metric</span> <span class="o">=</span> <span class="n">a</span>
+</span><span class='line'><span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-w&quot;</span><span class="p">,</span> <span class="s">&quot;--warning&quot;</span><span class="p">):</span>
+</span><span class='line'>   <span class="n">warning</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'><span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-c&quot;</span><span class="p">,</span> <span class="s">&quot;--critical&quot;</span><span class="p">):</span>
+</span><span class='line'>   <span class="n">critical</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'><span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-p&quot;</span><span class="p">,</span> <span class="s">&quot;--port&quot;</span><span class="p">):</span>
+</span><span class='line'>   <span class="n">ganglia_port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'><span class="k">elif</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&quot;-s&quot;</span><span class="p">,</span> <span class="s">&quot;--server&quot;</span><span class="p">):</span>
+</span><span class='line'>   <span class="n">ganglia_host</span> <span class="o">=</span> <span class="n">a</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">if</span> <span class="n">critical</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">warning</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">metric</span> <span class="o">==</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">host</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">usage</span><span class="p">()</span>
+</span><span class='line'><span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">try</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+</span><span class='line'><span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ganglia_host</span><span class="p">,</span><span class="n">ganglia_port</span><span class="p">))</span>
+</span><span class='line'><span class="n">parser</span> <span class="o">=</span> <span class="n">GParser</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">makefile</span><span class="p">(</span><span class="s">&quot;r&quot;</span><span class="p">))</span>
+</span><span class='line'><span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">print</span> <span class="s">&quot;CHECKGANGLIA UNKNOWN: Error while getting value </span><span class="se">\&quot;</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">err</span><span class="p">)</span>
+</span><span class='line'><span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">critical</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">print</span> <span class="s">&quot;CHECKGANGLIA CRITICAL: </span><span class="si">%s</span><span class="s"> is </span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'><span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">elif</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="n">warning</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">print</span> <span class="s">&quot;CHECKGANGLIA WARNING: </span><span class="si">%s</span><span class="s"> is </span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'><span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">else</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">print</span> <span class="s">&quot;CHECKGANGLIA OK: </span><span class="si">%s</span><span class="s"> is </span><span class="si">%.2f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'><span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>在 <code>/etc/nagios/objects/commands.cfg</code> 添加上</p>
+
+<p>```</p>
+
+<h1>check_ganglia</h1>
+
+<p>define command {</p>
+
+<pre><code>command_name check_ganglia
+command_line $USER1$/check_ganglia.py -h $HOSTNAME$ -m $ARG1$ -w $ARG2$ -c $ARG3$
+</code></pre>
+
+<p>}
+```</p>
+
+<h4>重启 nagios</h4>
+
+<p><code>
+service nagios restart
+</code></p>
+
+<p>后面还需要配置nagios的service hosts hostgroups contacts， 这里不说了。have fun。</p>
+
+<h4>附带 /etc/init.d/nagios</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>nagios </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>pidfile: /var/nagios/nagios.pid&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;p>#&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;h3>BEGIN INIT INFO&lt;/h3>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>Provides:      nagios&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>Required-Start:   $local_fs $syslog $network&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>Required-Stop:   $local_fs $syslog $network&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>Short-Description:   start and stop Nagios monitoring server&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>Description:      Nagios is is a service monitoring system&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h3>END INIT INFO&lt;/h3>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>Source function library.&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;h1>. /etc/rc.d/init.d/functions&lt;/h1>
+</span><span class='line'>
+</span><span class='line'>&lt;p>. /lib/lsb/init-functions&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>prefix=&ldquo;/usr/local/nagios&rdquo;
+</span><span class='line'>exec_prefix=&ldquo;${prefix}&rdquo;
+</span><span class='line'>exec=&ldquo;${exec_prefix}/bin/nagios&rdquo;
+</span><span class='line'>prog=&ldquo;nagios&rdquo;
+</span><span class='line'>config=&ldquo;/etc/nagios/nagios.cfg&rdquo;
+</span><span class='line'>pidfile=&ldquo;${prefix}/var/nagios.lock&rdquo;
+</span><span class='line'>user=&ldquo;nagios&rdquo;
+</span><span class='line'>group=&ldquo;nagios&rdquo;
+</span><span class='line'>checkconfig=&ldquo;false&rdquo;
+</span><span class='line'>ramdiskdir=&ldquo;/var/nagios/ramcache&rdquo;&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>test -e /etc/sysconfig/$prog &amp;&amp; . /etc/sysconfig/$prog&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>lockfile=/var/lock/$prog
+</span><span class='line'>USE_RAMDISK=${USE_RAMDISK:-0}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>if test &ldquo;$USE_RAMDISK&rdquo; -ne 0 &amp;&amp; test &ldquo;$RAMDISK_SIZE"X != "X&rdquo;; then
+</span><span class='line'>   ramdisk=&lt;code>mount |grep "$ramdiskdir type tmpfs"&lt;/code>
+</span><span class='line'>   if [ &ldquo;$ramdisk"X == "X&rdquo; ]; then&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  mkdir -p -m 0755 $ramdiskdir
+</span><span class='line'>  mount -t tmpfs -o size=${RAMDISK_SIZE}m tmpfs $ramdiskdir
+</span><span class='line'>  mkdir -p -m 0755 $ramdiskdir/checkresults
+</span><span class='line'>  chown -R $user:$group $ramdiskdir
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   fi
+</span><span class='line'>fi&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>check_config() {
+</span><span class='line'>   TMPFILE=&ldquo;/tmp/.configtest.$$&rdquo;
+</span><span class='line'>   /usr/sbin/service nagios configtest > &ldquo;$TMPFILE&rdquo;
+</span><span class='line'>   WARN=&lt;code>grep ^"Total Warnings:" "$TMPFILE" |awk -F: '{print \$2}' |sed s/' '//g&lt;/code>
+</span><span class='line'>   ERR=&lt;code>grep ^"Total Errors:" "$TMPFILE" |awk -F: '{print \$2}' |sed s/' '//g&lt;/code>&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   if test &ldquo;$WARN&rdquo; = &ldquo;0&rdquo; &amp;&amp; test &ldquo;${ERR}&rdquo; = &ldquo;0&rdquo;; then&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  echo "OK - Configuration check verified" &gt; /var/run/nagios.configtest
+</span><span class='line'>  chmod 0644 /var/run/nagios.configtest
+</span><span class='line'>  /bin/rm "$TMPFILE"
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   return 0
+</span><span class='line'>   else&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  # We'll write out the errors to a file we can have a
+</span><span class='line'>  # script watching for
+</span><span class='line'>  echo "WARNING: Errors in config files - see log for details: $TMPFILE" &gt; /var/run/nagios.configtest
+</span><span class='line'>  egrep -i "(^warning|^error)" "$TMPFILE" &gt;&gt; /var/run/nagios.configtest
+</span><span class='line'>  chmod 0644 /var/run/nagios.configtest
+</span><span class='line'>  cat "$TMPFILE"
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   exit 8
+</span><span class='line'>   fi
+</span><span class='line'>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>start() {
+</span><span class='line'>   test -x $exec || exit 5
+</span><span class='line'>   test -f $config || exit 6
+</span><span class='line'>   if test &ldquo;$checkconfig&rdquo; = &ldquo;false&rdquo;; then&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  check_config
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   fi
+</span><span class='line'>   echo -n $&ldquo;Starting $prog: &rdquo;
+</span><span class='line'>   # We need to &lt;em>make sure&lt;/em> the precache is there and verified
+</span><span class='line'>   # Raise priority to make it run better
+</span><span class='line'>   daemon &mdash;user=$user &mdash; $exec -d $config
+</span><span class='line'>   #touch $lockfile
+</span><span class='line'>   retval=$?
+</span><span class='line'>   echo
+</span><span class='line'>   test $retval -eq 0 &amp;&amp; touch $lockfile
+</span><span class='line'>   return $retval
+</span><span class='line'>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>stop() {
+</span><span class='line'>   echo -n $&ldquo;Stopping $prog: &rdquo;
+</span><span class='line'>   killproc -p ${pidfile}  $exec
+</span><span class='line'>   retval=$?
+</span><span class='line'>   echo
+</span><span class='line'>   test $retval -eq 0 &amp;&amp; rm -f $lockfile
+</span><span class='line'>   return $retval
+</span><span class='line'>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>restart() {
+</span><span class='line'>   check_config
+</span><span class='line'>   checkconfig=&ldquo;true&rdquo;
+</span><span class='line'>   stop
+</span><span class='line'>   start
+</span><span class='line'>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>reload() {
+</span><span class='line'>   echo -n $&ldquo;Reloading $prog: &rdquo;
+</span><span class='line'>   killproc -p ${pidfile} $exec -HUP
+</span><span class='line'>   RETVAL=$?
+</span><span class='line'>   echo
+</span><span class='line'>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>force_reload() {
+</span><span class='line'>   restart
+</span><span class='line'>}&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>case &ldquo;$1&rdquo; in
+</span><span class='line'>   start)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  status_of_proc $prog &amp;&amp; exit 0
+</span><span class='line'>  $1
+</span><span class='line'>  ;;
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   stop)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  status_of_proc $prog|| exit 0
+</span><span class='line'>  $1
+</span><span class='line'>  ;;
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   restart)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  $1
+</span><span class='line'>  ;;
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   reload)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  status_of_proc $prog || exit 7
+</span><span class='line'>  $1
+</span><span class='line'>  ;;
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   force-reload)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  force_reload
+</span><span class='line'>  ;;
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   status)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  status_of_proc $prog
+</span><span class='line'>  ;;
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   condrestart|try-restart)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  status_of_proc $prog|| exit 0
+</span><span class='line'>  restart
+</span><span class='line'>  ;;
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   configtest)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  $nice su -s /bin/bash - nagios -c "$corelimit &gt;/dev/null 2&gt;&amp;1 ; $exec -vp $config"
+</span><span class='line'>  RETVAL=$?
+</span><span class='line'>  ;;
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>   *)&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>  echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"
+</span><span class='line'>  exit 2
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p>esac
+</span><span class='line'>exit $?</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[设置Ubuntu程序开机启动]]></title>
+    <link href="http://dijkst.github.io/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/"/>
+    <updated>2013-08-13T00:02:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong</id>
+    <content type="html"><![CDATA[<p>以前配置系统启动项都是拿来能用就行，对于其中规则一点都不熟悉，这两天恰好遇到几篇通俗易懂的介绍，受益匪浅。</p>
+
+<p>涉及到开机启动的配置文件在下面几个文件夹里：</p>
+
+<ul>
+<li>/etc/init.d 放着程序启动关闭重启的脚本</li>
+<li>/etc/rc(0-6).d里的文件都是/etc/init.d文件下的软链接，rc0.d rc1.d … 分别对应着linux不同的 <a href="http://wiki.ubuntu.org.cn/%E5%90%AF%E5%8A%A8#runlevel">runlevel</a></li>
+<li>/etc/default 里的文件添加一层控制是否启动某个程序的变量</li>
+</ul>
+
+
+<p>手工设置开机启动程序的步骤是这样的：</p>
+
+<ol>
+<li>在<code>/etc/init.d</code>里写一个启动脚本, 比如：some_program（启动脚本模板后面提供)</li>
+<li>使用 <code>sudo update-rc.d some_program defaults</code> 设置开机启动. 可以看到这个命令的工作是把 <code>/etc/init.d/some_program</code> 软链接到了 <code>/etc/rc(0-6).d</code> 里。</li>
+<li>现在重启系统, some_program 就会启动了。</li>
+</ol>
+
+
+<!-- more -->
+
+
+<p>很多程序安装好以后已经把启动脚本放在 <code>/etc/init.d</code> 里面了, 我们要启动它, 首先要试试：</p>
+
+<pre><code>sudo /etc/init.d/the_program start
+</code></pre>
+
+<p>如果提示正常则可以通过 <code>sudo update-rc.d the_program defaults</code> 来设置开机启动</p>
+
+<p>如果提示错误，很可能会提示 <code>/etc/default/the_program</code> 设置不让启动，需要修改一下 <code>/etc/default/the_program</code> 文件的配置。</p>
+
+<p>一些有用的命令：</p>
+
+<p>马上启动某个程序</p>
+
+<pre><code>sudo /etc/init.d/the_program start
+</code></pre>
+
+<p>马上停止某个程序</p>
+
+<pre><code>sudo /etc/init.d/the_program stop
+</code></pre>
+
+<p>设置某个已经设置过开机启动的程序不开机启动</p>
+
+<pre><code>sudo update-rc.d the_program disable
+</code></pre>
+
+<p>设置某个已经设置开机启动disable的程序开机启动</p>
+
+<pre><code>sudo update-rc.d the_program enable
+</code></pre>
+
+<p>init.d里面的脚本模板：（<a href="https://github.com/fhd/init-script-template">https://github.com/fhd/init-script-template</a>）</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;!/bin/sh&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h3&gt;BEGIN INIT INFO&lt;/h3&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;Provides:&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;Required-Start:    <span class="nv">$remote_fs</span> <span class="nv">$syslog</span>&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;Required-Stop:     <span class="nv">$remote_fs</span> <span class="nv">$syslog</span>&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;Default-Start:     2 3 4 5&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;Default-Stop:      0 1 6&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;Short-Description: Start daemon at boot <span class="nb">time</span>&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;Description:       Enable service provided by daemon.&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h3&gt;END INIT INFO&lt;/h3&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;dir<span class="o">=</span>&amp;ldquo;&amp;rdquo;
+</span><span class='line'><span class="nv">user</span><span class="o">=</span>&amp;ldquo;&amp;rdquo;
+</span><span class='line'><span class="nv">cmd</span><span class="o">=</span>&amp;ldquo;&amp;rdquo;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;name<span class="o">=</span>&lt;code&gt;basename <span class="nv">$0</span>&lt;/code&gt;
+</span><span class='line'><span class="nv">pid_file</span><span class="o">=</span>&amp;ldquo;/var/run/<span class="nv">$name</span>.pid&amp;rdquo;
+</span><span class='line'><span class="nv">stdout_log</span><span class="o">=</span>&amp;ldquo;/var/log/<span class="nv">$name</span>.log&amp;rdquo;
+</span><span class='line'><span class="nv">stderr_log</span><span class="o">=</span>&amp;ldquo;/var/log/<span class="nv">$name</span>.err&amp;rdquo;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;get_pid<span class="o">()</span> <span class="o">{</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;cat <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="o">}</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;is_running<span class="o">()</span> <span class="o">{</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;<span class="o">[</span> -f <span class="s2">&quot;$pid_file&quot;</span> <span class="o">]</span> &amp;amp;&amp;amp; ps <span class="sb">`</span>get_pid<span class="sb">`</span> &amp;gt; /dev/null 2&amp;gt;&amp;amp;1
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="o">}</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;case &amp;ldquo;<span class="nv">$1</span>&amp;rdquo; in&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;start<span class="o">)</span>
+</span><span class='line'> <span class="k">if </span>is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Already started&quot;</span>
+</span><span class='line'> <span class="k">else</span>
+</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Starting $name&quot;</span>
+</span><span class='line'>     <span class="nb">cd</span> <span class="s2">&quot;$dir&quot;</span>
+</span><span class='line'>        sudo -u <span class="s2">&quot;$user&quot;</span> <span class="nv">$cmd</span> &amp;gt; <span class="s2">&quot;$stdout_log&quot;</span> 2&amp;gt; <span class="s2">&quot;$stderr_log&quot;</span> <span class="se">\</span>
+</span><span class='line'>      &amp;amp; <span class="nb">echo</span> <span class="nv">$!</span> &amp;gt; <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'>     <span class="k">if</span> ! is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">      </span><span class="nb">echo</span> <span class="s2">&quot;Unable to start, see $stdout_log and $stderr_log&quot;</span>
+</span><span class='line'>      <span class="nb">exit </span>1
+</span><span class='line'>     <span class="k">fi</span>
+</span><span class='line'><span class="k"> fi</span>
+</span><span class='line'> ;;
+</span><span class='line'>stop<span class="o">)</span>
+</span><span class='line'> <span class="k">if </span>is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Stopping $name&quot;</span>
+</span><span class='line'>     <span class="nb">kill</span> <span class="sb">`</span>get_pid<span class="sb">`</span>
+</span><span class='line'>     rm <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'> <span class="k">else</span>
+</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Not running&quot;</span>
+</span><span class='line'> <span class="k">fi</span>
+</span><span class='line'> ;;
+</span><span class='line'>restart<span class="o">)</span>
+</span><span class='line'> <span class="nv">$0</span> stop
+</span><span class='line'> <span class="nv">$0</span> start
+</span><span class='line'> ;;
+</span><span class='line'>status<span class="o">)</span>
+</span><span class='line'> <span class="k">if </span>is_running; <span class="k">then</span>
+</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Running&quot;</span>
+</span><span class='line'> <span class="k">else</span>
+</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Stopped&quot;</span>
+</span><span class='line'>     <span class="nb">exit </span>1
+</span><span class='line'> <span class="k">fi</span>
+</span><span class='line'> ;;
+</span><span class='line'>*<span class="o">)</span>
+</span><span class='line'> <span class="nb">echo</span> <span class="s2">&quot;Usage: $0 {start|stop|restart|status}&quot;</span>
+</span><span class='line'> <span class="nb">exit </span>1
+</span><span class='line'> ;;
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;esac&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;exit 0&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用rsync同步不同机器上的文件]]></title>
+    <link href="http://dijkst.github.io/blog/2013/08/01/shi-yong-rsynctong-bu-bu-tong-ji-qi-shang-de-wen-jian/"/>
+    <updated>2013-08-01T16:28:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2013/08/01/shi-yong-rsynctong-bu-bu-tong-ji-qi-shang-de-wen-jian</id>
+    <content type="html"><![CDATA[<p>实验系统：Ubuntu</p>
+
+<p>我根据文章<a href="http://waiting.iteye.com/blog/643171">rsync 简明教程</a>试验成功后，发现Ubuntu自带有启动rsync守护程序的功能，于是决定使用Ubuntu自带的开机启动rsync方式，查看<code>/etc/init.d/rsync</code>里的代码可以知道它指定了rsync配置文件的路径：<code>/etc/rsyncd.conf</code>，如果没有这个路径，rsync daemon不会启动。</p>
+
+<p>于是创建一个/etc/rsyncd.conf 在里面填上：</p>
+
+<p>```
+uid = root
+gid = root
+use chroot = yes
+max connections = 10
+syslog facility = local5
+pid file = /var/run/rsyncd.pid
+log file = /var/log/rsyncd.log</p>
+
+<p>[rsyncsrc]</p>
+
+<pre><code>    path = /home/vagrant/rsyncsrc
+    list = yes
+    ignore errors = yes
+    auth users = admin
+    secrets file = /etc/rsync/rsync.secrets
+    comment = test rsync source
+</code></pre>
+
+<p>```</p>
+
+<p>上面的参数中，我对<code>use chroot</code>印象比较深刻，如果<code>use chroot</code> 指定为true，那么rsync在传输文件以前首先chroot到path参数所指定的目录下。这样做的原因是实现额外的安全保护，缺点是需要root权限，并且不能备份指向外部的符号连接所指向的目录文件。默认为true(摘抄来的)</p>
+
+<!-- more -->
+
+
+<p>根据配置文件中写的路径，我创建一个权限600 <code>/etc/rsync/rsync.secrets</code>, 并填上：</p>
+
+<p><code>
+admin:whoisyou
+</code></p>
+
+<p>要通过init.d启动rsync，还需要把<code>/etc/default/rsync</code>里的</p>
+
+<p><code>
+RSYNC_ENABLE=false
+</code></p>
+
+<p>改为</p>
+
+<p><code>
+RSYNC_ENABLE=true
+</code></p>
+
+<p>至于/etc/default这个文件夹的用处在super user 上找到的解释是：</p>
+
+<blockquote><p>The files in this dir basically contains configuration parameters. For example, if you have a service at /etc/init.d/test, the script first look at /etc/default/test before starting/stopping the test service, searching for config parameters.</p></blockquote>
+
+<p>改完后通过命令 <code>/etc/init.d/rsync start</code> 启动即可 （以后重启会自动启动）</p>
+
+<p>上面是服务器端的配置</p>
+
+<p>===</p>
+
+<p>下面是客户端：</p>
+
+<p>首先建立一个权限600的密码文件，如~/rsync.pas 里面填上：</p>
+
+<p><code>
+whoisyou
+</code></p>
+
+<p>输入命令：</p>
+
+<p><code>
+rsync -azh --password-file=~/rsync.pas admin@127.0.0.1::rsyncsrc ~/target/
+</code></p>
+
+<p>我是在本机试验的，所以填127.0.0.1</p>
+]]></content>
+  </entry>
+  
+</feed>
