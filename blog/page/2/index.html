@@ -9,7 +9,7 @@
   <meta name="author" content="dijkst">
 
   
-  <meta name="description" content="最近被天朝的火星坐标搞得头昏脑胀的，真不知道这个所谓的火星坐标到底是防国外军事打击的呢，还是为难我们这些苦逼的开发人员的~真的能防止国外非法使用吗？难道美国国防部也用 Google 地图？？？ 暂且不考虑这个不是我等草民能考虑的问题，先看看如何解决这种火星坐标导致的地图坐标不匹配的问题~ 首先， &hellip;">
+  <meta name="description" content="本文参考 Nagios on nginx &amp; Ubuntu 12.04 最近需要在服务器上配置一个Nagios用于检测服务器的异常情况并报警，我们的服务器已经搭建好Ganglia，Nagios主要用于报警通知。现在最新的Nagios的版本已经到了4.0.2, 而apt- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,261 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/">Nagios4+Nginx+Ganglia配置</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-29T20:14:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>本文参考 <a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a></p>
+
+<p>最近需要在服务器上配置一个Nagios用于检测服务器的异常情况并报警，我们的服务器已经搭建好Ganglia，Nagios主要用于报警通知。现在最新的Nagios的版本已经到了4.0.2, 而apt-get只有nagios3, 并且似乎还自动装了apache, 这不是我们需要的。看了一些资料后得知一般情况下 nagios 应该安装在 /usr/local/nagios 文件夹下，这样安装插件的时候会少很多麻烦。 而按照ubuntu的习惯，配置文件我决定放在 /etc/nagios 文件夹里。</p>
+
+<p>首先介绍一下安装上面的配置需要了解的nagios的各个文件夹或者文件的用途</p>
+
+<blockquote><p>/usr/local/nagios/libexec 是nagios插件存放的位置， nagios配置中有个USER1指的就是这个文件夹的路径<br/>
+/etc/nagios/nagios.cfg 是nagios的主配置文件，它会引用到很多其它的配置文件，比如下面说到的objects文件夹下的所有配置<br/>
+/etc/nagios/objects 文件夹里有可以配置命令的 commands.cfg 可以配置联系方式的 contacts.cfg<br/>
+/etc/nagios/servers 这是我需要的一个文件夹，用于配置需要监控的服务的，需要在 /etc/nagios/nagios.cfg里取消掉相应行的注释</p></blockquote>
+
+<h3>下面是我的安装配置过程</h3>
+
+<h4>安装依赖</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install libperl-dev libpng12-dev libgd2-xpm-dev build-essential php5-gd wget libgd2-xpm</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti/">UIScrollView 和 Swipe 手势的识别问题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-04T15:40:00+08:00" pubdate data-updated="true">Sep 4<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UIScrollView 用得相当普遍，衍生出来的 UITableView 也用得不少。最近有人问我，当给 UIScrollView 加上左右滑动手势 UISwipeGesture 时，感觉好难滑动，必须要很平的左右划才会触发 Swipe，否则都是触发 UIScrollView 的滚动事件。</p>
+
+<p>这时候，我们会想到，不需要那么水平的滑动就好了，例如以滑动45度为分割线，滑动轨迹与水平线夹角在正负45度，都认为是水平滑动，超过45度，就认为是垂直滚动。</p>
+
+<p>看上去好像可以做。那么我们就要拦截发送给 UIScrollView 的手势——重载 UIScrollView 的手势响应方法：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizerShouldBegin:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">gestureRecognizer</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIPanGestureRecognizer</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="p">[(</span><span class="n">UIPanGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="n">gestureRecognizer</span> <span class="nl">translationInView:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">((</span><span class="n">fabs</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">fabs</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">x</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 判断角度 tan(45),这里需要通过正负来判断手势方向</span>
+</span><span class='line'>            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;横向手势&quot;</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nl">gestureRecognizerShouldBegin:</span><span class="n">gestureRecognizer</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重载 UIScrollView，用这个新的对象，并且适当的调整其中的角度，来优化 APP 中的手势灵敏度。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa/">iOS5 上 Gesture 和 UIButton 手势冲突解决方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-29T10:09:00+08:00" pubdate data-updated="true">Aug 29<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在一个 View 上面加一个 UIButton，指明一个 Action，很简单；在这个 View 上面加一个 Tap 手势，恩，也很简单。但是两者一起加，当我们点击 Button 时候，触发哪个呢？</p>
+
+<p>经过测试，当系统是 iOS5 及以下时，响应 Tap 手势；当系统是 iOS6 及以上时，响应 Button 事件！！</p>
+
+<p>那我们一般期望是什么行为呢？估计很多人都是想和 iOS6 那样，优先响应 Button 的事件。</p>
+
+<p>让 iOS5 及以下响应 Button 事件的方法：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizer:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="nf">shouldReceiveTouch:</span><span class="p">(</span><span class="n">UITouch</span> <span class="o">*</span><span class="p">)</span><span class="nv">touch</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Disallow recognition of tap gestures in the control.</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(([</span><span class="n">touch</span><span class="p">.</span><span class="n">view</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIControl</span> <span class="n">class</span><span class="p">]]))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nl">gestureRecognizer:</span><span class="n">gestureRecognizer</span> <span class="nl">shouldReceiveTouch:</span><span class="n">touch</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重载View，复写上面的方法即可。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/">设置Ubuntu程序开机启动</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-13T00:02:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>以前配置系统启动项都是拿来能用就行，对于其中规则一点都不熟悉，这两天恰好遇到几篇通俗易懂的介绍，受益匪浅。</p>
+
+<p>涉及到开机启动的配置文件在下面几个文件夹里：</p>
+
+<ul>
+<li>/etc/init.d 放着程序启动关闭重启的脚本</li>
+<li>/etc/rc(0-6).d里的文件都是/etc/init.d文件下的软链接，rc0.d rc1.d … 分别对应着linux不同的 <a href="http://wiki.ubuntu.org.cn/%E5%90%AF%E5%8A%A8#runlevel">runlevel</a></li>
+<li>/etc/default 里的文件添加一层控制是否启动某个程序的变量</li>
+</ul>
+
+
+<p>手工设置开机启动程序的步骤是这样的：</p>
+
+<ol>
+<li>在<code>/etc/init.d</code>里写一个启动脚本, 比如：some_program（启动脚本模板后面提供)</li>
+<li>使用 <code>sudo update-rc.d some_program defaults</code> 设置开机启动. 可以看到这个命令的工作是把 <code>/etc/init.d/some_program</code> 软链接到了 <code>/etc/rc(0-6).d</code> 里。</li>
+<li>现在重启系统, some_program 就会启动了。</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -479,244 +734,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang/">PCH 文件中进行全局 Import 的注意事项</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-17T19:05:00+08:00" pubdate data-updated="true">Jul 17<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>pch 文件可是个好东西，把常用的定义或者 import 放在 pch 中，这样在不用在项目中再引用和定义了，即可以做到全局 macro，又可以作为全局 import 用。</p>
-
-<p>然而最近在用 DTCoreText 和 ZipArchive 时，发现无论怎么调试，都无法编译通过，出现类似很多类名 not found，甚至是 NSString 都未找到！！</p>
-
-<p>后来研究了好久，原来这两个库有用 C 和 C++ 编译。而 pch 文件对于 C 的文件一样有效。试想一下，C 的代码引用 OC 的代码，会出现什么？当然是编译失败！</p>
-
-<p>问题找到了，如何让 C 的文件编译的时候不引用 OC 的代码呢？</p>
-
-<p>突然想起我们经常看到一个这个定义：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#ifdef __OBJC__
-</span><span class='line'>    #import &lt;UIKit/UIKit.h&gt;
-</span><span class='line'>    #import &lt;Foundation/Foundation.h&gt;
-</span><span class='line'>#endif</span></code></pre></td></tr></table></div></figure>
-
-
-<p>看来这个<code>ifdef __OBJC__</code>就是用于判断是否是 OC 文件的！！我以前一直以为这个宏是判断项目是否用 OC 编译的！！当时还纳闷，啥时候会出现不用 OC 写 iOS 项目？</p>
-
-<p>因此，在原来的 pch 里面适当的将代码用这个<code>ifdef __OBJC__</code>包起来，就解决了 C 的文件引入 OC 代码的问题！！</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang/">rootViewController 更改动画的注意事项</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-11T20:17:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><code>Window</code>的<code>rootViewController</code>属性在 iOS5 之后都期望被设置，因为旋转等原因，controller 控制 View 比自己控制 View 更安全。</p>
-
-<p>但是突然出现一个需求，需要更换主<code>Window</code>的<code>rootViewController</code>，那如何做<code>UIView</code>动画呢？</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">transitionWithView:</span><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span>
-</span><span class='line'>                  <span class="nl">duration:</span><span class="mf">0.4</span>
-</span><span class='line'>                   <span class="nl">options:</span><span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>
-</span><span class='line'>                <span class="nl">animations:</span><span class="o">^</span><span class="p">{</span>
-</span><span class='line'>                    <span class="p">[[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span> <span class="nl">setRootViewController:</span><span class="n">vc</span><span class="p">];</span>
-</span><span class='line'>                <span class="p">}</span>
-</span><span class='line'>                <span class="nl">completion:</span><span class="nb">NULL</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>咋看之下没啥问题，运行起来也没问题。能成功实现替换为新的<code>vc</code>。</p>
-
-<p>然后出现一个很诡异的问题——如果设备是横的，新的<code>vc</code>对应的<code>View</code>会有一个旋转的动画，导致动画混乱，甚至很奇怪的动画。</p>
-
-<p>刚开始以为是<code>vc.view</code>加载太慢，后来没解决。Google 了一下，发现有人解决了。将上面的代码改为：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">transitionWithView:</span><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span>
-</span><span class='line'>                  <span class="nl">duration:</span><span class="mf">0.4</span>
-</span><span class='line'>                   <span class="nl">options:</span><span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>
-</span><span class='line'>                <span class="nl">animations:</span><span class="o">^</span><span class="p">{</span>
-</span><span class='line'>                    <span class="kt">BOOL</span> <span class="n">oldState</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIView</span> <span class="n">areAnimationsEnabled</span><span class="p">];</span>
-</span><span class='line'>                    <span class="p">[</span><span class="n">UIView</span> <span class="nl">setAnimationsEnabled:</span><span class="n">NO</span><span class="p">];</span>
-</span><span class='line'>                    <span class="p">[[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span> <span class="nl">setRootViewController:</span><span class="n">vc</span><span class="p">];</span>
-</span><span class='line'>                    <span class="p">[</span><span class="n">UIView</span> <span class="nl">setAnimationsEnabled:</span><span class="n">oldState</span><span class="p">];</span>
-</span><span class='line'>                <span class="p">}</span>
-</span><span class='line'>                <span class="nl">completion:</span><span class="nb">NULL</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/">使用Uncrustify让iOS代码更漂亮</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-07T12:12:00+08:00" pubdate data-updated="true">Jul 7<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Github project: <a href="https://github.com/dijkst/uncrustify-config-ios">uncrustify-config-ios</a></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/">使用CocoaAsyncSocket发送TCP/UDP消息</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-02T17:19:00+08:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2013</time>
-        
-         | <a href="/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>习惯上每次使用一个类库的功能，我第一时间想到的都是Google那个类库的使用例子。这不是一个好习惯，这次我下载了CocoaAsyncSocket的代码，找了好一阵没找到满意的例子。灰心丧气之余想到很多用到我写的代码的人们也是不看文档，不看注释的。他们给我带来了巨大的困扰，而我现在也不看别人的注释和文档，假如CocoaAsyncSocket的作者要为我服务的话，那他肯定也会吐血不止。</p>
-
-<p>于是，我决定自力更生，从代码注释里找找我需要功能的用法。</p>
-
-<p>我需要的功能是，用TCP或者UDP发送一些数据给服务器，不用关心服务器是否收到数据。</p>
-
-<p>下面例子，只是TCP的发送过程，UDP请自行看注释。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -734,7 +751,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.3</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.4</a>
       </li>
     
       <li class="post">
@@ -742,22 +759,22 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+        <a href="/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/">在其他电脑上浏览 Time Machine 历史</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+        <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
       </li>
     
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (1)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My APPs</h1>

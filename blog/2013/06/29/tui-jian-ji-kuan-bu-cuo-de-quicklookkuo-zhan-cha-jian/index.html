@@ -107,42 +107,15 @@
 
 <div class="entry-content"><p>MacOS里有一个相当人性化的功能——QuickLook，选中一个文件，不用打开它，只用按一下空格键，立即可以看到文件内容或者信息，相当快。然而悲剧的是，并不是所有文件类型都被支持的！！如果按了空格键，发现只是显示文件图标，只好很无奈的在按空格键把它关了，再去把文件打开，早知道就直接打开文件了~忧伤啊~</p>
 
-<p>上网找了一下，找到一些不错的QL扩展，分享一下。但是在分享以前，先说一下怎么安装扩展~</p>
+<p>以前导出搜索不错的插件，最近发现，用 <code>brew cast</code> 可以完全帮我们安装。</p>
 
-<p>将下载好的QL扩展放在<code>/资源库/QuickLook/</code>下，注销系统即可生效，不想注销的，可以用终端命令：</p>
+<p>请移步到 <a href="https://github.com/sindresorhus/quick-look-plugins">https://github.com/sindresorhus/quick-look-plugins</a></p>
+
+<p>小知识：让 QuickLook 也能选择文字，只需要在终端中执行以下命令：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>qlmanage -r</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>defaults write com.apple.finder QLEnableTextSelection -bool true && killall Finder</span></code></pre></td></tr></table></div></figure>
 
-
-<p>下面看看都有些啥好扩展：</p>
-
-<!-- more -->
-
-
-<h4><a href="https://github.com/whomwah/qlstephen">QuicklookStephen</a></h4>
-
-<p>快速浏览文本类型的文件。有的文本类型的文件，后缀可能不是txt等，QL默认是无法识别的，这个扩展能够将其他后缀的文本类型文件也显示出文本内容。支持<code>README</code>、<code>INSTALL</code>、<code>CapFile</code>、<code>CHANGELOG</code>等等，支持手动添加后缀和黑名单。</p>
-
-<h4><a href="https://github.com/downloads/Nyx0uf/qlImageSize/qlImageSize.qlgenerator.zip">qlimagesize</a></h4>
-
-<p>在浏览图片的时候，能在查看窗口的顶部标题栏显示图片的尺寸和体积大小。</p>
-
-<h4><a href="http://www.sagtau.com/quicklookjson.html">Quick Look JSON</a></h4>
-
-<p>高亮并格式化JSON文件。</p>
-
-<h4><a href="http://www.macmation.com/blog/2011/10/quicklook-plugin-for-mobile-provision-files/">MobileProvision</a></h4>
-
-<p>可以快速预览.mobileprovision内的信息以及过期时间等信息。</p>
-
-<h4><a href="http://www.mothersruin.com/software/SuspiciousPackage/">Suspicious Package Quick Look plugin</a></h4>
-
-<p>快速查看.pkg的内容，包括权限、安装脚本和包含的文件。</p>
-
-<h4><a href="http://macitbetter.com/BetterZip-Quick-Look-Generator/">BetterZip</a></h4>
-
-<p>ZIP, TAR, GZip, BZip2, ARJ, LZH, ISO, CHM, CAB, CPIO, RAR, 7-Zip, DEB, RPM, StuffIt&rsquo;s SIT, DiskDoubler, BinHex, MacBinary等格式预览。</p>
 </div>
 
 
@@ -221,7 +194,7 @@ var disqus_shortname = 'dijkst';
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.3</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.4</a>
       </li>
     
       <li class="post">
@@ -229,22 +202,22 @@ var disqus_shortname = 'dijkst';
       </li>
     
       <li class="post">
-        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+        <a href="/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/">在其他电脑上浏览 Time Machine 历史</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+        <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
       </li>
     
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (1)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My APPs</h1>

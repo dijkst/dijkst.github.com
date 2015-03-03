@@ -9,7 +9,7 @@
   <meta name="author" content="dijkst">
 
   
-  <meta name="description" content="时光飞逝，一晃工作两年了。2011年的6月30日，带着对同学的不舍，带着对未来道路的迷茫，带着对即将开始人生第一份工作的激动，离开了华电的大门。在离开的那一刻，我相信，我们一定会变得很优秀，大家都要加油~ 开始了人生中的第一份工作后，一切变得好新鲜。接触了很多人、很多事，每天都在成长着， &hellip;">
+  <meta name="description" content="pch 文件可是个好东西，把常用的定义或者 import 放在 pch 中，这样在不用在项目中再引用和定义了，即可以做到全局 macro，又可以作为全局 import 用。 然而最近在用 DTCoreText 和 ZipArchive 时，发现无论怎么调试，都无法编译通过，出现类似很多类名 not &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,244 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang/">PCH 文件中进行全局 Import 的注意事项</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-17T19:05:00+08:00" pubdate data-updated="true">Jul 17<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>pch 文件可是个好东西，把常用的定义或者 import 放在 pch 中，这样在不用在项目中再引用和定义了，即可以做到全局 macro，又可以作为全局 import 用。</p>
+
+<p>然而最近在用 DTCoreText 和 ZipArchive 时，发现无论怎么调试，都无法编译通过，出现类似很多类名 not found，甚至是 NSString 都未找到！！</p>
+
+<p>后来研究了好久，原来这两个库有用 C 和 C++ 编译。而 pch 文件对于 C 的文件一样有效。试想一下，C 的代码引用 OC 的代码，会出现什么？当然是编译失败！</p>
+
+<p>问题找到了，如何让 C 的文件编译的时候不引用 OC 的代码呢？</p>
+
+<p>突然想起我们经常看到一个这个定义：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#ifdef __OBJC__
+</span><span class='line'>    #import &lt;UIKit/UIKit.h&gt;
+</span><span class='line'>    #import &lt;Foundation/Foundation.h&gt;
+</span><span class='line'>#endif</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看来这个<code>ifdef __OBJC__</code>就是用于判断是否是 OC 文件的！！我以前一直以为这个宏是判断项目是否用 OC 编译的！！当时还纳闷，啥时候会出现不用 OC 写 iOS 项目？</p>
+
+<p>因此，在原来的 pch 里面适当的将代码用这个<code>ifdef __OBJC__</code>包起来，就解决了 C 的文件引入 OC 代码的问题！！</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang/">rootViewController 更改动画的注意事项</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-11T20:17:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>Window</code>的<code>rootViewController</code>属性在 iOS5 之后都期望被设置，因为旋转等原因，controller 控制 View 比自己控制 View 更安全。</p>
+
+<p>但是突然出现一个需求，需要更换主<code>Window</code>的<code>rootViewController</code>，那如何做<code>UIView</code>动画呢？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">transitionWithView:</span><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span>
+</span><span class='line'>                  <span class="nl">duration:</span><span class="mf">0.4</span>
+</span><span class='line'>                   <span class="nl">options:</span><span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>
+</span><span class='line'>                <span class="nl">animations:</span><span class="o">^</span><span class="p">{</span>
+</span><span class='line'>                    <span class="p">[[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span> <span class="nl">setRootViewController:</span><span class="n">vc</span><span class="p">];</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>                <span class="nl">completion:</span><span class="nb">NULL</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>咋看之下没啥问题，运行起来也没问题。能成功实现替换为新的<code>vc</code>。</p>
+
+<p>然后出现一个很诡异的问题——如果设备是横的，新的<code>vc</code>对应的<code>View</code>会有一个旋转的动画，导致动画混乱，甚至很奇怪的动画。</p>
+
+<p>刚开始以为是<code>vc.view</code>加载太慢，后来没解决。Google 了一下，发现有人解决了。将上面的代码改为：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">transitionWithView:</span><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span>
+</span><span class='line'>                  <span class="nl">duration:</span><span class="mf">0.4</span>
+</span><span class='line'>                   <span class="nl">options:</span><span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>
+</span><span class='line'>                <span class="nl">animations:</span><span class="o">^</span><span class="p">{</span>
+</span><span class='line'>                    <span class="kt">BOOL</span> <span class="n">oldState</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIView</span> <span class="n">areAnimationsEnabled</span><span class="p">];</span>
+</span><span class='line'>                    <span class="p">[</span><span class="n">UIView</span> <span class="nl">setAnimationsEnabled:</span><span class="n">NO</span><span class="p">];</span>
+</span><span class='line'>                    <span class="p">[[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span> <span class="nl">setRootViewController:</span><span class="n">vc</span><span class="p">];</span>
+</span><span class='line'>                    <span class="p">[</span><span class="n">UIView</span> <span class="nl">setAnimationsEnabled:</span><span class="n">oldState</span><span class="p">];</span>
+</span><span class='line'>                <span class="p">}</span>
+</span><span class='line'>                <span class="nl">completion:</span><span class="nb">NULL</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/">使用Uncrustify让iOS代码更漂亮</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-07T12:12:00+08:00" pubdate data-updated="true">Jul 7<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Github project: <a href="https://github.com/dijkst/uncrustify-config-ios">uncrustify-config-ios</a></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/">使用CocoaAsyncSocket发送TCP/UDP消息</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-02T17:19:00+08:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>习惯上每次使用一个类库的功能，我第一时间想到的都是Google那个类库的使用例子。这不是一个好习惯，这次我下载了CocoaAsyncSocket的代码，找了好一阵没找到满意的例子。灰心丧气之余想到很多用到我写的代码的人们也是不看文档，不看注释的。他们给我带来了巨大的困扰，而我现在也不看别人的注释和文档，假如CocoaAsyncSocket的作者要为我服务的话，那他肯定也会吐血不止。</p>
+
+<p>于是，我决定自力更生，从代码注释里找找我需要功能的用法。</p>
+
+<p>我需要的功能是，用TCP或者UDP发送一些数据给服务器，不用关心服务器是否收到数据。</p>
+
+<p>下面例子，只是TCP的发送过程，UDP请自行看注释。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -204,22 +442,17 @@
 
   <div class="entry-content"><p>MacOS里有一个相当人性化的功能——QuickLook，选中一个文件，不用打开它，只用按一下空格键，立即可以看到文件内容或者信息，相当快。然而悲剧的是，并不是所有文件类型都被支持的！！如果按了空格键，发现只是显示文件图标，只好很无奈的在按空格键把它关了，再去把文件打开，早知道就直接打开文件了~忧伤啊~</p>
 
-<p>上网找了一下，找到一些不错的QL扩展，分享一下。但是在分享以前，先说一下怎么安装扩展~</p>
+<p>以前导出搜索不错的插件，最近发现，用 <code>brew cast</code> 可以完全帮我们安装。</p>
 
-<p>将下载好的QL扩展放在<code>/资源库/QuickLook/</code>下，注销系统即可生效，不想注销的，可以用终端命令：</p>
+<p>请移步到 <a href="https://github.com/sindresorhus/quick-look-plugins">https://github.com/sindresorhus/quick-look-plugins</a></p>
+
+<p>小知识：让 QuickLook 也能选择文字，只需要在终端中执行以下命令：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>qlmanage -r</span></code></pre></td></tr></table></div></figure>
-
-
-<p>下面看看都有些啥好扩展：</p>
+</pre></td><td class='code'><pre><code class=''><span class='line'>defaults write com.apple.finder QLEnableTextSelection -bool true && killall Finder</span></code></pre></td></tr></table></div></figure>
 
 </div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/29/tui-jian-ji-kuan-bu-cuo-de-quicklookkuo-zhan-cha-jian/">Read on &rarr;</a>
-    </footer>
   
 
 
@@ -395,225 +628,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/14/huo-qu-quan-ping-uiwindow/">获取全屏UIWindow</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-14T20:42:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/14/huo-qu-quan-ping-uiwindow/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>如果客官是写代码给别人用的那一群人，很可能有在当前APP中弹出一个对话框或者窗口的需要，而且很多时候我们只知道那个APP是一个iOS程序，对它的实现一无所知（可能是cocos2dx，可能是unity3d&hellip;）。还好iOS程序有个常识&mdash;&mdash;APP有window才能显示，我们需要做的就是获得那个window，把我们创建的UIView添加上去。</p>
-
-<p>其实还有一些方案，比如创建一个UIWindow，保证它的level比Normal的level高，然后makeKeyAndVisible。这种做法会遇到问题，比如，在这个不是NormalLevel的window里用webview播放在线视频页面层次会错乱，在这个window里使用虚拟键盘，ios6下也会有问题。</p>
-
-<p>还有一个方案，让用到你的代码的程序员提供一个UIView或者ViewController，然后把想要放的界面放进去，这个方案比较可靠，缺点是遇到那些没有iOS编程概念的程序员会很难教育，如果他们使用unity3d，他们可能根本不需要知道UIView是什么。</p>
-
-<p>所以还是回到题目中的问题，首先要明白一个API只要不被不允许怎样使用，那么那个API的什么用法都有可能被程序员们用到。比如现在要说的UIWindow，一个APP最好不要使用多个UIWindow，我在stackoverflow上遇到过不少这样的告诫，作为一个写代码给别人用的人，我很感激他们用心良苦，但还是有很多人没有看到这种告诫或者无视掉, 拥有多个UIWindow的APP我见过不少。</p>
-
-<p>要获得我们寄宿UIView的UIWindow就要知道下面几个事实：</p>
-
-<p>1，有的程序不止一个UIWindow</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/14/huo-qu-quan-ping-uiwindow/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/09/fang-zhi-catransactiondong-hua-zui-hou-yi-zheng-shan-dong/">防止CATransaction动画最后一帧闪动</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-09T09:11:00+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/09/fang-zhi-catransactiondong-hua-zui-hou-yi-zheng-shan-dong/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>一直都留意到公司里的项目中的一个动画比较奇怪，前两天终于静下来研究了一下是什么问题。</p>
-
-<p>那个是一个立方体切换动画，过程很正常，就是在动画的最后闪了一下。我怀疑是动画的最后并没有保持layer的transform属性，搜索了一阵后发现果然是这样。</p>
-
-<p>CAAnimation默认是动画完毕后就把动画的transform去除（kCAFillModeRemoved），因此要保持动画的最终状态需要如下设置</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cubicAnimation.removedOnCompletion = NO;
-</span><span class='line'>cubicAnimation.fillMode = kCAFillModeForwards;</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/06/zai-xcodede-run-scriptli-diao-yong-pythonjiao-ben/">在XCode的Run Script里调用python脚本</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-06T20:00:00+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/06/zai-xcodede-run-scriptli-diao-yong-pythonjiao-ben/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>昨天把同事的打包文档的python脚本改了一下，早上我在终端上运行没出问题，打算加到XCode里成为打包 SDK 的脚本的一部分，开始了漫长折腾&hellip;</p>
-
-<p>首先我的 python 脚本是被一个bash脚本调用的</p>
-
-<figure class='code'><figcaption><span>generate_doc.sh </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/bash</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">CURRENT_FOLDER</span><span class="o">=</span><span class="sb">`</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span>; <span class="nb">pwd</span><span class="sb">`</span>
-</span><span class='line'><span class="nv">DOC_FOLDER</span><span class="o">=</span><span class="s2">&quot;$CURRENT_FOLDER/../doc&quot;</span>
-</span><span class='line'>python3 <span class="s2">&quot;${CURRENT_FOLDER}/generate_doc/generate_doc.py&quot;</span> <span class="nv">$DOC_FOLDER</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我在<code>Run Script</code>里</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sh ${PRJ_ROOT}/dev/scripts/generate_doc.sh</span></code></pre></td></tr></table></div></figure>
-
-
-<p>提示两个错误<br/>
-1，python3找不到<br/>
-2，xxxx/../doc 是个文件夹</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/06/zai-xcodede-run-scriptli-diao-yong-pythonjiao-ben/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/">使用Cygwin给Windows安装Linux命令行</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-06T13:44:00+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>以前也考虑过给Windows装一套命令行，因为Windows的命令行和Mac、Linux等不一样，有些功能没有，最关键都是，命令不一样~我还得去记一套新的命令~而Windows都命令行又不常用，没必要去记。</p>
-
-<p>今天想远程控制家里的电脑，使用QQ的远程控制，经常发现无法发送鼠标事件到对方，于是又想到了用命令行远程登陆——当然Windows的远程登陆好多功能还是得用GUI来完成，好鸡肋啊~</p>
-
-<p>上网找了一下，找到<a href="http://www.cygwin.com">Cygwin</a>，看上去不错，试了下，还是能满足需求的。</p>
-
-<p>首先到<a href="http://www.cygwin.com">Cygwin</a>下载<a href="http://cygwin.com/setup.exe">setup.exe</a>。这个其实不只是一个安装包，还负责依赖的管理。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -631,7 +645,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.3</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.4</a>
       </li>
     
       <li class="post">
@@ -639,22 +653,22 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+        <a href="/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/">在其他电脑上浏览 Time Machine 历史</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+        <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
       </li>
     
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (1)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My APPs</h1>

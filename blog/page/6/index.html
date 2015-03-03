@@ -9,7 +9,7 @@
   <meta name="author" content="dijkst">
 
   
-  <meta name="description" content="这几天和中间层同事们对接接口， 常常需要生成个链接然后发过去，超级麻烦。于是想能不能让他们在设备上自己复制个链接来测试。 因为这些链接都是有上下文的， 不能说生成就生成. 想来想去最简单的获取方法是在请求链接之前NSLog出来。 为了减少将来的重复劳动， &hellip;">
+  <meta name="description" content="苹果的证书那叫一个多啊~~~ &ndash;_&ndash;! 这里不仅仅讲到证书，还讲到provision。 为了能正确使用Push功能，需要对App进行相应的设置，服务器也需要相应设置，因此这里牵扯到两方面的证书/provision： 用于App的mobileprovision配置文件 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,221 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/16/tui-song-ji-zhu-apns-er-zheng-shu/">推送技术(APNS)二——证书</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-16T11:40:00+08:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/16/tui-song-ji-zhu-apns-er-zheng-shu/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>苹果的证书那叫一个多啊~~~ &ndash;_&ndash;!</p>
+
+<p>这里不仅仅讲到证书，还讲到provision。</p>
+
+<p>为了能正确使用Push功能，需要对App进行相应的设置，服务器也需要相应设置，因此这里牵扯到两方面的证书/provision：</p>
+
+<blockquote><ol>
+<li>用于App的mobileprovision配置文件</li>
+<li>用于服务器和APNS验证的SSL证书</li>
+</ol>
+</blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/16/tui-song-ji-zhu-apns-er-zheng-shu/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/16/tui-song-ji-zhu-apns-yi-yuan-li/">推送技术(APNS)一——原理</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-16T10:23:00+08:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/16/tui-song-ji-zhu-apns-yi-yuan-li/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>整个推送流程分为三步骤：</p>
+
+<blockquote><ol>
+<li>收集用户身份识别码</li>
+<li> 向用户发送推送信息</li>
+<li> 从苹果获取卸载用户</li>
+</ol>
+</blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/16/tui-song-ji-zhu-apns-yi-yuan-li/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/14/javascripthe-objectivecjiao-hu/">Javascript和ObjectiveC交互</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-14T20:13:00+08:00" pubdate data-updated="true">May 14<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/14/javascripthe-objectivecjiao-hu/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在iOS下UIWebview中的代码和Objective C代码交互比较蛋疼，其过程可以用下面一段描述：</p>
+
+<blockquote><ol>
+<li>制造一个点击，链接为自己定义的格式，比如<code>protocol://control/action?key1=value1</code></li>
+<li>UIWebview的delegate收到<code>webView:shouldStartLoadWithRequest:navigationType:</code>分析链接，并处理</li>
+<li>如果要返回结果则调用<code>[webView stringByEvaluatingJavaScriptFromString:]</code></li>
+</ol>
+</blockquote>
+
+<p>要是这种交互接口不多，随便按照上面步骤写写就够用了。如果这些接口不少，我们可以利用performSelector来解放一下生产力。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/14/javascripthe-objectivecjiao-hu/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/13/svnqian-yi-dao-gitde-yi-xie-wen-ti/">SVN迁移到GIT的一些问题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-13T17:02:00+08:00" pubdate data-updated="true">May 13<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/13/svnqian-yi-dao-gitde-yi-xie-wen-ti/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天准备把一个SVN的项目迁移到Git上，看了一下网络上的迁移方法</p>
+
+<pre><code>git svn clone svn://192.168.1.108:9999/ --no-metadata -A user.txt --trunk=trunk --tags=tags --branches=branches myProject
+</code></pre>
+
+<p>，看上去好像不难，试了一下，发现一个很悲剧的事情：SVN的结构不是标准结构-_&ndash;#</p>
+
+<pre><code>- branches
+    - A1
+    - A2
+    - B1
+    - B2
+- trunkA
+- trunkB
+- tagsA
+</code></pre>
+
+<p>居然将两个项目放在了一起，就不能使用标准的方法了 T^T</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/13/svnqian-yi-dao-gitde-yi-xie-wen-ti/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -307,7 +522,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.3</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.4</a>
       </li>
     
       <li class="post">
@@ -315,22 +530,22 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+        <a href="/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/">在其他电脑上浏览 Time Machine 历史</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+        <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
       </li>
     
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (1)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My APPs</h1>

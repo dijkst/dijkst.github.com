@@ -9,7 +9,7 @@
   <meta name="author" content="dijkst">
 
   
-  <meta name="description" content="花了半天总算把QRCode边栏改为了可以直接像img标签那样的用法，方便在blog中随时添加带有URL的QRCode。当然稍微修改一下还能在里面包含其他的信息，不过我目前没那种需求，所以就做这个支持了。 为了让它能像img那样的使用，因此我很干脆的直接调用了ImageTag类进行解析。 &hellip;">
+  <meta name="description" content="如果客官是写代码给别人用的那一群人，很可能有在当前APP中弹出一个对话框或者窗口的需要，而且很多时候我们只知道那个APP是一个iOS程序，对它的实现一无所知（可能是cocos2dx，可能是unity3d&hellip;）。还好iOS程序有个常识&mdash;&mdash; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,225 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/14/huo-qu-quan-ping-uiwindow/">获取全屏UIWindow</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-14T20:42:00+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/14/huo-qu-quan-ping-uiwindow/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>如果客官是写代码给别人用的那一群人，很可能有在当前APP中弹出一个对话框或者窗口的需要，而且很多时候我们只知道那个APP是一个iOS程序，对它的实现一无所知（可能是cocos2dx，可能是unity3d&hellip;）。还好iOS程序有个常识&mdash;&mdash;APP有window才能显示，我们需要做的就是获得那个window，把我们创建的UIView添加上去。</p>
+
+<p>其实还有一些方案，比如创建一个UIWindow，保证它的level比Normal的level高，然后makeKeyAndVisible。这种做法会遇到问题，比如，在这个不是NormalLevel的window里用webview播放在线视频页面层次会错乱，在这个window里使用虚拟键盘，ios6下也会有问题。</p>
+
+<p>还有一个方案，让用到你的代码的程序员提供一个UIView或者ViewController，然后把想要放的界面放进去，这个方案比较可靠，缺点是遇到那些没有iOS编程概念的程序员会很难教育，如果他们使用unity3d，他们可能根本不需要知道UIView是什么。</p>
+
+<p>所以还是回到题目中的问题，首先要明白一个API只要不被不允许怎样使用，那么那个API的什么用法都有可能被程序员们用到。比如现在要说的UIWindow，一个APP最好不要使用多个UIWindow，我在stackoverflow上遇到过不少这样的告诫，作为一个写代码给别人用的人，我很感激他们用心良苦，但还是有很多人没有看到这种告诫或者无视掉, 拥有多个UIWindow的APP我见过不少。</p>
+
+<p>要获得我们寄宿UIView的UIWindow就要知道下面几个事实：</p>
+
+<p>1，有的程序不止一个UIWindow</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/06/14/huo-qu-quan-ping-uiwindow/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/09/fang-zhi-catransactiondong-hua-zui-hou-yi-zheng-shan-dong/">防止CATransaction动画最后一帧闪动</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-09T09:11:00+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/09/fang-zhi-catransactiondong-hua-zui-hou-yi-zheng-shan-dong/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>一直都留意到公司里的项目中的一个动画比较奇怪，前两天终于静下来研究了一下是什么问题。</p>
+
+<p>那个是一个立方体切换动画，过程很正常，就是在动画的最后闪了一下。我怀疑是动画的最后并没有保持layer的transform属性，搜索了一阵后发现果然是这样。</p>
+
+<p>CAAnimation默认是动画完毕后就把动画的transform去除（kCAFillModeRemoved），因此要保持动画的最终状态需要如下设置</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cubicAnimation.removedOnCompletion = NO;
+</span><span class='line'>cubicAnimation.fillMode = kCAFillModeForwards;</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/06/zai-xcodede-run-scriptli-diao-yong-pythonjiao-ben/">在XCode的Run Script里调用python脚本</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-06T20:00:00+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/06/zai-xcodede-run-scriptli-diao-yong-pythonjiao-ben/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>昨天把同事的打包文档的python脚本改了一下，早上我在终端上运行没出问题，打算加到XCode里成为打包 SDK 的脚本的一部分，开始了漫长折腾&hellip;</p>
+
+<p>首先我的 python 脚本是被一个bash脚本调用的</p>
+
+<figure class='code'><figcaption><span>generate_doc.sh </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">CURRENT_FOLDER</span><span class="o">=</span><span class="sb">`</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span>; <span class="nb">pwd</span><span class="sb">`</span>
+</span><span class='line'><span class="nv">DOC_FOLDER</span><span class="o">=</span><span class="s2">&quot;$CURRENT_FOLDER/../doc&quot;</span>
+</span><span class='line'>python3 <span class="s2">&quot;${CURRENT_FOLDER}/generate_doc/generate_doc.py&quot;</span> <span class="nv">$DOC_FOLDER</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我在<code>Run Script</code>里</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sh ${PRJ_ROOT}/dev/scripts/generate_doc.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<p>提示两个错误<br/>
+1，python3找不到<br/>
+2，xxxx/../doc 是个文件夹</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/06/06/zai-xcodede-run-scriptli-diao-yong-pythonjiao-ben/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/">使用Cygwin给Windows安装Linux命令行</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-06T13:44:00+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>以前也考虑过给Windows装一套命令行，因为Windows的命令行和Mac、Linux等不一样，有些功能没有，最关键都是，命令不一样~我还得去记一套新的命令~而Windows都命令行又不常用，没必要去记。</p>
+
+<p>今天想远程控制家里的电脑，使用QQ的远程控制，经常发现无法发送鼠标事件到对方，于是又想到了用命令行远程登陆——当然Windows的远程登陆好多功能还是得用GUI来完成，好鸡肋啊~</p>
+
+<p>上网找了一下，找到<a href="http://www.cygwin.com">Cygwin</a>，看上去不错，试了下，还是能满足需求的。</p>
+
+<p>首先到<a href="http://www.cygwin.com">Cygwin</a>下载<a href="http://cygwin.com/setup.exe">setup.exe</a>。这个其实不只是一个安装包，还负责依赖的管理。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -388,232 +607,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/29/xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/">在已经存在的iOS项目中集成OCTest</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-29T15:58:00+08:00" pubdate data-updated="true">May 29<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/29/xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>创建新项目的时候，我们都能勾选单元测试那个选项，但是往往在iOS都没有写单元测试的习惯，所以经常不勾这个勾。今天突然需要往原来没单元测试的项目里面添加OCTest，google了一下，还挺麻烦的说……</p>
-
-<p>首先添加一个Target，随便取个名字，例如<code>unitTests</code>，在<code>Build Phases</code>的<code>Target Dependencies</code>里面添加需要测试的项目：</p>
-
-<p><img src="/images/post/2013-05-29-xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/1.jpg"></p>
-
-<p>在<code>Build Settings</code>&ndash;><code>Bundle Loader</code>，设置为<code>$(BUILT_PRODUCTS_DIR)/待测试的Target名称.app/待测试的Target名称</code></p>
-
-<p><img src="/images/post/2013-05-29-xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/2.jpg"></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/29/xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/28/fei-lu-bin-zi-you-xing/">菲律宾自由行</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-28T22:22:00+08:00" pubdate data-updated="true">May 28<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/28/fei-lu-bin-zi-you-xing/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今年五一假期和几个同事一起去菲律宾玩了一趟，作为首次肉身翻墙，心情自然十分激动。</p>
-
-<p>出去玩，接触最多的就是店铺的服务员了，其实每次到远点的地方，都会觉得当地的服务员比我们那的友善多了，就算是在香港澳门，都常能遇到爱理不理的服务员。虽然想到我去的一般是游客较多的地方，当差距也太大了。还有个印象很深的地方，菲律宾的人们称呼别人（男）都喜欢以“sir”开头，比如“sir what can I do for you？”，听多了觉得挺有趣的。</p>
-
-<p>我们在路上遇到几个主动帮助我们的人，可能看到我们是外国人吧，反正在天朝我没有试过这样的待遇，再说我也没有主动帮助过外国人。说什么中华民族的优良美德，估计就算有过，现在剩下不多的了。</p>
-
-<p>我们去了马尼拉，宿务，薄荷岛。都非常热，特别是在宿务的时候，天上一点云也没有，猛烈的太阳，估计36+的温度，无时无刻都在告诉我这是热带。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/28/fei-lu-bin-zi-you-xing/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/27/macosan-zhuang-cocoapodsbu-zou/">MacOS安装Cocoapods步骤</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-27T19:24:00+08:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/27/macosan-zhuang-cocoapodsbu-zou/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Cocoapods本身就是ruby的一个gem，所以没啥特殊的安装方式，但是很多iOS或者OSX开发人员都对ruby不熟悉，所以简单的总结一下。</p>
-
-<p>分为一下几步骤：</p>
-
-<blockquote><ol>
-<li>安装Command Line Tool (CLT)</li>
-<li>安装Homebrew</li>
-<li>安装rvm</li>
-<li>安装ruby</li>
-<li>安装cocoapods</li>
-</ol>
-</blockquote>
-
-<p>好像要装不少东西……其实都是一层一层的，CLT是必装的，homebrew管理一些依赖，rvm实现ruby虚拟机。已经安装有的可以跳过，也可以重新按照上面的步骤安装。</p>
-
-<p><strong>请先确保XCODE为最新版本！！！</strong></p>
-
-<h4>安装Command Line Tool （CLT）</h4>
-
-<p>在Xcode的<code>Preferences</code>&ndash;><code>Downloads</code>&ndash;><code>Components</code>里面可以直接安装，也可以到<a href="https://developer.apple.com/downloads/index.action">Apple</a>单独下载安装。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/27/macosan-zhuang-cocoapodsbu-zou/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/25/for-inyu-ju-zai-arczhong-de-chu-li/">ARC对for-in语句的处理</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-25T09:13:00+08:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/25/for-inyu-ju-zai-arczhong-de-chu-li/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>为了加快 for in 语句的效率， 启用了ARC的编译器不会在下面句子中 retain obj</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>for (NSObject *obj in array) { … }</span></code></pre></td></tr></table></div></figure>
-
-
-<p>下面代码：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>for (NSObject *obj in array) {
-</span><span class='line'>     obj = nil;
-</span><span class='line'>     …
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果编译通过，在<code>obj = nil</code> 时会release掉obj， 会崩溃。</p>
-
-<p>为了安全，编译器不会让上面语句编译通过。
-语句 <code>for (NSObject *obj in array) { … }</code> 不允许修改obj的值。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/25/for-inyu-ju-zai-arczhong-de-chu-li/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -631,7 +624,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.3</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.4</a>
       </li>
     
       <li class="post">
@@ -639,22 +632,22 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+        <a href="/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/">在其他电脑上浏览 Time Machine 历史</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+        <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
       </li>
     
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (1)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My APPs</h1>

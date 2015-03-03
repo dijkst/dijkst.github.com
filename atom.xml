@@ -4,7 +4,7 @@
   <title><![CDATA[第九块石头]]></title>
   <link href="http://dijkst.github.io/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-02-24T11:51:35+08:00</updated>
+  <updated>2015-03-03T21:10:44+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[BlueLock Release v1.0.3]]></title>
+    <title type="html"><![CDATA[BlueLock Release v1.0.4]]></title>
     <link href="http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3/"/>
     <updated>2015-02-14T13:35:00+08:00</updated>
     <id>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3</id>
@@ -79,6 +79,297 @@
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[在其他电脑上浏览 Time Machine 历史]]></title>
+    <link href="http://dijkst.github.io/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/"/>
+    <updated>2014-06-25T22:44:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi</id>
+    <content type="html"><![CDATA[<p>Time Machine 一般总是在后台默默的运行，一般用得也比较少，就怕有时候用上还真挽回了一条命啊~</p>
+
+<p>但是一直有一个疑问，换了一台 Mac，那如何去找原来那台上面的备份呢？</p>
+
+<p>今天就给我遇上了，由于换了一台 MacBook，很多东西都没迁移过来，不想用还原的方式，想全新安装新的 Mac，于是出现或多或少遗漏一些数据迁移。经过一段时间后，旧 Mac 也处理了，因为觉得要的东西都差不多迁移完成了，但是往往不可预料的发现遗漏了。这时候就想访问原来的那台电脑的 Time Machine 备份磁盘。</p>
+
+<p>可是如何让 Mac 访问另外一台电脑的磁盘呢？折腾了好久都没找到功能，一启动 Time Machine 就进入历史浏览，压根就没机会让我选择其他磁盘。</p>
+
+<p>上网搜索了一下，官网有给出一个答复：<a href="https://discussions.apple.com/thread/1702971">How to access Time Machine from Another Computer?</a></p>
+
+<p>试了一下，发现这个功能藏得可真深：</p>
+
+<ul>
+<li>先把 Time Machine 这个 APP 固定到 Dock 栏（任务栏），方法就是把 Finder 里面的 APP 拖到 Dock~</li>
+<li>右击 Dock 上面的 Time Machine，选择<code>浏览其他 Time Machine 磁盘</code></li>
+</ul>
+
+
+<p>值得注意的是，由于不是自己的备份磁盘，存在访问权限问题，有些文件是访问不了的。因此我们平时文件尽可能存放在其他路径下，不要放在个人路径下。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SourceTree 中链接注释中的 issue id 到Kelude]]></title>
+    <link href="http://dijkst.github.io/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/"/>
+    <updated>2014-05-30T16:30:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude</id>
+    <content type="html"><![CDATA[<p>Mac 上用 Git 时，SourceTree 简直就是非常方便的神器。</p>
+
+<p>今天突发奇想，每次看到 git 的 commit message 里面有 fix #xxxxx 的时候，总是不知道到底修复的是啥。必须到 issue 里面去搜索 ID 才能找到，很少麻烦！</p>
+
+<p>在 SourceTree 中逛了一圈，发现在项目的 Settings 中有一个 <code>Commit Text Replacements</code> 功能，很有可能是我正在找寻的~</p>
+
+<p>上网搜索了一下，官方提供了说明：<a href="https://confluence.atlassian.com/display/SOURCETREEKB/Link+to+Bitbucket+issue+tracker+from+commits">Link to Bitbucket issue tracker from commits</a></p>
+
+<p>经过测试，这里的 Replacements 功能并不是在提交的时候替换，而是在 SourceTree 显示注释的时候进行替换。因此并不会影响我们的最终提交~</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法]]></title>
+    <link href="http://dijkst.github.io/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/"/>
+    <updated>2014-05-24T21:31:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa</id>
+    <content type="html"><![CDATA[<p>用 GoAgent 很长一段时间了，感觉好鸡肋，为啥，因为经常出现这个错误：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SSLError: [Errno 8] _ssl.c:504: EOF occurred in violation of protocol</span></code></pre></td></tr></table></div></figure>
+
+
+<p>网上一搜一大把这个问题，就是没有解决的。</p>
+
+<p>直接后果是大部分 https 的网站上不了！</p>
+
+<p>今天无意中发现有人居然解决了：</p>
+
+<p><a href="https://code.google.com/p/goagent/issues/detail?id=11385">https://code.google.com/p/goagent/issues/detail?id=11385</a></p>
+
+<p>解决方法：</p>
+
+<p>打开 keychain 把 GoAgent 证书从 login 移动到 system 里！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[在 CALayer 上画线出现模糊的解决办法]]></title>
+    <link href="http://dijkst.github.io/blog/2014/05/23/zai-calayer-shang-hua-xian-chu-xian-mo-hu-de-jie-jue-ban-fa/"/>
+    <updated>2014-05-23T20:34:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/05/23/zai-calayer-shang-hua-xian-chu-xian-mo-hu-de-jie-jue-ban-fa</id>
+    <content type="html"><![CDATA[<p>iOS 原生的 CALayer 不支持设置四边其中一个边框，只能设置整个边框(border)，因此想到设置一个属性来自己画线。可是画出来的线总感觉很奇怪，同样是 width=1 的线，底部总感觉比左右边框更粗，也更模糊，而且不是总是这样的，仔细一看，好像 width 也差不多相同，就是虚了点，感觉多了一点像素。</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawInContext:</span><span class="p">(</span><span class="n">CGContextRef</span><span class="p">)</span><span class="nv">ctx</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="nl">drawInContext:</span><span class="n">ctx</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// border left</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">fromY:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toX:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
+</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftColor</span>
+</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// border right</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
+</span><span class='line'>                      <span class="nl">fromY:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
+</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
+</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderRightColor</span>
+</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// border top</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">fromY:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
+</span><span class='line'>                        <span class="nl">toY:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopColor</span>
+</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// border bottom</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">fromY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
+</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
+</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
+</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderBottomColor</span>
+</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawLineInContext:</span><span class="p">(</span><span class="n">CGContextRef</span><span class="p">)</span><span class="nv">ref</span>
+</span><span class='line'>                    <span class="nf">fromX:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">startX</span>
+</span><span class='line'>                    <span class="nf">fromY:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">startY</span>
+</span><span class='line'>                      <span class="nf">toX:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">targetX</span>
+</span><span class='line'>                      <span class="nf">toY:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">targetY</span>
+</span><span class='line'>                    <span class="nf">color:</span><span class="p">(</span><span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="nv">color</span>
+</span><span class='line'>                    <span class="nf">width:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">width</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="nb">nil</span> <span class="o">||</span> <span class="n">color</span> <span class="o">==</span> <span class="p">[</span><span class="n">NSNull</span> <span class="n">class</span><span class="p">])</span>
+</span><span class='line'>        <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">startX</span><span class="p">,</span> <span class="n">startY</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">targetX</span><span class="p">,</span> <span class="n">targetY</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">CGContextSetStrokeColorWithColor</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">color</span><span class="p">.</span><span class="n">CGColor</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">CGContextSetLineWidth</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">width</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">CGContextStrokePath</span><span class="p">(</span><span class="n">ref</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>网上搜索了一下，发现有人提出在代码前加这句：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CGContextSetShouldAntialias(context, NO)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以前没用过，查了一下文档，得知是设置抗锯齿的，将抗锯齿功能关闭。试了一下，果然可以，但是，同时也发现了一点：边框不连接！也就是说，左边框超出了底边框！</p>
+
+<p>我似乎有点头绪，可是到底是哪里不对劲却又说不上来！</p>
+
+<p>首先抗锯齿功能可不是随便想关就关的，所以这个观点不能采纳！！</p>
+
+<p>接着，左边框超出底边框，说明我底边框的 Y 值不准确！！</p>
+
+<p>之前认为，画线时指明的 width 时，是向右向下延伸。看来原来理解错误了！</p>
+
+<p>既然不是向右向下延伸，那就很有可能是向两边延伸了！</p>
+
+<p>回头看 width=1 ，当我给它一个整形坐标时，向两边各自延伸 0.5，在抗锯齿中，可能出现 0.5 被虚化。</p>
+
+<p>现在试着解决：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawInContext:</span><span class="p">(</span><span class="n">CGContextRef</span><span class="p">)</span><span class="nv">ctx</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="nl">drawInContext:</span><span class="n">ctx</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// border left</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                      <span class="nl">fromY:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
+</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftColor</span>
+</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// border right</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                      <span class="nl">fromY:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
+</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderRightColor</span>
+</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// border top</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">fromY:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
+</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopColor</span>
+</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// border bottom</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">fromY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
+</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderBottomColor</span>
+</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>实践证明，正常了。</p>
+
+<p>这里的前提是，size 的 width 和 height 都为整数，当为小数时，还是会出现模糊~</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Git 同步远程 Tags]]></title>
     <link href="http://dijkst.github.io/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/"/>
     <updated>2014-02-10T11:35:00+08:00</updated>
@@ -121,6 +412,9 @@
 <p>在 iPhone 的 iOS6 中，正常。</p>
 
 <p>因此估计是 iPad 的问题，上网搜了一下，发现这个问题是普遍存在的 —— 只在 iOS6 的 iPad 设备中出现！</p>
+
+<!-- more -->
+
 
 <p>参考地址： <a href="https://discussions.apple.com/thread/4420524?tstart=0">https://discussions.apple.com/thread/4420524?tstart=0</a></p>
 
@@ -1844,362 +2138,6 @@ MAC 版：<a href="http://dijkst.github.io/media/2013-08-09-adobe-cs6-guan-fang-
 
 
 <p>将<code>HTTP_ACCEPT_ENCODING</code>设置为<code>nil</code>即可。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[PCH 文件中进行全局 import 的注意事项]]></title>
-    <link href="http://dijkst.github.io/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang/"/>
-    <updated>2013-07-17T19:05:00+08:00</updated>
-    <id>http://dijkst.github.io/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang</id>
-    <content type="html"><![CDATA[<p>pch 文件可是个好东西，把常用的定义或者 import 放在 pch 中，这样在不用在项目中再引用和定义了，即可以做到全局 macro，又可以作为全局 import 用。</p>
-
-<p>然而最近在用 DTCoreText 和 ZipArchive 时，发现无论怎么调试，都无法编译通过，出现类似很多类名 not found，甚至是 NSString 都未找到！！</p>
-
-<p>后来研究了好久，原来这两个库有用 C 和 C++ 编译。而 pch 文件对于 C 的文件一样有效。试想一下，C 的代码引用 OC 的代码，会出现什么？当然是编译失败！</p>
-
-<p>问题找到了，如何让 C 的文件编译的时候不引用 OC 的代码呢？</p>
-
-<p>突然想起我们经常看到一个这个定义：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#ifdef __OBJC__
-</span><span class='line'>    #import &lt;UIKit/UIKit.h&gt;
-</span><span class='line'>    #import &lt;Foundation/Foundation.h&gt;
-</span><span class='line'>#endif</span></code></pre></td></tr></table></div></figure>
-
-
-<p>看来这个<code>ifdef __OBJC__</code>就是用于判断是否是 OC 文件的！！我以前一直以为这个宏是判断项目是否用 OC 编译的！！当时还纳闷，啥时候会出现不用 OC 写 iOS 项目？</p>
-
-<p>因此，在原来的 pch 里面适当的将代码用这个<code>ifdef __OBJC__</code>包起来，就解决了 C 的文件引入 OC 代码的问题！！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[rootViewController 更改动画的注意事项]]></title>
-    <link href="http://dijkst.github.io/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang/"/>
-    <updated>2013-07-11T20:17:00+08:00</updated>
-    <id>http://dijkst.github.io/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang</id>
-    <content type="html"><![CDATA[<p><code>Window</code>的<code>rootViewController</code>属性在 iOS5 之后都期望被设置，因为旋转等原因，controller 控制 View 比自己控制 View 更安全。</p>
-
-<p>但是突然出现一个需求，需要更换主<code>Window</code>的<code>rootViewController</code>，那如何做<code>UIView</code>动画呢？</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">transitionWithView:</span><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span>
-</span><span class='line'>                  <span class="nl">duration:</span><span class="mf">0.4</span>
-</span><span class='line'>                   <span class="nl">options:</span><span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>
-</span><span class='line'>                <span class="nl">animations:</span><span class="o">^</span><span class="p">{</span>
-</span><span class='line'>                    <span class="p">[[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span> <span class="nl">setRootViewController:</span><span class="n">vc</span><span class="p">];</span>
-</span><span class='line'>                <span class="p">}</span>
-</span><span class='line'>                <span class="nl">completion:</span><span class="nb">NULL</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>咋看之下没啥问题，运行起来也没问题。能成功实现替换为新的<code>vc</code>。</p>
-
-<p>然后出现一个很诡异的问题——如果设备是横的，新的<code>vc</code>对应的<code>View</code>会有一个旋转的动画，导致动画混乱，甚至很奇怪的动画。</p>
-
-<p>刚开始以为是<code>vc.view</code>加载太慢，后来没解决。Google 了一下，发现有人解决了。将上面的代码改为：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">transitionWithView:</span><span class="p">[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span>
-</span><span class='line'>                  <span class="nl">duration:</span><span class="mf">0.4</span>
-</span><span class='line'>                   <span class="nl">options:</span><span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>
-</span><span class='line'>                <span class="nl">animations:</span><span class="o">^</span><span class="p">{</span>
-</span><span class='line'>                    <span class="kt">BOOL</span> <span class="n">oldState</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIView</span> <span class="n">areAnimationsEnabled</span><span class="p">];</span>
-</span><span class='line'>                    <span class="p">[</span><span class="n">UIView</span> <span class="nl">setAnimationsEnabled:</span><span class="n">NO</span><span class="p">];</span>
-</span><span class='line'>                    <span class="p">[[[</span><span class="n">UIApplication</span> <span class="n">sharedApplication</span><span class="p">].</span><span class="n">delegate</span> <span class="n">window</span><span class="p">]</span> <span class="nl">setRootViewController:</span><span class="n">vc</span><span class="p">];</span>
-</span><span class='line'>                    <span class="p">[</span><span class="n">UIView</span> <span class="nl">setAnimationsEnabled:</span><span class="n">oldState</span><span class="p">];</span>
-</span><span class='line'>                <span class="p">}</span>
-</span><span class='line'>                <span class="nl">completion:</span><span class="nb">NULL</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[使用Uncrustify让iOS代码更漂亮]]></title>
-    <link href="http://dijkst.github.io/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/"/>
-    <updated>2013-07-07T12:12:00+08:00</updated>
-    <id>http://dijkst.github.io/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang</id>
-    <content type="html"><![CDATA[<p>Github project: <a href="https://github.com/dijkst/uncrustify-config-ios">uncrustify-config-ios</a></p>
-
-<!-- more -->
-
-
-<p>uncrustify config for iOS developer</p>
-
-<h2>What is it</h2>
-
-<p>Uncrustify make code format beautiful. It needs configrations, I couldn&rsquo;t find a good configuration for iOS developer on Objective-C.</p>
-
-<p>Here&rsquo;s a repo collecting pretty uncrustify config for iOS developer.</p>
-
-<p>You can distribute your configurations over pull request.</p>
-
-<h2>Requirements</h2>
-
-<ol>
-<li>Tested with Xcode 4.6+ (also works in Xcode 5) on OS X 10.7 or higher.</li>
-<li>Uncrustify 0.60 higher (0.60 has a bug for Objective-C block, so install master HEAD or higher in the future)</li>
-<li>BBUncrustifyPlugin-Xcode</li>
-</ol>
-
-
-<h2>Installation</h2>
-
-<ol>
-<li>using <a href="http://brew.sh/">HomeBrew</a> install Uncrustify</li>
-</ol>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>brew install uncrustify --HEARD</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>install <a href="https://github.com/benoitsan/BBUncrustifyPlugin-Xcode/blob/master/README.md#installation">BBUncrustifyPlugin-Xcode</a></li>
-<li>clone this repo to <code>~/.uncrustify/</code> or other folder as <a href="https://github.com/benoitsan/BBUncrustifyPlugin-Xcode/blob/master/README.md#how-to-customize-the-uncrustify-configuration">BBUncrustifyPlugin-Xcode</a> said.</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/dijkst/uncrustify-config-ios.git ~/.uncrustify</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Example</h2>
-
-<h4>align code:</h4>
-
-<p>before:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionEvictCommentInsertion</span> <span class="o">=</span> <span class="s">@&quot;evictCommentInsertion&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionSourceFilename</span> <span class="o">=</span> <span class="s">@&quot;sourceFilename&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionSupplementalConfigurationFolders</span> <span class="o">=</span> <span class="s">@&quot;supplementalConfigurationFolders&quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>after:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionEvictCommentInsertion</span>            <span class="o">=</span> <span class="s">@&quot;evictCommentInsertion&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionSourceFilename</span>                   <span class="o">=</span> <span class="s">@&quot;sourceFilename&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="k">const</span> <span class="n">BBUncrustifyOptionSupplementalConfigurationFolders</span> <span class="o">=</span> <span class="s">@&quot;supplementalConfigurationFolders&quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>remove space:</h4>
-
-<p>before:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span><span class="p">(</span> <span class="kt">void</span> <span class="p">)</span><span class="nf">viewWillEnter</span> <span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>after:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillEnter</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>insert newline between methods</h4>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">a</span> <span class="p">{</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">b</span><span class="p">{</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>after:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">a</span> <span class="p">{</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">b</span> <span class="p">{</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>and so on.</p>
-
-<h2>License</h2>
-
-<p>uncrustify-config-ios is available under the MIT license.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[使用CocoaAsyncSocket发送TCP/UDP消息]]></title>
-    <link href="http://dijkst.github.io/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/"/>
-    <updated>2013-07-02T17:19:00+08:00</updated>
-    <id>http://dijkst.github.io/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi</id>
-    <content type="html"><![CDATA[<p>习惯上每次使用一个类库的功能，我第一时间想到的都是Google那个类库的使用例子。这不是一个好习惯，这次我下载了CocoaAsyncSocket的代码，找了好一阵没找到满意的例子。灰心丧气之余想到很多用到我写的代码的人们也是不看文档，不看注释的。他们给我带来了巨大的困扰，而我现在也不看别人的注释和文档，假如CocoaAsyncSocket的作者要为我服务的话，那他肯定也会吐血不止。</p>
-
-<p>于是，我决定自力更生，从代码注释里找找我需要功能的用法。</p>
-
-<p>我需要的功能是，用TCP或者UDP发送一些数据给服务器，不用关心服务器是否收到数据。</p>
-
-<p>下面例子，只是TCP的发送过程，UDP请自行看注释。</p>
-
-<!-- more -->
-
-
-<p>TCP连接发送过程中会出现的问题：</p>
-
-<blockquote><p>1，Host， 端口什么的可能是无意义的值，还没开始connect就已经失败了<br/>
-2，远程地址连不上，或者中途断线，算作connect失败<br/>
-3，我上面需要的功能只是发送数据，发送完就没事了，需要在发送完后断开连接</p></blockquote>
-
-<p>考虑完上面问题，得到的代码如下：</p>
-
-<figure class='code'><figcaption><span>tcp_sender.m </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &quot;GCDAsyncSocket.h&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="cp">#define kTCPSenderTag 123</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@interface</span> <span class="nc">TCPSender</span><span class="p">()</span>
-</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">retain</span><span class="p">)</span> <span class="n">GCDAsyncSocket</span> <span class="o">*</span><span class="n">socket</span><span class="p">;</span>
-</span><span class='line'><span class="k">@end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@implementation</span> <span class="nc">TCPSender</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sendMessage:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">msg</span> <span class="nf">toHost:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">host</span> <span class="nf">port:</span><span class="p">(</span><span class="n">UInt16</span><span class="p">)</span><span class="nv">port</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">[[</span><span class="n">self</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithMessage:</span><span class="n">msg</span> <span class="nl">host:</span><span class="n">host</span> <span class="nl">port:</span><span class="n">port</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithMessage:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">msg</span> <span class="nf">host:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">host</span> <span class="nf">port:</span><span class="p">(</span><span class="n">UInt16</span><span class="p">)</span><span class="nv">port</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="n">init</span><span class="p">];</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">msg</span> <span class="o">||</span> <span class="o">!</span><span class="n">host</span> <span class="o">||</span> <span class="o">!</span><span class="n">port</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="p">[</span><span class="n">self</span> <span class="n">release</span><span class="p">];</span>
-</span><span class='line'>            <span class="k">return</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">GCDAsyncSocket</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithDelegate:</span><span class="n">self</span> <span class="nl">delegateQueue:</span><span class="n">dispatch_get_main_queue</span><span class="p">()]</span> <span class="n">autorelease</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="nl">connectToHost:</span><span class="n">host</span> <span class="nl">onPort:</span><span class="n">port</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">self</span><span class="p">.</span><span class="n">socket</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'>            <span class="p">[</span><span class="n">self</span> <span class="n">release</span><span class="p">];</span>
-</span><span class='line'>            <span class="n">self</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">NSData</span> <span class="o">*</span><span class="n">msgData</span> <span class="o">=</span> <span class="p">[</span><span class="n">msg</span> <span class="nl">dataUsingEncoding:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
-</span><span class='line'>            <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="nl">writeData:</span><span class="n">msgData</span> <span class="nl">withTimeout:</span><span class="mi">30</span> <span class="nl">tag:</span><span class="n">kTCPSenderTag</span><span class="p">];</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="o">&amp;&amp;</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="n">isConnected</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="n">disconnect</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">dealloc</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">socket:</span><span class="p">(</span><span class="n">GCDAsyncSocket</span> <span class="o">*</span><span class="p">)</span><span class="nv">sock</span> <span class="nf">didWriteDataWithTag:</span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="nv">tag</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">socket</span> <span class="n">disconnect</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">socketDidDisconnect:</span><span class="p">(</span><span class="n">GCDAsyncSocket</span> <span class="o">*</span><span class="p">)</span><span class="nv">sock</span> <span class="nf">withError:</span><span class="p">(</span><span class="n">NSError</span> <span class="o">*</span><span class="p">)</span><span class="nv">err</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="n">release</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
 ]]></content>
   </entry>
   

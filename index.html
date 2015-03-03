@@ -84,7 +84,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.3</a></h1>
+      <h1 class="entry-title"><a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.4</a></h1>
     
     
       <p class="meta">
@@ -193,6 +193,205 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/">在其他电脑上浏览 Time Machine 历史</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-25T22:44:00+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Time Machine 一般总是在后台默默的运行，一般用得也比较少，就怕有时候用上还真挽回了一条命啊~</p>
+
+<p>但是一直有一个疑问，换了一台 Mac，那如何去找原来那台上面的备份呢？</p>
+
+<p>今天就给我遇上了，由于换了一台 MacBook，很多东西都没迁移过来，不想用还原的方式，想全新安装新的 Mac，于是出现或多或少遗漏一些数据迁移。经过一段时间后，旧 Mac 也处理了，因为觉得要的东西都差不多迁移完成了，但是往往不可预料的发现遗漏了。这时候就想访问原来的那台电脑的 Time Machine 备份磁盘。</p>
+
+<p>可是如何让 Mac 访问另外一台电脑的磁盘呢？折腾了好久都没找到功能，一启动 Time Machine 就进入历史浏览，压根就没机会让我选择其他磁盘。</p>
+
+<p>上网搜索了一下，官网有给出一个答复：<a href="https://discussions.apple.com/thread/1702971">How to access Time Machine from Another Computer?</a></p>
+
+<p>试了一下，发现这个功能藏得可真深：</p>
+
+<ul>
+<li>先把 Time Machine 这个 APP 固定到 Dock 栏（任务栏），方法就是把 Finder 里面的 APP 拖到 Dock~</li>
+<li>右击 Dock 上面的 Time Machine，选择<code>浏览其他 Time Machine 磁盘</code></li>
+</ul>
+
+
+<p>值得注意的是，由于不是自己的备份磁盘，存在访问权限问题，有些文件是访问不了的。因此我们平时文件尽可能存放在其他路径下，不要放在个人路径下。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 Issue Id 到Kelude</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-30T16:30:00+08:00" pubdate data-updated="true">May 30<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mac 上用 Git 时，SourceTree 简直就是非常方便的神器。</p>
+
+<p>今天突发奇想，每次看到 git 的 commit message 里面有 fix #xxxxx 的时候，总是不知道到底修复的是啥。必须到 issue 里面去搜索 ID 才能找到，很少麻烦！</p>
+
+<p>在 SourceTree 中逛了一圈，发现在项目的 Settings 中有一个 <code>Commit Text Replacements</code> 功能，很有可能是我正在找寻的~</p>
+
+<p>上网搜索了一下，官方提供了说明：<a href="https://confluence.atlassian.com/display/SOURCETREEKB/Link+to+Bitbucket+issue+tracker+from+commits">Link to Bitbucket issue tracker from commits</a></p>
+
+<p>经过测试，这里的 Replacements 功能并不是在提交的时候替换，而是在 SourceTree 显示注释的时候进行替换。因此并不会影响我们的最终提交~</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF Occurred in Violation of Protocol 解决办法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-24T21:31:00+08:00" pubdate data-updated="true">May 24<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>用 GoAgent 很长一段时间了，感觉好鸡肋，为啥，因为经常出现这个错误：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SSLError: [Errno 8] _ssl.c:504: EOF occurred in violation of protocol</span></code></pre></td></tr></table></div></figure>
+
+
+<p>网上一搜一大把这个问题，就是没有解决的。</p>
+
+<p>直接后果是大部分 https 的网站上不了！</p>
+
+<p>今天无意中发现有人居然解决了：</p>
+
+<p><a href="https://code.google.com/p/goagent/issues/detail?id=11385">https://code.google.com/p/goagent/issues/detail?id=11385</a></p>
+
+<p>解决方法：</p>
+
+<p>打开 keychain 把 GoAgent 证书从 login 移动到 system 里！</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/23/zai-calayer-shang-hua-xian-chu-xian-mo-hu-de-jie-jue-ban-fa/">在 CALayer 上画线出现模糊的解决办法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-23T20:34:00+08:00" pubdate data-updated="true">May 23<span>rd</span>, 2014</time>
+        
+         | <a href="/blog/2014/05/23/zai-calayer-shang-hua-xian-chu-xian-mo-hu-de-jie-jue-ban-fa/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>iOS 原生的 CALayer 不支持设置四边其中一个边框，只能设置整个边框(border)，因此想到设置一个属性来自己画线。可是画出来的线总感觉很奇怪，同样是 width=1 的线，底部总感觉比左右边框更粗，也更模糊，而且不是总是这样的，仔细一看，好像 width 也差不多相同，就是虚了点，感觉多了一点像素。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/05/23/zai-calayer-shang-hua-xian-chu-xian-mo-hu-de-jie-jue-ban-fa/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a></h1>
     
     
@@ -286,15 +485,12 @@
 
 <p>因此估计是 iPad 的问题，上网搜了一下，发现这个问题是普遍存在的 —— 只在 iOS6 的 iPad 设备中出现！</p>
 
-<p>参考地址： <a href="https://discussions.apple.com/thread/4420524?tstart=0">https://discussions.apple.com/thread/4420524?tstart=0</a></p>
-
-<p><code>It apparently works with https, but http and itms-apps fail.</code></p>
-
-<p>将 <code>itms-apps</code> 替换为 <code>https</code> 即可正常。</p>
-
-<p>最后经过测试，使用 <code>https</code> 在 iPhone、iPad 上均可正常使用，不会跳转 Safari，完全不需要使用 <code>itms-apps</code>！</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -424,261 +620,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/">Nagios4+Nginx+Ganglia配置</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-29T20:14:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>本文参考 <a href="http://idevit.nl/node/93">Nagios on nginx &amp; Ubuntu 12.04</a></p>
-
-<p>最近需要在服务器上配置一个Nagios用于检测服务器的异常情况并报警，我们的服务器已经搭建好Ganglia，Nagios主要用于报警通知。现在最新的Nagios的版本已经到了4.0.2, 而apt-get只有nagios3, 并且似乎还自动装了apache, 这不是我们需要的。看了一些资料后得知一般情况下 nagios 应该安装在 /usr/local/nagios 文件夹下，这样安装插件的时候会少很多麻烦。 而按照ubuntu的习惯，配置文件我决定放在 /etc/nagios 文件夹里。</p>
-
-<p>首先介绍一下安装上面的配置需要了解的nagios的各个文件夹或者文件的用途</p>
-
-<blockquote><p>/usr/local/nagios/libexec 是nagios插件存放的位置， nagios配置中有个USER1指的就是这个文件夹的路径<br/>
-/etc/nagios/nagios.cfg 是nagios的主配置文件，它会引用到很多其它的配置文件，比如下面说到的objects文件夹下的所有配置<br/>
-/etc/nagios/objects 文件夹里有可以配置命令的 commands.cfg 可以配置联系方式的 contacts.cfg<br/>
-/etc/nagios/servers 这是我需要的一个文件夹，用于配置需要监控的服务的，需要在 /etc/nagios/nagios.cfg里取消掉相应行的注释</p></blockquote>
-
-<h3>下面是我的安装配置过程</h3>
-
-<h4>安装依赖</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>apt-get install libperl-dev libpng12-dev libgd2-xpm-dev build-essential php5-gd wget libgd2-xpm</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti/">UIScrollView 和 Swipe 手势的识别问题</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-04T15:40:00+08:00" pubdate data-updated="true">Sep 4<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>UIScrollView 用得相当普遍，衍生出来的 UITableView 也用得不少。最近有人问我，当给 UIScrollView 加上左右滑动手势 UISwipeGesture 时，感觉好难滑动，必须要很平的左右划才会触发 Swipe，否则都是触发 UIScrollView 的滚动事件。</p>
-
-<p>这时候，我们会想到，不需要那么水平的滑动就好了，例如以滑动45度为分割线，滑动轨迹与水平线夹角在正负45度，都认为是水平滑动，超过45度，就认为是垂直滚动。</p>
-
-<p>看上去好像可以做。那么我们就要拦截发送给 UIScrollView 的手势——重载 UIScrollView 的手势响应方法：</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizerShouldBegin:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">gestureRecognizer</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIPanGestureRecognizer</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="p">[(</span><span class="n">UIPanGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="n">gestureRecognizer</span> <span class="nl">translationInView:</span><span class="n">self</span><span class="p">];</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">((</span><span class="n">fabs</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">fabs</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">x</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 判断角度 tan(45),这里需要通过正负来判断手势方向</span>
-</span><span class='line'>            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;横向手势&quot;</span><span class="p">);</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nl">gestureRecognizerShouldBegin:</span><span class="n">gestureRecognizer</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>重载 UIScrollView，用这个新的对象，并且适当的调整其中的角度，来优化 APP 中的手势灵敏度。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa/">iOS5 上 Gesture 和 UIButton 手势冲突解决方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-29T10:09:00+08:00" pubdate data-updated="true">Aug 29<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在一个 View 上面加一个 UIButton，指明一个 Action，很简单；在这个 View 上面加一个 Tap 手势，恩，也很简单。但是两者一起加，当我们点击 Button 时候，触发哪个呢？</p>
-
-<p>经过测试，当系统是 iOS5 及以下时，响应 Tap 手势；当系统是 iOS6 及以上时，响应 Button 事件！！</p>
-
-<p>那我们一般期望是什么行为呢？估计很多人都是想和 iOS6 那样，优先响应 Button 的事件。</p>
-
-<p>让 iOS5 及以下响应 Button 事件的方法：</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizer:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="nf">shouldReceiveTouch:</span><span class="p">(</span><span class="n">UITouch</span> <span class="o">*</span><span class="p">)</span><span class="nv">touch</span> <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// Disallow recognition of tap gestures in the control.</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(([</span><span class="n">touch</span><span class="p">.</span><span class="n">view</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIControl</span> <span class="n">class</span><span class="p">]]))</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nl">gestureRecognizer:</span><span class="n">gestureRecognizer</span> <span class="nl">shouldReceiveTouch:</span><span class="n">touch</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>重载View，复写上面的方法即可。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/">设置Ubuntu程序开机启动</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-13T00:02:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>以前配置系统启动项都是拿来能用就行，对于其中规则一点都不熟悉，这两天恰好遇到几篇通俗易懂的介绍，受益匪浅。</p>
-
-<p>涉及到开机启动的配置文件在下面几个文件夹里：</p>
-
-<ul>
-<li>/etc/init.d 放着程序启动关闭重启的脚本</li>
-<li>/etc/rc(0-6).d里的文件都是/etc/init.d文件下的软链接，rc0.d rc1.d … 分别对应着linux不同的 <a href="http://wiki.ubuntu.org.cn/%E5%90%AF%E5%8A%A8#runlevel">runlevel</a></li>
-<li>/etc/default 里的文件添加一层控制是否启动某个程序的变量</li>
-</ul>
-
-
-<p>手工设置开机启动程序的步骤是这样的：</p>
-
-<ol>
-<li>在<code>/etc/init.d</code>里写一个启动脚本, 比如：some_program（启动脚本模板后面提供)</li>
-<li>使用 <code>sudo update-rc.d some_program defaults</code> 设置开机启动. 可以看到这个命令的工作是把 <code>/etc/init.d/some_program</code> 软链接到了 <code>/etc/rc(0-6).d</code> 里。</li>
-<li>现在重启系统, some_program 就会启动了。</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -694,7 +635,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.3</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.4</a>
       </li>
     
       <li class="post">
@@ -702,22 +643,22 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+        <a href="/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/">在其他电脑上浏览 Time Machine 历史</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+        <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
       </li>
     
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (1)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My APPs</h1>

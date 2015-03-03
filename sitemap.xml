@@ -150,7 +150,7 @@
         <loc>
             http://dijkst.github.io/blog/2013/06/29/tui-jian-ji-kuan-bu-cuo-de-quicklookkuo-zhan-cha-jian/
         </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
+        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
     </url>
     <url>
         <loc>http://dijkst.github.io/blog/2013/06/29/macoschang-yong-ruan-jian-shou-ji/</loc>
@@ -256,11 +256,35 @@
         <loc>
             http://dijkst.github.io/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/
         </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
+        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
     </url>
     <url>
         <loc>http://dijkst.github.io/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/</loc>
         <lastmod>2014-09-29T18:01:18+08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://dijkst.github.io/blog/2014/05/23/zai-calayer-shang-hua-xian-chu-xian-mo-hu-de-jie-jue-ban-fa/
+        </loc>
+        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://dijkst.github.io/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/
+        </loc>
+        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://dijkst.github.io/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/
+        </loc>
+        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://dijkst.github.io/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/
+        </loc>
+        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
     </url>
     <url>
         <loc>http://dijkst.github.io/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/</loc>
@@ -268,19 +292,19 @@
     </url>
     <url>
         <loc>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3/</loc>
-        <lastmod>2015-02-24T11:45:39+08:00</lastmod>
+        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
     </url>
     <url>
         <loc>http://dijkst.github.io/archives/</loc>
-        <lastmod>2015-02-24T11:45:39+08:00</lastmod>
+        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
     </url>
     <url>
         <loc>http://dijkst.github.io/blog/archives/</loc>
-        <lastmod>2015-02-24T11:45:39+08:00</lastmod>
+        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
     </url>
     <url>
         <loc>http://dijkst.github.io/</loc>
-        <lastmod>2015-02-24T11:45:39+08:00</lastmod>
+        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
     </url>
     <url>
         <loc>http://dijkst.github.io/robots.txt</loc>

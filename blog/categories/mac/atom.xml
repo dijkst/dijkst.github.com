@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac | 第九块石头]]></title>
   <link href="http://dijkst.github.io/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-02-24T11:51:35+08:00</updated>
+  <updated>2015-03-03T21:10:44+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[BlueLock Release v1.0.3]]></title>
+    <title type="html"><![CDATA[BlueLock Release v1.0.4]]></title>
     <link href="http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3/"/>
     <updated>2015-02-14T13:35:00+08:00</updated>
     <id>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3</id>
@@ -47,6 +47,33 @@
 <p>Mac 端<a href="/media/2015-02-14-bluelock-release-v1-dot-0-3/BlueLock.dmg">点此下载</a></p>
 
 <p>iPhone 端请点击右侧 App 图标下载，或者在 iPhone 的 AppStore 搜索 BlueLock。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[在其他电脑上浏览 Time Machine 历史]]></title>
+    <link href="http://dijkst.github.io/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/"/>
+    <updated>2014-06-25T22:44:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi</id>
+    <content type="html"><![CDATA[<p>Time Machine 一般总是在后台默默的运行，一般用得也比较少，就怕有时候用上还真挽回了一条命啊~</p>
+
+<p>但是一直有一个疑问，换了一台 Mac，那如何去找原来那台上面的备份呢？</p>
+
+<p>今天就给我遇上了，由于换了一台 MacBook，很多东西都没迁移过来，不想用还原的方式，想全新安装新的 Mac，于是出现或多或少遗漏一些数据迁移。经过一段时间后，旧 Mac 也处理了，因为觉得要的东西都差不多迁移完成了，但是往往不可预料的发现遗漏了。这时候就想访问原来的那台电脑的 Time Machine 备份磁盘。</p>
+
+<p>可是如何让 Mac 访问另外一台电脑的磁盘呢？折腾了好久都没找到功能，一启动 Time Machine 就进入历史浏览，压根就没机会让我选择其他磁盘。</p>
+
+<p>上网搜索了一下，官网有给出一个答复：<a href="https://discussions.apple.com/thread/1702971">How to access Time Machine from Another Computer?</a></p>
+
+<p>试了一下，发现这个功能藏得可真深：</p>
+
+<ul>
+<li>先把 Time Machine 这个 APP 固定到 Dock 栏（任务栏），方法就是把 Finder 里面的 APP 拖到 Dock~</li>
+<li>右击 Dock 上面的 Time Machine，选择<code>浏览其他 Time Machine 磁盘</code></li>
+</ul>
+
+
+<p>值得注意的是，由于不是自己的备份磁盘，存在访问权限问题，有些文件是访问不了的。因此我们平时文件尽可能存放在其他路径下，不要放在个人路径下。</p>
 ]]></content>
   </entry>
   

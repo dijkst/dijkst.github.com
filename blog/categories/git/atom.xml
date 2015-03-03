@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | 第九块石头]]></title>
   <link href="http://dijkst.github.io/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-02-24T11:51:35+08:00</updated>
+  <updated>2015-03-03T21:10:44+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -12,6 +12,23 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SourceTree 中链接注释中的 issue id 到Kelude]]></title>
+    <link href="http://dijkst.github.io/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/"/>
+    <updated>2014-05-30T16:30:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude</id>
+    <content type="html"><![CDATA[<p>Mac 上用 Git 时，SourceTree 简直就是非常方便的神器。</p>
+
+<p>今天突发奇想，每次看到 git 的 commit message 里面有 fix #xxxxx 的时候，总是不知道到底修复的是啥。必须到 issue 里面去搜索 ID 才能找到，很少麻烦！</p>
+
+<p>在 SourceTree 中逛了一圈，发现在项目的 Settings 中有一个 <code>Commit Text Replacements</code> 功能，很有可能是我正在找寻的~</p>
+
+<p>上网搜索了一下，官方提供了说明：<a href="https://confluence.atlassian.com/display/SOURCETREEKB/Link+to+Bitbucket+issue+tracker+from+commits">Link to Bitbucket issue tracker from commits</a></p>
+
+<p>经过测试，这里的 Replacements 功能并不是在提交的时候替换，而是在 SourceTree 显示注释的时候进行替换。因此并不会影响我们的最终提交~</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git 同步远程 Tags]]></title>

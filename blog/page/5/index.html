@@ -9,7 +9,7 @@
   <meta name="author" content="dijkst">
 
   
-  <meta name="description" content="现在我有两台MAC，一台在公司用，一台在家里用。没什么工作和娱乐的区别，两台电脑的设置基本一样，但每个东西设置两次是很麻烦的事。我的解决办法是使用网盘和软链接还有github，下面说说网盘可以做啥: 我注册了Dropbox， 快盘，Copy，SkyDrive。 Dropbox服务器在国外，速度不快 &hellip;">
+  <meta name="description" content="创建新项目的时候，我们都能勾选单元测试那个选项，但是往往在iOS都没有写单元测试的习惯，所以经常不勾这个勾。今天突然需要往原来没单元测试的项目里面添加OCTest，google了一下，还挺麻烦的说…… 首先添加一个Target，随便取个名字，例如unitTests，在Build &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,232 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/29/xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/">在已经存在的iOS项目中集成OCTest</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-29T15:58:00+08:00" pubdate data-updated="true">May 29<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/29/xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>创建新项目的时候，我们都能勾选单元测试那个选项，但是往往在iOS都没有写单元测试的习惯，所以经常不勾这个勾。今天突然需要往原来没单元测试的项目里面添加OCTest，google了一下，还挺麻烦的说……</p>
+
+<p>首先添加一个Target，随便取个名字，例如<code>unitTests</code>，在<code>Build Phases</code>的<code>Target Dependencies</code>里面添加需要测试的项目：</p>
+
+<p><img src="/images/post/2013-05-29-xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/1.jpg"></p>
+
+<p>在<code>Build Settings</code>&ndash;><code>Bundle Loader</code>，设置为<code>$(BUILT_PRODUCTS_DIR)/待测试的Target名称.app/待测试的Target名称</code></p>
+
+<p><img src="/images/post/2013-05-29-xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/2.jpg"></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/29/xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/28/fei-lu-bin-zi-you-xing/">菲律宾自由行</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-28T22:22:00+08:00" pubdate data-updated="true">May 28<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/28/fei-lu-bin-zi-you-xing/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今年五一假期和几个同事一起去菲律宾玩了一趟，作为首次肉身翻墙，心情自然十分激动。</p>
+
+<p>出去玩，接触最多的就是店铺的服务员了，其实每次到远点的地方，都会觉得当地的服务员比我们那的友善多了，就算是在香港澳门，都常能遇到爱理不理的服务员。虽然想到我去的一般是游客较多的地方，当差距也太大了。还有个印象很深的地方，菲律宾的人们称呼别人（男）都喜欢以“sir”开头，比如“sir what can I do for you？”，听多了觉得挺有趣的。</p>
+
+<p>我们在路上遇到几个主动帮助我们的人，可能看到我们是外国人吧，反正在天朝我没有试过这样的待遇，再说我也没有主动帮助过外国人。说什么中华民族的优良美德，估计就算有过，现在剩下不多的了。</p>
+
+<p>我们去了马尼拉，宿务，薄荷岛。都非常热，特别是在宿务的时候，天上一点云也没有，猛烈的太阳，估计36+的温度，无时无刻都在告诉我这是热带。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/28/fei-lu-bin-zi-you-xing/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/27/macosan-zhuang-cocoapodsbu-zou/">MacOS安装Cocoapods步骤</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-27T19:24:00+08:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/27/macosan-zhuang-cocoapodsbu-zou/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cocoapods本身就是ruby的一个gem，所以没啥特殊的安装方式，但是很多iOS或者OSX开发人员都对ruby不熟悉，所以简单的总结一下。</p>
+
+<p>分为一下几步骤：</p>
+
+<blockquote><ol>
+<li>安装Command Line Tool (CLT)</li>
+<li>安装Homebrew</li>
+<li>安装rvm</li>
+<li>安装ruby</li>
+<li>安装cocoapods</li>
+</ol>
+</blockquote>
+
+<p>好像要装不少东西……其实都是一层一层的，CLT是必装的，homebrew管理一些依赖，rvm实现ruby虚拟机。已经安装有的可以跳过，也可以重新按照上面的步骤安装。</p>
+
+<p><strong>请先确保XCODE为最新版本！！！</strong></p>
+
+<h4>安装Command Line Tool （CLT）</h4>
+
+<p>在Xcode的<code>Preferences</code>&ndash;><code>Downloads</code>&ndash;><code>Components</code>里面可以直接安装，也可以到<a href="https://developer.apple.com/downloads/index.action">Apple</a>单独下载安装。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/27/macosan-zhuang-cocoapodsbu-zou/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/25/for-inyu-ju-zai-arczhong-de-chu-li/">ARC对for-in语句的处理</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-25T09:13:00+08:00" pubdate data-updated="true">May 25<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/25/for-inyu-ju-zai-arczhong-de-chu-li/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>为了加快 for in 语句的效率， 启用了ARC的编译器不会在下面句子中 retain obj</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>for (NSObject *obj in array) { … }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面代码：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>for (NSObject *obj in array) {
+</span><span class='line'>     obj = nil;
+</span><span class='line'>     …
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果编译通过，在<code>obj = nil</code> 时会release掉obj， 会崩溃。</p>
+
+<p>为了安全，编译器不会让上面语句编译通过。
+语句 <code>for (NSObject *obj in array) { … }</code> 不允许修改obj的值。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/25/for-inyu-ju-zai-arczhong-de-chu-li/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -419,221 +645,6 @@ Copy， SkyDrive，还在考虑能放什么。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/16/tui-song-ji-zhu-apns-er-zheng-shu/">推送技术(APNS)二——证书</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-16T11:40:00+08:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/16/tui-song-ji-zhu-apns-er-zheng-shu/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>苹果的证书那叫一个多啊~~~ &ndash;_&ndash;!</p>
-
-<p>这里不仅仅讲到证书，还讲到provision。</p>
-
-<p>为了能正确使用Push功能，需要对App进行相应的设置，服务器也需要相应设置，因此这里牵扯到两方面的证书/provision：</p>
-
-<blockquote><ol>
-<li>用于App的mobileprovision配置文件</li>
-<li>用于服务器和APNS验证的SSL证书</li>
-</ol>
-</blockquote>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/16/tui-song-ji-zhu-apns-er-zheng-shu/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/16/tui-song-ji-zhu-apns-yi-yuan-li/">推送技术(APNS)一——原理</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-16T10:23:00+08:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/16/tui-song-ji-zhu-apns-yi-yuan-li/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>整个推送流程分为三步骤：</p>
-
-<blockquote><ol>
-<li>收集用户身份识别码</li>
-<li> 向用户发送推送信息</li>
-<li> 从苹果获取卸载用户</li>
-</ol>
-</blockquote>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/16/tui-song-ji-zhu-apns-yi-yuan-li/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/14/javascripthe-objectivecjiao-hu/">Javascript和ObjectiveC交互</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-14T20:13:00+08:00" pubdate data-updated="true">May 14<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/14/javascripthe-objectivecjiao-hu/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在iOS下UIWebview中的代码和Objective C代码交互比较蛋疼，其过程可以用下面一段描述：</p>
-
-<blockquote><ol>
-<li>制造一个点击，链接为自己定义的格式，比如<code>protocol://control/action?key1=value1</code></li>
-<li>UIWebview的delegate收到<code>webView:shouldStartLoadWithRequest:navigationType:</code>分析链接，并处理</li>
-<li>如果要返回结果则调用<code>[webView stringByEvaluatingJavaScriptFromString:]</code></li>
-</ol>
-</blockquote>
-
-<p>要是这种交互接口不多，随便按照上面步骤写写就够用了。如果这些接口不少，我们可以利用performSelector来解放一下生产力。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/14/javascripthe-objectivecjiao-hu/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/13/svnqian-yi-dao-gitde-yi-xie-wen-ti/">SVN迁移到GIT的一些问题</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-13T17:02:00+08:00" pubdate data-updated="true">May 13<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/13/svnqian-yi-dao-gitde-yi-xie-wen-ti/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天准备把一个SVN的项目迁移到Git上，看了一下网络上的迁移方法</p>
-
-<pre><code>git svn clone svn://192.168.1.108:9999/ --no-metadata -A user.txt --trunk=trunk --tags=tags --branches=branches myProject
-</code></pre>
-
-<p>，看上去好像不难，试了一下，发现一个很悲剧的事情：SVN的结构不是标准结构-_&ndash;#</p>
-
-<pre><code>- branches
-    - A1
-    - A2
-    - B1
-    - B2
-- trunkA
-- trunkB
-- tagsA
-</code></pre>
-
-<p>居然将两个项目放在了一起，就不能使用标准的方法了 T^T</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/13/svnqian-yi-dao-gitde-yi-xie-wen-ti/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -651,7 +662,7 @@ Copy， SkyDrive，还在考虑能放什么。</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.3</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.4</a>
       </li>
     
       <li class="post">
@@ -659,22 +670,22 @@ Copy， SkyDrive，还在考虑能放什么。</p>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/">Git 同步远程 Tags</a>
+        <a href="/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/">在其他电脑上浏览 Time Machine 历史</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/">在 iOS6 系统的 iPad 设备中打开 AppStore 下载页面</a>
+        <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/">Octopress在zsh下无法新建博客的问题</a>
+        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
       </li>
     
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (1)</a></li><li><a href='/blog/categories/ios/'>iOS (28)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (1)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My APPs</h1>
