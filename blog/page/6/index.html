@@ -9,7 +9,8 @@
   <meta name="author" content="dijkst">
 
   
-  <meta name="description" content="苹果的证书那叫一个多啊~~~ &ndash;_&ndash;! 这里不仅仅讲到证书，还讲到provision。 为了能正确使用Push功能，需要对App进行相应的设置，服务器也需要相应设置，因此这里牵扯到两方面的证书/provision： 用于App的mobileprovision配置文件 &hellip;">
+  <meta name="description" content="客户端基本实现很简单，只需要注册一下remote notification，然后重载几个通知状态调用函数即可. 注意事项: 模拟器无法进行APNS调试,只能在真机上调试.
+真机调试时,必须选择带有APNS功能的.mobileprovision(不能是团队证书,即证书的Application &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +78,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/17/tui-song-ji-zhu-apns-san-ke-hu-duan/">推送技术(APNS)三——客户端</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-17T22:38:00+08:00" pubdate data-updated="true">May 17<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/17/tui-song-ji-zhu-apns-san-ke-hu-duan/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>客户端基本实现很简单，只需要注册一下remote notification，然后重载几个通知状态调用函数即可.</p>
+
+<p>注意事项:</p>
+
+<blockquote><ol>
+<li>模拟器无法进行APNS调试,只能在真机上调试.</li>
+<li>真机调试时,必须选择带有APNS功能的<code>.mobileprovision</code>(不能是团队证书,即证书的<code>Application Identifiers</code>不能带有通配符<code>＊</code>）</li>
+</ol>
+</blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/17/tui-song-ji-zhu-apns-san-ke-hu-duan/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -522,7 +574,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.6</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/">BlueLock Release v1.0.6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/">BlueLock Release v1.0.6</a>
       </li>
     
       <li class="post">
@@ -537,15 +593,11 @@
         <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My iOS Apps</h1>

@@ -4,7 +4,7 @@
   <title><![CDATA[第九块石头]]></title>
   <link href="http://dijkst.github.io/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-03-22T17:11:13+08:00</updated>
+  <updated>2015-03-22T20:36:56+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -15,9 +15,47 @@
   
   <entry>
     <title type="html"><![CDATA[BlueLock Release v1.0.6]]></title>
-    <link href="http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3/"/>
+    <link href="http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/"/>
     <updated>2015-02-14T13:35:00+08:00</updated>
-    <id>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3</id>
+    <id>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.en</id>
+    <content type="html"><![CDATA[<p>BlueLock turns your iPhone into a key that can lock/unlock your Mac.</p>
+
+<p>Strategy is quite simple:</p>
+
+<blockquote><ul>
+<li>One app for your Mac, and one for your iPhone.</li>
+<li>BlueLock automatically locks your Mac, when you walk away with your iPhone.</li>
+<li>Once you come back, it unlocks your Mac.</li>
+</ul>
+</blockquote>
+
+<p>Features</p>
+
+<blockquote><ol>
+<li>Simple: just a single button, which turns your iPhone into a key for your Mac.</li>
+<li>Easy: fast connect, start the app on your Mac, click on one button in your iPhone to proceed.</li>
+<li>No Worry: running in the background, you can turn off it from Background App Refresh.</li>
+<li>Low Energy: Bluetooth 4.0, leave the app running all day long, cost lower power consumption than sending a single message.</li>
+<li>Small Size: 500KB for iPhone and 1MB for the Mac, pretty much the smallest software among the similar section.</li>
+</ol>
+</blockquote>
+
+<!-- more -->
+
+
+<p><img src="http://dijkst.github.io/images/post/2015-02-14-bluelock-release-v1-dot-0-3/2.png"></p>
+
+<p>Mac App <a href="http://dijkst.github.io/media/2015-02-14-bluelock-release-v1-dot-0-3/BlueLock.dmg">download</a></p>
+
+<p>iPhone App <a href="https://itunes.apple.com/en/app/id958057367">AppStore</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BlueLock Release v1.0.6]]></title>
+    <link href="http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/"/>
+    <updated>2015-02-14T13:35:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn</id>
     <content type="html"><![CDATA[<p>BlueLock 能够让你的 iPhone 变成 Mac 的钥匙：当离开的时候，自动锁定你的 Mac；当回到 Mac 前，会自动帮你输入解锁密码！</p>
 
 <p>亮点：</p>
@@ -2056,88 +2094,6 @@ MAC 版：<a href="http://dijkst.github.io/media/2013-08-09-adobe-cs6-guan-fang-
 
 
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[让 Rails 支持 Response 数据 GZip 压缩]]></title>
-    <link href="http://dijkst.github.io/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo/"/>
-    <updated>2013-07-18T18:46:00+08:00</updated>
-    <id>http://dijkst.github.io/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo</id>
-    <content type="html"><![CDATA[<p>做网络请求时，一直想用 GZip 对 JSON 进行压缩后传输，但是一直没空弄，听说不难。这两天试了一下，果然不难。</p>
-
-<p>在 Rails 项目根目录下的<code>config.ru</code>，加入<code>use Rack::Deflater</code>，如下：</p>
-
-<figure class='code'><figcaption><span>config.ru </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># This file is used by Rack-based servers to start the application.</span>
-</span><span class='line'><span class="nb">require</span> <span class="o">::</span><span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;../config/environment&#39;</span><span class="p">,</span>  <span class="bp">__FILE__</span><span class="p">)</span>
-</span><span class='line'><span class="n">use</span> <span class="ss">Rack</span><span class="p">:</span><span class="ss">:Deflater</span>
-</span><span class='line'><span class="n">run</span> <span class="ss">Wending</span><span class="p">:</span><span class="ss">:Application</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>重启服务器即可。</p>
-
-<p>如何判断是否生效了？那就来个测试。</p>
-
-<!-- more -->
-
-
-<p>先看看没有 GZip 压缩是什么样子的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl http://localhost:4100/ <span class="c"># 域名和端口根据自己实际更改</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再看看使用了 GZip 压缩是什么样子的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl http://localhost:4100/ -H <span class="s2">&quot;Acc-Encoding: gzip, deflate&quot;</span> <span class="c"># 域名和端口根据自己实际更改</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>我们会看到采用了 GZip 后，输出的是乱码的，也不难看出，短了不少~这样就代表 GZip 设置成功了！</p>
-
-<p>那该怎么用呢？</p>
-
-<p>刚刚测试的时候其实都说明了：只需要在 request header 里面注明<code>Acc-Encoding: gzip, deflate</code>即可。其实说白了，是否用 GZip 压缩，还是客户端决定，客户端要非压缩的数据，服务器就给非压缩的数据；客户端要压缩的数据，服务器就给压缩的数据。默认当然是不压缩啦。</p>
-
-<p>那在 iOS 上该如何用呢？</p>
-
-<p>以 ASIHTTPRequest 为例：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">ASIHTTPRequest</span> <span class="nl">requestWithURL:</span><span class="p">...];</span>
-</span><span class='line'><span class="p">[</span><span class="n">request</span> <span class="nl">setAllowCompressedResponse:</span><span class="n">YES</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>请求的时候设置<code>allowCompressedResponse</code>为<code>YES</code>即可。</p>
-
-<h5>可能遇到的问题：</h5>
-
-<p>如果服务器返回的不是 JSON 等数据，而是企图下载文件，且客户端依然请求 GZip，还是会被压缩（虽然这个压缩可能会越压越大）。强制不压缩，就是忽略那个 request header，可以这么做：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">check_update_data</span>
-</span><span class='line'>    <span class="n">send_file</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="ss">:x_sendfile</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">headers</span><span class="o">[</span><span class="s1">&#39;Content-Length&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">request</span><span class="o">.</span><span class="n">env</span><span class="o">[</span><span class="s1">&#39;HTTP_ACCEPT_ENCODING&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="kp">nil</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>将<code>HTTP_ACCEPT_ENCODING</code>设置为<code>nil</code>即可。</p>
 ]]></content>
   </entry>
   

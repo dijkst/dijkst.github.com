@@ -9,7 +9,11 @@
   <meta name="author" content="dijkst">
 
   
-  <meta name="description" content="pch 文件可是个好东西，把常用的定义或者 import 放在 pch 中，这样在不用在项目中再引用和定义了，即可以做到全局 macro，又可以作为全局 import 用。 然而最近在用 DTCoreText 和 ZipArchive 时，发现无论怎么调试，都无法编译通过，出现类似很多类名 not &hellip;">
+  <meta name="description" content="做网络请求时，一直想用 GZip 对 JSON 进行压缩后传输，但是一直没空弄，听说不难。这两天试了一下，果然不难。 在 Rails 项目根目录下的config.ru，加入use Rack::Deflater，如下： config.ru 1
+2
+3
+4
+# This file is used by &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +81,67 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo/">让 Rails 支持 Response 数据 GZip 压缩</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-18T18:46:00+08:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>做网络请求时，一直想用 GZip 对 JSON 进行压缩后传输，但是一直没空弄，听说不难。这两天试了一下，果然不难。</p>
+
+<p>在 Rails 项目根目录下的<code>config.ru</code>，加入<code>use Rack::Deflater</code>，如下：</p>
+
+<figure class='code'><figcaption><span>config.ru </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># This file is used by Rack-based servers to start the application.</span>
+</span><span class='line'><span class="nb">require</span> <span class="o">::</span><span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">&#39;../config/environment&#39;</span><span class="p">,</span>  <span class="bp">__FILE__</span><span class="p">)</span>
+</span><span class='line'><span class="n">use</span> <span class="ss">Rack</span><span class="p">:</span><span class="ss">:Deflater</span>
+</span><span class='line'><span class="n">run</span> <span class="ss">Wending</span><span class="p">:</span><span class="ss">:Application</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重启服务器即可。</p>
+
+<p>如何判断是否生效了？那就来个测试。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -569,65 +634,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/19/xiao-xin-fu-dian-shu-zhuan-zheng-shu-fa-sheng-de-yi-wai-xing-wei/">小心浮点数转整数发生的意外行为</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-06-19T20:45:00+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/19/xiao-xin-fu-dian-shu-zhuan-zheng-shu-fa-sheng-de-yi-wai-xing-wei/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>事情是这样的，我程序里有一个字符串常量<code>@"4.81"</code></p>
-
-<p>我需要把它转成<code>@"481"</code>, 事实上从意义上说，并不是去掉小数点，而是把<code>@"4.81"</code>的<code>4.81</code>乘以<code>100</code>再转成整数，最后转回字符串。</p>
-
-<p>于是我就这样做了</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[NSString stringWithFormat:@"%d", (NSInteger)([@"4.81" doubleValue] * 100)];</span></code></pre></td></tr></table></div></figure>
-
-
-<p>结果却是</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@"480"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>所以，好危险，遇到这种情况还是要检查过才行。至于解决办法…</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/06/19/xiao-xin-fu-dian-shu-zhuan-zheng-shu-fa-sheng-de-yi-wai-xing-wei/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -645,7 +651,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.6</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/">BlueLock Release v1.0.6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/">BlueLock Release v1.0.6</a>
       </li>
     
       <li class="post">
@@ -660,15 +670,11 @@
         <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My iOS Apps</h1>

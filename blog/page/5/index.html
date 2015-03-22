@@ -9,7 +9,7 @@
   <meta name="author" content="dijkst">
 
   
-  <meta name="description" content="创建新项目的时候，我们都能勾选单元测试那个选项，但是往往在iOS都没有写单元测试的习惯，所以经常不勾这个勾。今天突然需要往原来没单元测试的项目里面添加OCTest，google了一下，还挺麻烦的说…… 首先添加一个Target，随便取个名字，例如unitTests，在Build &hellip;">
+  <meta name="description" content="世界上的字符编码多得眼花缭乱，而且绝大部分都是不定长的编码。要跳到一个巨大文本文件的第n个字符就必须从0开始一个一个地分析字符，数到n为止；又或者整个文件导入，让系统把文件里的数据转成string，再在string里获得第n个字符。 不过，本文也没法解决上面那个问题，上面只是想说明据我所知， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/30/fen-duan-du-qu-ren-he-ge-shi-wen-ben/">分段读取任何编码文本</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-30T23:20:00+08:00" pubdate data-updated="true">May 30<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/30/fen-duan-du-qu-ren-he-ge-shi-wen-ben/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>世界上的字符编码多得眼花缭乱，而且绝大部分都是不定长的编码。要跳到一个巨大文本文件的第n个字符就必须从0开始一个一个地分析字符，数到n为止；又或者整个文件导入，让系统把文件里的数据转成string，再在string里获得第n个字符。</p>
+
+<p>不过，本文也没法解决上面那个问题，上面只是想说明据我所知，把文本文件转成字符串的方法只有：</p>
+
+<blockquote><ol>
+<li>一个一个分析，分析一段后让系统API转成字符串；</li>
+<li>整个文件导入，转成字符串的工作让API来完成。</li>
+</ol>
+</blockquote>
+
+<p>第一种方法非常复杂，我想也没有很多人认识所有字符编码；第二种方法遇到巨大的文件的时候非常耗内存。</p>
+
+<p>前几天我想到了一个折中的方法，它可以一小段一小段地读入文本，利用的是文本里的特殊字符。方法如下：</p>
+
+<p>首先要知道文本的编码（这里以SHIFT-JIS为例），除了UTF8和有BOM的文本，其余的一般很难能够直接从文本里分析出它的编码。</p>
+
+<p>还要知道文本的特征，比如是小说的话肯定会有换行符（这里以换行符为例）。</p>
+
+<p>获得换行符用SHIFT-JIS表示的bytes。</p>
+
+<p>用binary的方式读入文件，遇到换行符的bytes就截断（太短的话还可以稍微改进一下），把获得的那一串字节用系统API转换成字符串。 重复这个步骤，读到不想读为止。</p>
+
+<p>`</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -594,57 +654,6 @@ Copy， SkyDrive，还在考虑能放什么。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/17/tui-song-ji-zhu-apns-san-ke-hu-duan/">推送技术(APNS)三——客户端</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-17T22:38:00+08:00" pubdate data-updated="true">May 17<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/17/tui-song-ji-zhu-apns-san-ke-hu-duan/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>客户端基本实现很简单，只需要注册一下remote notification，然后重载几个通知状态调用函数即可.</p>
-
-<p>注意事项:</p>
-
-<blockquote><ol>
-<li>模拟器无法进行APNS调试,只能在真机上调试.</li>
-<li>真机调试时,必须选择带有APNS功能的<code>.mobileprovision</code>(不能是团队证书,即证书的<code>Application Identifiers</code>不能带有通配符<code>＊</code>）</li>
-</ol>
-</blockquote>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/17/tui-song-ji-zhu-apns-san-ke-hu-duan/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -662,7 +671,11 @@ Copy， SkyDrive，还在考虑能放什么。</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.6</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/">BlueLock Release v1.0.6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/">BlueLock Release v1.0.6</a>
       </li>
     
       <li class="post">
@@ -677,15 +690,11 @@ Copy， SkyDrive，还在考虑能放什么。</p>
         <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My iOS Apps</h1>

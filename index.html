@@ -9,8 +9,7 @@
   <meta name="author" content="dijkst">
 
   
-  <meta name="description" content="BlueLock 能够让你的 iPhone 变成 Mac 的钥匙：当离开的时候，自动锁定你的 Mac；当回到 Mac 前，会自动帮你输入解锁密码！ 亮点： 简洁：无任何多余功能，iPhone 仅仅作为一个蓝牙钥匙，只有一个配对按钮；
-方便：快速配对，只需启动 Mac 端配对功能，iPhone &hellip;">
+  <meta name="description" content="BlueLock turns your iPhone into a key that can lock/unlock your Mac. Strategy is quite simple: One app for your Mac, and one for your iPhone. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,7 +83,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.6</a></h1>
+      <h1 class="entry-title"><a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/">BlueLock Release v1.0.6</a></h1>
     
     
       <p class="meta">
@@ -102,7 +101,70 @@
 
 <time datetime="2015-02-14T13:35:00+08:00" pubdate data-updated="true">Feb 14<span>th</span>, 2015</time>
         
-         | <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/#disqus_thread">Comments</a>
+         | <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>BlueLock turns your iPhone into a key that can lock/unlock your Mac.</p>
+
+<p>Strategy is quite simple:</p>
+
+<blockquote><ul>
+<li>One app for your Mac, and one for your iPhone.</li>
+<li>BlueLock automatically locks your Mac, when you walk away with your iPhone.</li>
+<li>Once you come back, it unlocks your Mac.</li>
+</ul>
+</blockquote>
+
+<p>Features</p>
+
+<blockquote><ol>
+<li>Simple: just a single button, which turns your iPhone into a key for your Mac.</li>
+<li>Easy: fast connect, start the app on your Mac, click on one button in your iPhone to proceed.</li>
+<li>No Worry: running in the background, you can turn off it from Background App Refresh.</li>
+<li>Low Energy: Bluetooth 4.0, leave the app running all day long, cost lower power consumption than sending a single message.</li>
+<li>Small Size: 500KB for iPhone and 1MB for the Mac, pretty much the smallest software among the similar section.</li>
+</ol>
+</blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/">BlueLock Release v1.0.6</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-02-14T13:35:00+08:00" pubdate data-updated="true">Feb 14<span>th</span>, 2015</time>
+        
+         | <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/#disqus_thread">Comments</a>
         
       </p>
     
@@ -126,7 +188,7 @@
   
   
     <footer>
-      <a rel="full-article" href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">Read on &rarr;</a>
+      <a rel="full-article" href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/">Read on &rarr;</a>
     </footer>
   
 
@@ -553,73 +615,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/07/bu-yao-zai-initializer-he-dealloc-fang-fa-zhong-shi-yong-setter-he-getter/">不要在 Initializer 和 Dealloc 方法中使用 Setter 和 Getter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-07T22:39:00+08:00" pubdate data-updated="true">Dec 7<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/12/07/bu-yao-zai-initializer-he-dealloc-fang-fa-zhong-shi-yong-setter-he-getter/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天和同事在争论 iOS 中，init 方法使用 <code>self.xxx = xx;</code> 是否合适的问题，以下面代码为导火索：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nl">initWithIconImage:</span><span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">iconImage</span> <span class="nl">loadingImage:</span><span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">loadingImage</span> <span class="p">{</span>
-</span><span class='line'>     <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">init</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">iconImage</span> <span class="o">=</span> <span class="n">iconImage</span><span class="p">;</span>
-</span><span class='line'>     <span class="p">}</span>
-</span><span class='line'>     <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
-</span><span class='line'> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>他的观点是 <code>self.iconImage = iconImage;</code> 应该改为 <code>_iconImage = [iconImage retain];</code>，理由是担心内存被强制释放，那么 <code>self.iconImage = xxx</code> 将会导致崩溃。</p>
-
-<p>我的观点是 <code>if (self = [self init])</code> 已经判断内存是否初始化正常了，不需要考虑 <code>self</code> 内存异常问题，所以不需要专门改成 <code>_iconImage = [iconImage retain];</code>，当然这么写也没错。</p>
-
-<p>看似一个挺无聊的争论，但是最后一个技术专家站出来，贴了个 Apple 的文档： <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/MemoryMgmt.pdf">Don’t Use Accessor Methods in Initializer Methods and dealloc</a></p>
-
-<blockquote><p>The only places you shouldn’t use accessor methods to set an instance variable are in initializer methods and dealloc.</p></blockquote>
-
-<p>看来我们争论的方向都错了，init 里面不用 setter 不是内存问题，而是<strong> setter 可能会触发其他的逻辑</strong>，例如重写的 setter 方法或者 KVC，将可能调用其他还没来得及 init 的变量，最终导致不可预计行为！</p>
-
-<p>颠覆了以前的使用方法~~</p>
-
-<p>不禁思考到其他语言，似乎都存在这种问题~~</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -635,7 +630,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3/">BlueLock Release v1.0.6</a>
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/">BlueLock Release v1.0.6</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/">BlueLock Release v1.0.6</a>
       </li>
     
       <li class="post">
@@ -650,15 +649,11 @@
         <a href="/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/">SourceTree 中链接注释中的 issue id 到Kelude</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/">GoAgent 提示 SSLError:EOF occurred in violation of protocol 解决办法</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (2)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My iOS Apps</h1>

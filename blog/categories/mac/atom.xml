@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac | 第九块石头]]></title>
   <link href="http://dijkst.github.io/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-03-22T17:11:13+08:00</updated>
+  <updated>2015-03-22T20:36:56+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -15,9 +15,47 @@
   
   <entry>
     <title type="html"><![CDATA[BlueLock Release v1.0.6]]></title>
-    <link href="http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3/"/>
+    <link href="http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/"/>
     <updated>2015-02-14T13:35:00+08:00</updated>
-    <id>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3</id>
+    <id>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.en</id>
+    <content type="html"><![CDATA[<p>BlueLock turns your iPhone into a key that can lock/unlock your Mac.</p>
+
+<p>Strategy is quite simple:</p>
+
+<blockquote><ul>
+<li>One app for your Mac, and one for your iPhone.</li>
+<li>BlueLock automatically locks your Mac, when you walk away with your iPhone.</li>
+<li>Once you come back, it unlocks your Mac.</li>
+</ul>
+</blockquote>
+
+<p>Features</p>
+
+<blockquote><ol>
+<li>Simple: just a single button, which turns your iPhone into a key for your Mac.</li>
+<li>Easy: fast connect, start the app on your Mac, click on one button in your iPhone to proceed.</li>
+<li>No Worry: running in the background, you can turn off it from Background App Refresh.</li>
+<li>Low Energy: Bluetooth 4.0, leave the app running all day long, cost lower power consumption than sending a single message.</li>
+<li>Small Size: 500KB for iPhone and 1MB for the Mac, pretty much the smallest software among the similar section.</li>
+</ol>
+</blockquote>
+
+<!-- more -->
+
+
+<p><img src="/images/post/2015-02-14-bluelock-release-v1-dot-0-3/2.png"></p>
+
+<p>Mac App <a href="/media/2015-02-14-bluelock-release-v1-dot-0-3/BlueLock.dmg">download</a></p>
+
+<p>iPhone App <a href="https://itunes.apple.com/en/app/id958057367">AppStore</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[BlueLock Release v1.0.6]]></title>
+    <link href="http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/"/>
+    <updated>2015-02-14T13:35:00+08:00</updated>
+    <id>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn</id>
     <content type="html"><![CDATA[<p>BlueLock 能够让你的 iPhone 变成 Mac 的钥匙：当离开的时候，自动锁定你的 Mac；当回到 Mac 前，会自动帮你输入解锁密码！</p>
 
 <p>亮点：</p>
