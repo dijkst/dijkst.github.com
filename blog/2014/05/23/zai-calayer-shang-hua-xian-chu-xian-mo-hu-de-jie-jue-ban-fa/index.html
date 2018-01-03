@@ -24,7 +24,7 @@
   <link href="/atom.xml" rel="alternate" title="第九块石头" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <!--<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -60,7 +60,7 @@
   
 </ul>
   
-<form action="http://google.com/search" method="get">
+<form action="https://www.google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:dijkst.github.io" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
@@ -96,7 +96,7 @@
   
 
 
-<time datetime="2014-05-23T20:34:00+08:00" pubdate data-updated="true">May 23<span>rd</span>, 2014</time>
+<time datetime="2014-05-23T20:34:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -110,9 +110,7 @@
 <!-- more -->
 
 
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -164,55 +162,55 @@
 <span class='line-number'>50</span>
 <span class='line-number'>51</span>
 <span class='line-number'>52</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawInContext:</span><span class="p">(</span><span class="n">CGContextRef</span><span class="p">)</span><span class="nv">ctx</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="nl">drawInContext:</span><span class="n">ctx</span><span class="p">];</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawInContext:</span><span class="p">(</span><span class="n">CGContextRef</span><span class="p">)</span><span class="nv">ctx</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">super</span> <span class="nl">drawInContext</span><span class="p">:</span><span class="n">ctx</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="c1">// border left</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
-</span><span class='line'>                      <span class="nl">fromX:</span><span class="mi">0</span>
-</span><span class='line'>                      <span class="nl">fromY:</span><span class="mi">0</span>
-</span><span class='line'>                        <span class="nl">toX:</span><span class="mi">0</span>
-</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
-</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftColor</span>
-</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">drawLineInContext</span><span class="p">:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">fromY</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toX</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toY</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
+</span><span class='line'>                      <span class="nl">color</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderLeftColor</span>
+</span><span class='line'>                      <span class="nl">width</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="p">];</span>
 </span><span class='line'>    <span class="c1">// border right</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
-</span><span class='line'>                      <span class="nl">fromX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
-</span><span class='line'>                      <span class="nl">fromY:</span><span class="mi">0</span>
-</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
-</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
-</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderRightColor</span>
-</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">drawLineInContext</span><span class="p">:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="nb">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
+</span><span class='line'>                      <span class="nl">fromY</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toX</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="nb">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
+</span><span class='line'>                        <span class="nl">toY</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
+</span><span class='line'>                      <span class="nl">color</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderRightColor</span>
+</span><span class='line'>                      <span class="nl">width</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="p">];</span>
 </span><span class='line'>    <span class="c1">// border top</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
-</span><span class='line'>                      <span class="nl">fromX:</span><span class="mi">0</span>
-</span><span class='line'>                      <span class="nl">fromY:</span><span class="mi">0</span>
-</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
-</span><span class='line'>                        <span class="nl">toY:</span><span class="mi">0</span>
-</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopColor</span>
-</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">drawLineInContext</span><span class="p">:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">fromY</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toX</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
+</span><span class='line'>                        <span class="nl">toY</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">color</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderTopColor</span>
+</span><span class='line'>                      <span class="nl">width</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="p">];</span>
 </span><span class='line'>    <span class="c1">// border bottom</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
-</span><span class='line'>                      <span class="nl">fromX:</span><span class="mi">0</span>
-</span><span class='line'>                      <span class="nl">fromY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
-</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
-</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
-</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderBottomColor</span>
-</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">drawLineInContext</span><span class="p">:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">fromY</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="nb">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
+</span><span class='line'>                        <span class="nl">toX</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
+</span><span class='line'>                        <span class="nl">toY</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="nb">self</span><span class="p">.</span><span class="n">borderBottomWidth</span>
+</span><span class='line'>                      <span class="nl">color</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderBottomColor</span>
+</span><span class='line'>                      <span class="nl">width</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawLineInContext:</span><span class="p">(</span><span class="n">CGContextRef</span><span class="p">)</span><span class="nv">ref</span>
+</span><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawLineInContext:</span><span class="p">(</span><span class="n">CGContextRef</span><span class="p">)</span><span class="nv">ref</span>
 </span><span class='line'>                    <span class="nf">fromX:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">startX</span>
 </span><span class='line'>                    <span class="nf">fromY:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">startY</span>
 </span><span class='line'>                      <span class="nf">toX:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">targetX</span>
 </span><span class='line'>                      <span class="nf">toY:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">targetY</span>
-</span><span class='line'>                    <span class="nf">color:</span><span class="p">(</span><span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="nv">color</span>
+</span><span class='line'>                    <span class="nf">color:</span><span class="p">(</span><span class="bp">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="nv">color</span>
 </span><span class='line'>                    <span class="nf">width:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">width</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="nb">nil</span> <span class="o">||</span> <span class="n">color</span> <span class="o">==</span> <span class="p">[</span><span class="n">NSNull</span> <span class="n">class</span><span class="p">])</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">color</span> <span class="o">==</span> <span class="nb">nil</span> <span class="o">||</span> <span class="n">color</span> <span class="o">==</span> <span class="p">[</span><span class="bp">NSNull</span> <span class="k">class</span><span class="p">])</span>
 </span><span class='line'>        <span class="k">return</span><span class="p">;</span>
 </span><span class='line'>    <span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">startX</span><span class="p">,</span> <span class="n">startY</span><span class="p">);</span>
 </span><span class='line'>    <span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">targetX</span><span class="p">,</span> <span class="n">targetY</span><span class="p">);</span>
-</span><span class='line'>    <span class="n">CGContextSetStrokeColorWithColor</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">color</span><span class="p">.</span><span class="n">CGColor</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">CGContextSetStrokeColorWithColor</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">color</span><span class="p">.</span><span class="bp">CGColor</span><span class="p">);</span>
 </span><span class='line'>    <span class="n">CGContextSetLineWidth</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">width</span><span class="p">);</span>
 </span><span class='line'>    <span class="n">CGContextStrokePath</span><span class="p">(</span><span class="n">ref</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
@@ -241,7 +239,7 @@
 
 <p>现在试着解决：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -277,41 +275,41 @@
 <span class='line-number'>34</span>
 <span class='line-number'>35</span>
 <span class='line-number'>36</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawInContext:</span><span class="p">(</span><span class="n">CGContextRef</span><span class="p">)</span><span class="nv">ctx</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="nl">drawInContext:</span><span class="n">ctx</span><span class="p">];</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">drawInContext:</span><span class="p">(</span><span class="n">CGContextRef</span><span class="p">)</span><span class="nv">ctx</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">super</span> <span class="nl">drawInContext</span><span class="p">:</span><span class="n">ctx</span><span class="p">];</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="c1">// border left</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
-</span><span class='line'>                      <span class="nl">fromX:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="o">/</span><span class="mf">2.f</span>
-</span><span class='line'>                      <span class="nl">fromY:</span><span class="mi">0</span>
-</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="o">/</span><span class="mf">2.f</span>
-</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
-</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftColor</span>
-</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">drawLineInContext</span><span class="p">:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                      <span class="nl">fromY</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toX</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                        <span class="nl">toY</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
+</span><span class='line'>                      <span class="nl">color</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderLeftColor</span>
+</span><span class='line'>                      <span class="nl">width</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderLeftWidth</span><span class="p">];</span>
 </span><span class='line'>    <span class="c1">// border right</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
-</span><span class='line'>                      <span class="nl">fromX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="o">/</span><span class="mf">2.f</span>
-</span><span class='line'>                      <span class="nl">fromY:</span><span class="mi">0</span>
-</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="o">/</span><span class="mf">2.f</span>
-</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
-</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderRightColor</span>
-</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">drawLineInContext</span><span class="p">:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="nb">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                      <span class="nl">fromY</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                        <span class="nl">toX</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">-</span> <span class="nb">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                        <span class="nl">toY</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span>
+</span><span class='line'>                      <span class="nl">color</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderRightColor</span>
+</span><span class='line'>                      <span class="nl">width</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderRightWidth</span><span class="p">];</span>
 </span><span class='line'>    <span class="c1">// border top</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
-</span><span class='line'>                      <span class="nl">fromX:</span><span class="mi">0</span>
-</span><span class='line'>                      <span class="nl">fromY:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="o">/</span><span class="mf">2.f</span>
-</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
-</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="o">/</span><span class="mf">2.f</span>
-</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopColor</span>
-</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">drawLineInContext</span><span class="p">:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">fromY</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                        <span class="nl">toX</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
+</span><span class='line'>                        <span class="nl">toY</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                      <span class="nl">color</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderTopColor</span>
+</span><span class='line'>                      <span class="nl">width</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderTopWidth</span><span class="p">];</span>
 </span><span class='line'>    <span class="c1">// border bottom</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawLineInContext:</span><span class="n">ctx</span>
-</span><span class='line'>                      <span class="nl">fromX:</span><span class="mi">0</span>
-</span><span class='line'>                      <span class="nl">fromY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="o">/</span><span class="mf">2.f</span>
-</span><span class='line'>                        <span class="nl">toX:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
-</span><span class='line'>                        <span class="nl">toY:</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="o">/</span><span class="mf">2.f</span>
-</span><span class='line'>                      <span class="nl">color:</span><span class="n">self</span><span class="p">.</span><span class="n">borderBottomColor</span>
-</span><span class='line'>                      <span class="nl">width:</span><span class="n">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="nb">self</span> <span class="nl">drawLineInContext</span><span class="p">:</span><span class="n">ctx</span>
+</span><span class='line'>                      <span class="nl">fromX</span><span class="p">:</span><span class="mi">0</span>
+</span><span class='line'>                      <span class="nl">fromY</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="nb">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                        <span class="nl">toX</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span>
+</span><span class='line'>                        <span class="nl">toY</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-</span> <span class="nb">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="o">/</span><span class="mf">2.f</span>
+</span><span class='line'>                      <span class="nl">color</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderBottomColor</span>
+</span><span class='line'>                      <span class="nl">width</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">borderBottomWidth</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -341,12 +339,12 @@
   
 
 
-<time datetime="2014-05-23T20:34:00+08:00" pubdate data-updated="true">May 23<span>rd</span>, 2014</time>
+<time datetime="2014-05-23T20:34:00+08:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ios/'>iOS</a>
+    <a class='category' href='/blog/categories/ios/'>ios</a>
   
 </span>
 
@@ -420,7 +418,7 @@ var disqus_shortname = 'dijkst';
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>git (2)</a></li><li><a href='/blog/categories/ios/'>ios (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>mac (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>osx (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My iOS Apps</h1>
@@ -481,7 +479,7 @@ var disqus_shortname = 'dijkst';
 </div>
 <div class='back'>
 <a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
-  <img id='img_com-sidetrip-wikish_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+  <img id='img_com-sidetrip-wikish_qr' src='https://api.qrserver.com/v1/create-qr-code/?size=120x120&margin=10&color=165B94&data=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
 </a>
 </div>
 </div>
@@ -505,7 +503,7 @@ Duckipedia - A Wikipedia Reader
 </div>
 <div class='back'>
 <a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
-  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='https://api.qrserver.com/v1/create-qr-code/?size=120x120&margin=10&color=165B94&data=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
 </a>
 </div>
 </div>
@@ -529,7 +527,7 @@ Duckipedia - A Wikipedia Reader
 </div>
 <div class='back'>
 <a class='com-luobo-blelock' href='https://itunes.apple.com/cn/app/bluelock/id958057367?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
-  <img id='img_com-luobo-blelock_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/bluelock/id958057367?mt=8&uo=4' class='com-luobo-blelock' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+  <img id='img_com-luobo-blelock_qr' src='https://api.qrserver.com/v1/create-qr-code/?size=120x120&margin=10&color=165B94&data=https://itunes.apple.com/cn/app/bluelock/id958057367?mt=8&uo=4' class='com-luobo-blelock' style='width:120px; height:120px; border: 0em; border-radius:22px' />
 </a>
 </div>
 </div>
@@ -558,7 +556,7 @@ BlueLock
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - dijkst -
+  Copyright &copy; 2018 - dijkst -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

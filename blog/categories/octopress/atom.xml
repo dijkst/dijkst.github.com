@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | 第九块石头]]></title>
   <link href="http://dijkst.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-03-22T20:51:42+08:00</updated>
+  <updated>2018-01-03T13:35:42+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -27,8 +27,8 @@
 <!-- more -->
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>image_tag.diff start:40 </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>image_tag.diff start:40 </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -62,12 +62,12 @@
 </span><span class='line'><span class="gi">+    end</span>
 </span><span class='line'>  end
 </span><span class='line'>end
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>创建插件<code>plugins/qrcode.rb</code>:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>qrcode.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>qrcode.rb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -96,7 +96,7 @@
 <span class='line-number'>27</span>
 <span class='line-number'>28</span>
 </pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">module</span> <span class="nn">Jekyll</span>
-</span><span class='line'>  <span class="k">class</span> <span class="nc">QRCode</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="ss">Liquid</span><span class="p">:</span><span class="ss">:Tag</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">QRCode</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="no">Liquid</span><span class="o">::</span><span class="no">Tag</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;@size = &quot;&quot;</span>
 </span><span class='line'><span class="sr">@img = nil</span>
@@ -115,15 +115,15 @@
 </span><span class='line'>
 </span><span class='line'><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 </span><span class='line'>    <span class="n">url</span> <span class="o">=</span> <span class="vi">@img</span><span class="o">.</span><span class="n">img_info</span><span class="o">[</span><span class="s1">&#39;src&#39;</span><span class="o">]</span>
-</span><span class='line'>    <span class="vi">@img</span><span class="o">.</span><span class="n">img_info</span><span class="o">[</span><span class="s1">&#39;src&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;http://chart.apis.google.com/chart?chs=</span><span class="si">#{</span><span class="vi">@size</span><span class="si">}</span><span class="s2">&amp;amp;cht=qr&amp;amp;chld=|0&amp;amp;chco=165B94&amp;amp;chl=</span><span class="si">#{</span><span class="n">url</span><span class="o">.</span><span class="n">start_with?</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="p">?</span> <span class="n">context</span><span class="o">.</span><span class="n">registers</span><span class="o">[</span><span class="ss">:site</span><span class="o">].</span><span class="n">config</span><span class="o">[</span><span class="s1">&#39;url&#39;</span><span class="o">]+</span><span class="n">url</span> <span class="p">:</span> <span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="vi">@img</span><span class="o">.</span><span class="n">img_info</span><span class="o">[</span><span class="s1">&#39;src&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;https://api.qrserver.com/v1/create-qr-code/?size=</span><span class="si">#{</span><span class="vi">@size</span><span class="si">}</span><span class="s2">&amp;amp;margin=0&amp;amp;color=165B94&amp;amp;data=</span><span class="si">#{</span><span class="n">url</span><span class="o">.</span><span class="n">start_with?</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="p">?</span> <span class="n">context</span><span class="o">.</span><span class="n">registers</span><span class="o">[</span><span class="ss">:site</span><span class="o">].</span><span class="n">config</span><span class="o">[</span><span class="s1">&#39;url&#39;</span><span class="o">]+</span><span class="n">url</span> <span class="p">:</span> <span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
 </span><span class='line'>    <span class="s2">&quot;&amp;lt;a href=</span><span class="si">#{</span><span class="n">url</span><span class="si">}</span><span class="s2">&amp;gt;</span><span class="si">#{</span><span class="vi">@img</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="si">}</span><span class="s2">&amp;lt;/a&amp;gt;&quot;</span>
 </span><span class='line'><span class="k">end</span>
 </span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span>
 </span><span class='line'><span class="k">end</span>
-</span><span class='line'><span class="ss">Liquid</span><span class="p">:</span><span class="ss">:Template</span><span class="o">.</span><span class="n">register_tag</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">qrcode</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span> <span class="ss">Jekyll</span><span class="p">:</span><span class="ss">:QRCode</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'><span class="no">Liquid</span><span class="o">::</span><span class="no">Template</span><span class="o">.</span><span class="n">register_tag</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">qrcode</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span> <span class="no">Jekyll</span><span class="o">::</span><span class="no">QRCode</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>用法：</p>
 
@@ -135,7 +135,7 @@
 
 <p>效果：</p>
 
-<p><a href=href="http://github.com">http://github.com</a>><img class="<a" src="http://chart.apis.google.com/chart?chs=150x150&cht=qr&chld=|0&chco=165B94&chl=href="http://github.com">http://github.com</a>"></a></p>
+<p><a href=href="http://github.com">http://github.com</a>><img class="<a" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=5&color=165B94&data=href="http://github.com">http://github.com</a>"></a></p>
 ]]></content>
   </entry>
   

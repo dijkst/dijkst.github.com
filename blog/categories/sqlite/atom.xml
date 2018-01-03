@@ -4,7 +4,7 @@
   <title><![CDATA[Category: sqlite | 第九块石头]]></title>
   <link href="http://dijkst.github.io/blog/categories/sqlite/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-03-22T20:51:42+08:00</updated>
+  <updated>2018-01-03T13:35:42+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -39,11 +39,11 @@
 
 <p>进入源代码目录：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>./configure &amp;mdash;enable-tempstore<span class="o">=</span>yes <span class="nv">CFLAGS</span><span class="o">=</span>&amp;ldquo;-DSQLITE_HAS_CODEC&amp;rdquo; <span class="nv">LDFLAGS</span><span class="o">=</span>&amp;ldquo;-lcrypto&amp;rdquo;
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>./configure <span class="p">&amp;</span>mdash<span class="p">;</span><span class="nb">enable</span>-tempstore<span class="o">=</span>yes <span class="nv">CFLAGS</span><span class="o">=</span><span class="p">&amp;</span>ldquo<span class="p">;</span>-DSQLITE_HAS_CODEC<span class="p">&amp;</span>rdquo<span class="p">;</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="p">&amp;</span>ldquo<span class="p">;</span>-lcrypto<span class="p">&amp;</span>rdquo<span class="p">;</span>
 </span><span class='line'>make
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>理论上需要OpenSSL库，可能是系统自带，也可能是之前装过，总之就是我还没遇到OpenSSL库找不到的现象~</p>
 
@@ -55,7 +55,7 @@
 
 <p>创建一个加密的数据，密码是<code>aaa</code>：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -66,18 +66,18 @@
 <span class='line-number'>9</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>./sqlite3 test.sqlite
 </span><span class='line'>SQLite version 3.7.14.1 2012-10-04 19:37:12
-</span><span class='line'>Enter &amp;ldquo;.help&amp;rdquo; <span class="k">for </span>instructions
-</span><span class='line'>Enter SQL statements terminated with a &amp;ldquo;;&amp;rdquo;
-</span><span class='line'>sqlite&gt; PRAGMA <span class="nv">key</span> <span class="o">=</span> &amp;lsquo;aaa&amp;rsquo;;
-</span><span class='line'>sqlite&gt; create table a<span class="o">(</span>ind int<span class="o">)</span>;
+</span><span class='line'>Enter <span class="p">&amp;</span>ldquo<span class="p">;</span>.help<span class="p">&amp;</span>rdquo<span class="p">;</span> <span class="k">for</span> instructions
+</span><span class='line'>Enter SQL statements terminated with a <span class="p">&amp;</span>ldquo<span class="p">;;&amp;</span>rdquo<span class="p">;</span>
+</span><span class='line'>sqlite&gt; PRAGMA <span class="nv">key</span> <span class="o">=</span> <span class="p">&amp;</span>lsquo<span class="p">;</span>aaa<span class="p">&amp;</span>rsquo<span class="p">;;</span>
+</span><span class='line'>sqlite&gt; create table a<span class="o">(</span>ind int<span class="o">)</span><span class="p">;</span>
 </span><span class='line'>sqlite&gt; .tables
 </span><span class='line'>a
 </span><span class='line'>sqlite&gt; .quit
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>尝试不输入密码，直接读取数据库，理论上是读不到数据，或者报错：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -85,15 +85,15 @@
 <span class='line-number'>6</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>./sqlite3 test.sqlite
 </span><span class='line'>SQLite version 3.7.14.1 2012-10-04 19:37:12
-</span><span class='line'>Enter &amp;ldquo;.help&amp;rdquo; <span class="k">for </span>instructions
-</span><span class='line'>Enter SQL statements terminated with a &amp;ldquo;;&amp;rdquo;
+</span><span class='line'>Enter <span class="p">&amp;</span>ldquo<span class="p">;</span>.help<span class="p">&amp;</span>rdquo<span class="p">;</span> <span class="k">for</span> instructions
+</span><span class='line'>Enter SQL statements terminated with a <span class="p">&amp;</span>ldquo<span class="p">;;&amp;</span>rdquo<span class="p">;</span>
 </span><span class='line'>sqlite&gt; .tables
 </span><span class='line'>sqlite&gt; .quit
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>尝试正确输入密码，应该成功读取：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -103,13 +103,13 @@
 <span class='line-number'>8</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>./sqlite3 test.sqlite
 </span><span class='line'>SQLite version 3.7.14.1 2012-10-04 19:37:12
-</span><span class='line'>Enter &amp;ldquo;.help&amp;rdquo; <span class="k">for </span>instructions
-</span><span class='line'>Enter SQL statements terminated with a &amp;ldquo;;&amp;rdquo;
-</span><span class='line'>sqlite&gt; PRAGMA <span class="nv">key</span> <span class="o">=</span> &amp;lsquo;aaa&amp;rsquo;;
+</span><span class='line'>Enter <span class="p">&amp;</span>ldquo<span class="p">;</span>.help<span class="p">&amp;</span>rdquo<span class="p">;</span> <span class="k">for</span> instructions
+</span><span class='line'>Enter SQL statements terminated with a <span class="p">&amp;</span>ldquo<span class="p">;;&amp;</span>rdquo<span class="p">;</span>
+</span><span class='line'>sqlite&gt; PRAGMA <span class="nv">key</span> <span class="o">=</span> <span class="p">&amp;</span>lsquo<span class="p">;</span>aaa<span class="p">&amp;</span>rsquo<span class="p">;;</span>
 </span><span class='line'>sqlite&gt; .tables
 </span><span class='line'>a
 </span><span class='line'>sqlite&gt; .quit
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>上面三个流程都过说明编译成功！</p>
 ]]></content>
@@ -140,19 +140,28 @@
 </code></pre>
 
 <p>}];
-```
-这个方法在执行sql成功后，将会调用increaseCounter方法：</p>
-
-<p>```objectivec
-&ndash; (void)increaseCounter {</p>
-
-<pre><code>[self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-    [db executeQuery:@"insert ..."];
-}];
-</code></pre>
-
-<p>}
-```
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>这个方法在执行sql成功后，将会调用increaseCounter方法：&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;```objectivec
+</span><span class='line'>&ndash; (void)increaseCounter {&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;[self.dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+</span><span class='line'>    [db executeQuery:@"insert ..."];
+</span><span class='line'>}];
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;}</span></code></pre></td></tr></table></div></figure>
 而increaseCounter方法中又增加一个事务，去执行另外一个sql语句。</p>
 
 <p>结果出现了这种现象：</p>

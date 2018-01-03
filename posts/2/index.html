@@ -23,13 +23,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dijkst.github.io/blog/page/2">
+  <link rel="canonical" href="http://dijkst.github.io/posts/2">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="第九块石头" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <!--<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -65,7 +65,7 @@
   
 </ul>
   
-<form action="http://google.com/search" method="get">
+<form action="https://www.google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:dijkst.github.io" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
@@ -104,7 +104,7 @@
   
 
 
-<time datetime="2013-12-07T22:39:00+08:00" pubdate data-updated="true">Dec 7<span>th</span>, 2013</time>
+<time datetime="2013-12-07T22:39:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/12/07/bu-yao-zai-initializer-he-dealloc-fang-fa-zhong-shi-yong-setter-he-getter/#disqus_thread">Comments</a>
         
@@ -121,11 +121,11 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nl">initWithIconImage:</span><span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">iconImage</span> <span class="nl">loadingImage:</span><span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">loadingImage</span> <span class="p">{</span>
-</span><span class='line'>     <span class="k">if</span> <span class="p">(</span><span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">init</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">iconImage</span> <span class="o">=</span> <span class="n">iconImage</span><span class="p">;</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nl">initWithIconImage</span><span class="p">:(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">iconImage</span> <span class="nl">loadingImage</span><span class="p">:(</span><span class="bp">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="n">loadingImage</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">if</span> <span class="p">(</span><span class="nb">self</span> <span class="o">=</span> <span class="p">[</span><span class="nb">self</span> <span class="n">init</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nb">self</span><span class="p">.</span><span class="n">iconImage</span> <span class="o">=</span> <span class="n">iconImage</span><span class="p">;</span>
 </span><span class='line'>     <span class="p">}</span>
-</span><span class='line'>     <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>     <span class="k">return</span> <span class="nb">self</span><span class="p">;</span>
 </span><span class='line'> <span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -171,7 +171,7 @@
   
 
 
-<time datetime="2013-11-29T20:14:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2013</time>
+<time datetime="2013-11-29T20:14:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/#disqus_thread">Comments</a>
         
@@ -233,7 +233,7 @@
   
 
 
-<time datetime="2013-09-04T15:40:00+08:00" pubdate data-updated="true">Sep 4<span>th</span>, 2013</time>
+<time datetime="2013-09-04T15:40:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti/#disqus_thread">Comments</a>
         
@@ -248,7 +248,7 @@
 
 <p>看上去好像可以做。那么我们就要拦截发送给 UIScrollView 的手势——重载 UIScrollView 的手势响应方法：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -258,15 +258,15 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizerShouldBegin:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">gestureRecognizer</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIPanGestureRecognizer</span> <span class="n">class</span><span class="p">]])</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="p">[(</span><span class="n">UIPanGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="n">gestureRecognizer</span> <span class="nl">translationInView:</span><span class="n">self</span><span class="p">];</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizerShouldBegin:</span><span class="p">(</span><span class="bp">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">gestureRecognizer</span> <span class="nl">isKindOfClass</span><span class="p">:[</span><span class="bp">UIPanGestureRecognizer</span> <span class="k">class</span><span class="p">]])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="bp">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">UIPanGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="n">gestureRecognizer</span> <span class="nl">translationInView</span><span class="p">:</span><span class="nb">self</span><span class="p">];</span>
 </span><span class='line'>        <span class="k">if</span> <span class="p">((</span><span class="n">fabs</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">fabs</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">x</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 判断角度 tan(45),这里需要通过正负来判断手势方向</span>
 </span><span class='line'>            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;横向手势&quot;</span><span class="p">);</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
 </span><span class='line'>        <span class="p">}</span>
 </span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nl">gestureRecognizerShouldBegin:</span><span class="n">gestureRecognizer</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="nb">super</span> <span class="nl">gestureRecognizerShouldBegin</span><span class="p">:</span><span class="n">gestureRecognizer</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -300,7 +300,7 @@
   
 
 
-<time datetime="2013-08-29T10:09:00+08:00" pubdate data-updated="true">Aug 29<span>th</span>, 2013</time>
+<time datetime="2013-08-29T10:09:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa/#disqus_thread">Comments</a>
         
@@ -317,7 +317,7 @@
 
 <p>让 iOS5 及以下响应 Button 事件的方法：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -325,13 +325,13 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizer:</span><span class="p">(</span><span class="n">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="nf">shouldReceiveTouch:</span><span class="p">(</span><span class="n">UITouch</span> <span class="o">*</span><span class="p">)</span><span class="nv">touch</span> <span class="p">{</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">gestureRecognizer:</span><span class="p">(</span><span class="bp">UIGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gestureRecognizer</span> <span class="nf">shouldReceiveTouch:</span><span class="p">(</span><span class="bp">UITouch</span> <span class="o">*</span><span class="p">)</span><span class="nv">touch</span> <span class="p">{</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="c1">// Disallow recognition of tap gestures in the control.</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(([</span><span class="n">touch</span><span class="p">.</span><span class="n">view</span> <span class="nl">isKindOfClass:</span><span class="p">[</span><span class="n">UIControl</span> <span class="n">class</span><span class="p">]]))</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(([</span><span class="n">touch</span><span class="p">.</span><span class="n">view</span> <span class="nl">isKindOfClass</span><span class="p">:[</span><span class="bp">UIControl</span> <span class="k">class</span><span class="p">]]))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
 </span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">super</span> <span class="nl">gestureRecognizer:</span><span class="n">gestureRecognizer</span> <span class="nl">shouldReceiveTouch:</span><span class="n">touch</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="nb">super</span> <span class="nl">gestureRecognizer</span><span class="p">:</span><span class="n">gestureRecognizer</span> <span class="nl">shouldReceiveTouch</span><span class="p">:</span><span class="n">touch</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -365,7 +365,7 @@
   
 
 
-<time datetime="2013-08-13T00:02:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
+<time datetime="2013-08-13T00:02:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/#disqus_thread">Comments</a>
         
@@ -426,7 +426,7 @@
   
 
 
-<time datetime="2013-08-09T15:04:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2013</time>
+<time datetime="2013-08-09T15:04:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li/#disqus_thread">Comments</a>
         
@@ -477,7 +477,7 @@
   
 
 
-<time datetime="2013-08-09T13:08:00+08:00" pubdate data-updated="true">Aug 9<span>th</span>, 2013</time>
+<time datetime="2013-08-09T13:08:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/#disqus_thread">Comments</a>
         
@@ -526,7 +526,7 @@
   
 
 
-<time datetime="2013-08-01T16:28:00+08:00" pubdate data-updated="true">Aug 1<span>st</span>, 2013</time>
+<time datetime="2013-08-01T16:28:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/08/01/shi-yong-rsynctong-bu-bu-tong-ji-qi-shang-de-wen-jian/#disqus_thread">Comments</a>
         
@@ -607,7 +607,7 @@
   
 
 
-<time datetime="2013-07-24T18:40:00+08:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
+<time datetime="2013-07-24T18:40:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/07/24/shi-yong-drawinrect-hui-tu-shi-diu-shi-qing-xi-du-jie-jue-fang-fa/#disqus_thread">Comments</a>
         
@@ -625,10 +625,10 @@
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;assemble-a&quot;</span><span class="p">];</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="bp">UIImage</span> <span class="o">*</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;assemble-a&quot;</span><span class="p">];</span>
 </span><span class='line'><span class="n">UIGraphicsBeginImageContext</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
-</span><span class='line'><span class="p">[</span><span class="n">image</span> <span class="nl">drawInRect:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">)];</span>
-</span><span class='line'><span class="n">UIImage</span> <span class="o">*</span><span class="n">newImage</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+</span><span class='line'><span class="p">[</span><span class="n">image</span> <span class="nl">drawInRect</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">image</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">)];</span>
+</span><span class='line'><span class="bp">UIImage</span> <span class="o">*</span><span class="n">newImage</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
 </span><span class='line'><span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -669,7 +669,7 @@
   
 
 
-<time datetime="2013-07-18T20:06:00+08:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time>
+<time datetime="2013-07-18T20:06:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="/blog/2013/07/18/rang-xcodejing-tai-ku-bu-xu-yao-shi-yong-zhe-link-framework/#disqus_thread">Comments</a>
         
@@ -707,9 +707,9 @@
 </span><span class='line'>  <span class="n">dlopen</span><span class="p">(</span><span class="s">&quot;/System/Library/Frameworks/AdSupport.framework/AdSupport&quot;</span><span class="p">,</span> <span class="n">RTLD_LOCAL</span><span class="p">);</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">NSObject</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSClassFromString</span><span class="p">(</span><span class="s">@&quot;ASIdentifierManager&quot;</span><span class="p">)</span> <span class="nl">performSelector:</span><span class="n">NSSelectorFromString</span><span class="p">(</span><span class="s">@&quot;sharedManager&quot;</span><span class="p">)];</span>
+</span><span class='line'><span class="bp">NSObject</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSClassFromString</span><span class="p">(</span><span class="s">@&quot;ASIdentifierManager&quot;</span><span class="p">)</span> <span class="nl">performSelector</span><span class="p">:</span><span class="n">NSSelectorFromString</span><span class="p">(</span><span class="s">@&quot;sharedManager&quot;</span><span class="p">)];</span>
 </span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">manager</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">manager</span> <span class="nl">performSelector:</span><span class="n">NSSelectorFromString</span><span class="p">(</span><span class="s">@&quot;advertisingIdentifier&quot;</span><span class="p">)];</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">manager</span> <span class="nl">performSelector</span><span class="p">:</span><span class="n">NSSelectorFromString</span><span class="p">(</span><span class="s">@&quot;advertisingIdentifier&quot;</span><span class="p">)];</span>
 </span><span class='line'>  <span class="p">...</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -720,7 +720,7 @@
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="kt">void</span> <span class="o">*</span><span class="n">handle</span> <span class="o">=</span> <span class="n">dlopen</span><span class="p">(</span><span class="s">&quot;core telephony framework path&quot;</span><span class="p">,</span> <span class="n">RTLD_LOCAL</span><span class="p">);</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">_k_CTCallStateDialing</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="n">dlsym</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s">&quot;CTCallStateDialing&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="bp">NSString</span> <span class="o">*</span><span class="n">_k_CTCallStateDialing</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="n">dlsym</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s">&quot;CTCallStateDialing&quot;</span><span class="p">);</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -747,11 +747,11 @@
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/3/">&larr; Older</a>
+      <a class="prev" href="/posts/3">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
-    <a class="next" href="/">Newer &rarr;</a>
+    <a class="next" href="/index.html">Newer &rarr;</a>
     
   </div>
 </div>
@@ -785,7 +785,7 @@
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>git (2)</a></li><li><a href='/blog/categories/ios/'>ios (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>mac (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>osx (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My iOS Apps</h1>
@@ -846,7 +846,7 @@
 </div>
 <div class='back'>
 <a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
-  <img id='img_com-sidetrip-wikish_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+  <img id='img_com-sidetrip-wikish_qr' src='https://api.qrserver.com/v1/create-qr-code/?size=120x120&margin=10&color=165B94&data=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
 </a>
 </div>
 </div>
@@ -870,7 +870,7 @@ Duckipedia - A Wikipedia Reader
 </div>
 <div class='back'>
 <a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
-  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='https://api.qrserver.com/v1/create-qr-code/?size=120x120&margin=10&color=165B94&data=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
 </a>
 </div>
 </div>
@@ -894,7 +894,7 @@ Duckipedia - A Wikipedia Reader
 </div>
 <div class='back'>
 <a class='com-luobo-blelock' href='https://itunes.apple.com/cn/app/bluelock/id958057367?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
-  <img id='img_com-luobo-blelock_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/bluelock/id958057367?mt=8&uo=4' class='com-luobo-blelock' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+  <img id='img_com-luobo-blelock_qr' src='https://api.qrserver.com/v1/create-qr-code/?size=120x120&margin=10&color=165B94&data=https://itunes.apple.com/cn/app/bluelock/id958057367?mt=8&uo=4' class='com-luobo-blelock' style='width:120px; height:120px; border: 0em; border-radius:22px' />
 </a>
 </div>
 </div>
@@ -922,7 +922,7 @@ BlueLock
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - dijkst -
+  Copyright &copy; 2018 - dijkst -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

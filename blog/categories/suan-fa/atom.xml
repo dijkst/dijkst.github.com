@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 算法 | 第九块石头]]></title>
   <link href="http://dijkst.github.io/blog/categories/suan-fa/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-03-22T20:51:42+08:00</updated>
+  <updated>2018-01-03T13:35:42+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -39,7 +39,7 @@
 
 <p>不过，网络上，不知道从哪里出来了一套算法，我试了一下，还挺准的~</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -157,10 +157,10 @@
 </span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mf">72.004</span> <span class="o">||</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">longitude</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mf">137.8347</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
 </span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mf">0.8293</span> <span class="o">||</span> <span class="n">coordinate</span><span class="p">.</span><span class="n">latitude</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mf">55.8271</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
-</span><span class='line'><span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nb">YES</span><span class="p">;</span>
+</span><span class='line'><span class="k">return</span> <span class="nb">NO</span><span class="p">;</span>
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
@@ -245,7 +245,7 @@
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>百度坐标系是在火星坐标系上进行二次加密，所以当从真实坐标转换到百度坐标时，需要先转换为火星坐标，再转换为百度坐标。</p>
 

@@ -25,7 +25,7 @@
   <link href="/atom.xml" rel="alternate" title="第九块石头" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <!--<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -61,7 +61,7 @@
   
 </ul>
   
-<form action="http://google.com/search" method="get">
+<form action="https://www.google.com/search" method="get">
   <fieldset role="search">
     <input type="hidden" name="q" value="site:dijkst.github.io" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
@@ -97,7 +97,7 @@
   
 
 
-<time datetime="2013-08-13T00:02:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
+<time datetime="2013-08-13T00:02:00+08:00" pubdate data-updated="true"></time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -162,7 +162,7 @@
 
 <p>init.d里面的脚本模板：（<a href="https://github.com/fhd/init-script-template">https://github.com/fhd/init-script-template</a>）</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -259,56 +259,54 @@
 </span><span class='line'><span class="o">}</span>
 </span><span class='line'>
 </span><span class='line'>is_running<span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="o">[</span> -f <span class="s2">&quot;$pid_file&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> ps <span class="sb">`</span>get_pid<span class="sb">`</span> &gt; /dev/null 2&gt;&amp;1
+</span><span class='line'>    <span class="o">[</span> -f <span class="s2">&quot;$pid_file&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> ps <span class="sb">`</span>get_pid<span class="sb">`</span> &gt; /dev/null 2&gt;<span class="p">&amp;</span>1
 </span><span class='line'><span class="o">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">case</span> <span class="s2">&quot;$1&quot;</span> in
 </span><span class='line'>    start<span class="o">)</span>
-</span><span class='line'>     <span class="k">if </span>is_running; <span class="k">then</span>
-</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Already started&quot;</span>
+</span><span class='line'>     <span class="k">if</span> is_running<span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>         <span class="nb">echo</span> <span class="s2">&quot;Already started&quot;</span>
 </span><span class='line'>     <span class="k">else</span>
-</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Starting $name&quot;</span>
+</span><span class='line'>         <span class="nb">echo</span> <span class="s2">&quot;Starting $name&quot;</span>
 </span><span class='line'>         <span class="nb">cd</span> <span class="s2">&quot;$dir&quot;</span>
 </span><span class='line'>            sudo -u <span class="s2">&quot;$user&quot;</span> <span class="nv">$cmd</span> &gt; <span class="s2">&quot;$stdout_log&quot;</span> 2&gt; <span class="s2">&quot;$stderr_log&quot;</span> <span class="se">\</span>
-</span><span class='line'>          &amp; <span class="nb">echo</span> <span class="nv">$!</span> &gt; <span class="s2">&quot;$pid_file&quot;</span>
-</span><span class='line'>         <span class="k">if</span> ! is_running; <span class="k">then</span>
-</span><span class='line'><span class="k">          </span><span class="nb">echo</span> <span class="s2">&quot;Unable to start, see $stdout_log and $stderr_log&quot;</span>
+</span><span class='line'>          <span class="p">&amp;</span> <span class="nb">echo</span> <span class="nv">$!</span> &gt; <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'>         <span class="k">if</span> ! is_running<span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>          <span class="nb">echo</span> <span class="s2">&quot;Unable to start, see $stdout_log and $stderr_log&quot;</span>
 </span><span class='line'>          <span class="nb">exit </span>1
 </span><span class='line'>         <span class="k">fi</span>
-</span><span class='line'><span class="k">     fi</span>
-</span><span class='line'>     ;;
+</span><span class='line'>     <span class="k">fi</span>
+</span><span class='line'>     <span class="p">;;</span>
 </span><span class='line'>    stop<span class="o">)</span>
-</span><span class='line'>     <span class="k">if </span>is_running; <span class="k">then</span>
-</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Stopping $name&quot;</span>
+</span><span class='line'>     <span class="k">if</span> is_running<span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>         <span class="nb">echo</span> <span class="s2">&quot;Stopping $name&quot;</span>
 </span><span class='line'>         <span class="nb">kill</span> <span class="sb">`</span>get_pid<span class="sb">`</span>
 </span><span class='line'>         rm <span class="s2">&quot;$pid_file&quot;</span>
 </span><span class='line'>     <span class="k">else</span>
-</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Not running&quot;</span>
+</span><span class='line'>         <span class="nb">echo</span> <span class="s2">&quot;Not running&quot;</span>
 </span><span class='line'>     <span class="k">fi</span>
-</span><span class='line'>     ;;
+</span><span class='line'>     <span class="p">;;</span>
 </span><span class='line'>    restart<span class="o">)</span>
 </span><span class='line'>     <span class="nv">$0</span> stop
 </span><span class='line'>     <span class="nv">$0</span> start
-</span><span class='line'>     ;;
+</span><span class='line'>     <span class="p">;;</span>
 </span><span class='line'>    status<span class="o">)</span>
-</span><span class='line'>     <span class="k">if </span>is_running; <span class="k">then</span>
-</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Running&quot;</span>
+</span><span class='line'>     <span class="k">if</span> is_running<span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>         <span class="nb">echo</span> <span class="s2">&quot;Running&quot;</span>
 </span><span class='line'>     <span class="k">else</span>
-</span><span class='line'><span class="k">         </span><span class="nb">echo</span> <span class="s2">&quot;Stopped&quot;</span>
+</span><span class='line'>         <span class="nb">echo</span> <span class="s2">&quot;Stopped&quot;</span>
 </span><span class='line'>         <span class="nb">exit </span>1
 </span><span class='line'>     <span class="k">fi</span>
-</span><span class='line'>     ;;
+</span><span class='line'>     <span class="p">;;</span>
 </span><span class='line'>    *<span class="o">)</span>
 </span><span class='line'>     <span class="nb">echo</span> <span class="s2">&quot;Usage: $0 {start|stop|restart|status}&quot;</span>
 </span><span class='line'>     <span class="nb">exit </span>1
-</span><span class='line'>     ;;
+</span><span class='line'>     <span class="p">;;</span>
 </span><span class='line'><span class="k">esac</span>
 </span><span class='line'>
 </span><span class='line'><span class="nb">exit </span>0
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 </div>
 
@@ -332,7 +330,7 @@
   
 
 
-<time datetime="2013-08-13T00:02:00+08:00" pubdate data-updated="true">Aug 13<span>th</span>, 2013</time>
+<time datetime="2013-08-13T00:02:00+08:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
@@ -411,7 +409,7 @@ var disqus_shortname = 'dijkst';
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>Git (2)</a></li><li><a href='/blog/categories/ios/'>iOS (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>Mac (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>OSX (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/travel/'>travel (1)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>Xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/bash/'>bash (3)</a></li><li><a href='/blog/categories/git/'>git (2)</a></li><li><a href='/blog/categories/ios/'>ios (29)</a></li><li><a href='/blog/categories/linux/'>linux (3)</a></li><li><a href='/blog/categories/mac/'>mac (3)</a></li><li><a href='/blog/categories/octopress/'>octopress (1)</a></li><li><a href='/blog/categories/osx/'>osx (7)</a></li><li><a href='/blog/categories/ruby/'>ruby (2)</a></li><li><a href='/blog/categories/sqlite/'>sqlite (2)</a></li><li><a href='/blog/categories/windows/'>windows (2)</a></li><li><a href='/blog/categories/xcode/'>xcode (1)</a></li><li><a href='/blog/categories/sheng-huo-sui-bi/'>生活随笔 (1)</a></li><li><a href='/blog/categories/suan-fa/'>算法 (1)</a></li><li><a href='/blog/categories/jie-jue-wen-ti/'>解决问题 (1)</a></li></ul>
 </section>
 <section>
   <h1>My iOS Apps</h1>
@@ -472,7 +470,7 @@ var disqus_shortname = 'dijkst';
 </div>
 <div class='back'>
 <a class='com-sidetrip-wikish' href='https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
-  <img id='img_com-sidetrip-wikish_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+  <img id='img_com-sidetrip-wikish_qr' src='https://api.qrserver.com/v1/create-qr-code/?size=120x120&margin=10&color=165B94&data=https://itunes.apple.com/cn/app/duckipedia-wikipedia-reader/id626825945?mt=8&uo=4' class='com-sidetrip-wikish' style='width:120px; height:120px; border: 0em; border-radius:22px' />
 </a>
 </div>
 </div>
@@ -496,7 +494,7 @@ Duckipedia - A Wikipedia Reader
 </div>
 <div class='back'>
 <a class='com-jamesmyg-cinderellacocohd' href='https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
-  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+  <img id='img_com-jamesmyg-cinderellacocohd_qr' src='https://api.qrserver.com/v1/create-qr-code/?size=120x120&margin=10&color=165B94&data=https://itunes.apple.com/cn/app/mo-fa-hui-gu-niang/id632544908?mt=8&uo=4' class='com-jamesmyg-cinderellacocohd' style='width:120px; height:120px; border: 0em; border-radius:22px' />
 </a>
 </div>
 </div>
@@ -520,7 +518,7 @@ Duckipedia - A Wikipedia Reader
 </div>
 <div class='back'>
 <a class='com-luobo-blelock' href='https://itunes.apple.com/cn/app/bluelock/id958057367?mt=8&uo=4' style='text-decoration: none !important; white-space: normal' target='_blank'>
-  <img id='img_com-luobo-blelock_qr' src='http://chart.apis.google.com/chart?chs=120x120&cht=qr&chld=|0&chco=165B94&chl=https://itunes.apple.com/cn/app/bluelock/id958057367?mt=8&uo=4' class='com-luobo-blelock' style='width:120px; height:120px; border: 0em; border-radius:22px' />
+  <img id='img_com-luobo-blelock_qr' src='https://api.qrserver.com/v1/create-qr-code/?size=120x120&margin=10&color=165B94&data=https://itunes.apple.com/cn/app/bluelock/id958057367?mt=8&uo=4' class='com-luobo-blelock' style='width:120px; height:120px; border: 0em; border-radius:22px' />
 </a>
 </div>
 </div>
@@ -549,7 +547,7 @@ BlueLock
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - dijkst -
+  Copyright &copy; 2018 - dijkst -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

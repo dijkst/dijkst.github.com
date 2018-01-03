@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | 第九块石头]]></title>
   <link href="http://dijkst.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-03-22T20:51:42+08:00</updated>
+  <updated>2018-01-03T13:35:42+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -22,8 +22,8 @@
 
 <p>在 Rails 项目根目录下的<code>config.ru</code>，加入<code>use Rack::Deflater</code>，如下：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>config.ru </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>config.ru </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -37,7 +37,7 @@
 </span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="nb">require</span> <span class="o">::</span><span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="o">.</span><span class="n">.</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">environment</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span>  <span class="o">&lt;</span><span class="n">strong</span><span class="o">&gt;</span><span class="no">FILE</span><span class="o">&lt;</span><span class="sr">/strong&gt;)</span>
 </span><span class='line'><span class="sr">use Rack::Deflater</span>
 </span><span class='line'><span class="sr">run Wending::Application</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>重启服务器即可。</p>
 
@@ -112,14 +112,14 @@ end
 
 <p>我们先试着在项目根目录下，创建Gemfile文件：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Gemfile </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>Gemfile </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='objectivec'><span class='line'><span class="n">gem</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">cocoapods</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;,</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="o">~&gt;</span> <span class="mf">0.16.0</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>执行<code>bundle install</code>:</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -164,11 +164,11 @@ end
 </span><span class='line'>Installing cocoapods (0.16.4)
 </span><span class='line'>Using bundler (1.3.5)
 </span><span class='line'>Your bundle is complete!
-</span><span class='line'>Use &lt;code>bundle show [gemname]&lt;/code> to see where a bundled gem is installed.</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'>Use &lt;code>bundle show [gemname]&lt;/code> to see where a bundled gem is installed.</span></code></pre></td></tr></table></div></figure></p>
 
 <p>用<code>gem list</code>看看本地有哪几个版本cocoapods：</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -177,7 +177,7 @@ end
 </span><span class='line'>
 </span><span class='line'>&lt;p>&lt;strong>&lt;em> LOCAL GEMS &lt;/em>&lt;/strong>&lt;/p>
 </span><span class='line'>
-</span><span class='line'>&lt;p>cocoapods (0.19.1, 0.16.4)</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'>&lt;p>cocoapods (0.19.1, 0.16.4)</span></code></pre></td></tr></table></div></figure></p>
 
 <p>现在试试能否用旧版本的cocoapods：</p>
 

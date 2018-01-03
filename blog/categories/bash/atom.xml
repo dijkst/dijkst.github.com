@@ -4,7 +4,7 @@
   <title><![CDATA[Category: bash | 第九块石头]]></title>
   <link href="http://dijkst.github.io/blog/categories/bash/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-03-22T20:51:42+08:00</updated>
+  <updated>2018-01-03T13:35:42+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -78,8 +78,8 @@ git reset --soft HEAD\^。
 
 <p>首先我的 python 脚本是被一个bash脚本调用的</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>generate_doc.sh </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>generate_doc.sh </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -90,10 +90,10 @@ git reset --soft HEAD\^。
 </span><span class='line'>
 </span><span class='line'>&lt;h1&gt;!/bin/bash&lt;/h1&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;CURRENT_FOLDER<span class="o">=</span>&lt;code&gt;cd <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span>; <span class="nb">pwd</span>&lt;/code&gt;
-</span><span class='line'><span class="nv">DOC_FOLDER</span><span class="o">=</span>&amp;ldquo;<span class="nv">$CURRENT_FOLDER</span>/../doc&amp;rdquo;
-</span><span class='line'>python3 &amp;ldquo;<span class="k">${</span><span class="nv">CURRENT_FOLDER</span><span class="k">}</span>/generate_doc/generate_doc.py&amp;rdquo; <span class="nv">$DOC_FOLDER</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'>&lt;p&gt;CURRENT_FOLDER<span class="o">=</span>&lt;code&gt;cd <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span><span class="p">;</span> <span class="nb">pwd</span>&lt;/code&gt;
+</span><span class='line'><span class="nv">DOC_FOLDER</span><span class="o">=</span><span class="p">&amp;</span>ldquo<span class="p">;</span><span class="nv">$CURRENT_FOLDER</span>/../doc<span class="p">&amp;</span>rdquo<span class="p">;</span>
+</span><span class='line'>python3 <span class="p">&amp;</span>ldquo<span class="p">;</span><span class="k">${</span><span class="nv">CURRENT_FOLDER</span><span class="k">}</span>/generate_doc/generate_doc.py<span class="p">&amp;</span>rdquo<span class="p">;</span> <span class="nv">$DOC_FOLDER</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>我在<code>Run Script</code>里
 <code>
@@ -143,8 +143,8 @@ python3 "${CURRENT_FOLDER}/generate_doc/generate_doc.py""${DOC_FOLDER}"
 
 <p>找了很久才解决，需要在环境变量中添加个Python编码的设置: <code>export PYTHONIOENCODING=UTF-8</code> ，最后执行python的脚本如下</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>generate_doc.sh </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>generate_doc.sh </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -158,13 +158,13 @@ python3 "${CURRENT_FOLDER}/generate_doc/generate_doc.py""${DOC_FOLDER}"
 </span><span class='line'>
 </span><span class='line'>&lt;h1&gt;!/bin/bash&lt;/h1&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;CURRENT_FOLDER<span class="o">=</span>&lt;code&gt;cd <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span>; <span class="nb">pwd</span>&lt;/code&gt;
-</span><span class='line'><span class="nv">DOC_FOLDER</span><span class="o">=</span>&amp;ldquo;<span class="nv">$CURRENT_FOLDER</span>/../doc&amp;rdquo;&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;CURRENT_FOLDER<span class="o">=</span>&lt;code&gt;cd <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span><span class="p">;</span> <span class="nb">pwd</span>&lt;/code&gt;
+</span><span class='line'><span class="nv">DOC_FOLDER</span><span class="o">=</span><span class="p">&amp;</span>ldquo<span class="p">;</span><span class="nv">$CURRENT_FOLDER</span>/../doc<span class="p">&amp;</span>rdquo<span class="p">;</span>&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;export <span class="nv">PYTHONIOENCODING</span><span class="o">=</span>UTF-8&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;python3 &amp;ldquo;<span class="k">${</span><span class="nv">CURRENT_FOLDER</span><span class="k">}</span>/generate_doc/generate_doc.py&amp;rdquo;&amp;ldquo;<span class="k">${</span><span class="nv">DOC_FOLDER</span><span class="k">}</span>&amp;rdquo;
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'>&lt;p&gt;python3 <span class="p">&amp;</span>ldquo<span class="p">;</span><span class="k">${</span><span class="nv">CURRENT_FOLDER</span><span class="k">}</span>/generate_doc/generate_doc.py<span class="p">&amp;</span>rdquo<span class="p">;&amp;</span>ldquo<span class="p">;</span><span class="k">${</span><span class="nv">DOC_FOLDER</span><span class="k">}</span><span class="p">&amp;</span>rdquo<span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>这样，我的打包脚本就能执行起来了。</p>
 ]]></content>
@@ -177,8 +177,8 @@ python3 "${CURRENT_FOLDER}/generate_doc/generate_doc.py""${DOC_FOLDER}"
     <id>http://dijkst.github.io/blog/2013/06/04/huo-de-dang-qian-jiao-ben-wen-jian-suo-zai-mu-lu</id>
     <content type="html"><![CDATA[<p>只用$(dirname $0)是不能获得绝对路径的， 还要跳到那个目录，再获取绝对路径，命令如下</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>script.sh </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>script.sh </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -188,9 +188,9 @@ python3 "${CURRENT_FOLDER}/generate_doc/generate_doc.py""${DOC_FOLDER}"
 </span><span class='line'>
 </span><span class='line'>&lt;h1&gt;!/bin/bash&lt;/h1&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;DIR<span class="o">=</span>&lt;code&gt;cd <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span>; <span class="nb">pwd</span>&lt;/code&gt;
+</span><span class='line'>&lt;p&gt;DIR<span class="o">=</span>&lt;code&gt;cd <span class="k">$(</span>dirname <span class="nv">$0</span><span class="k">)</span><span class="p">;</span> <span class="nb">pwd</span>&lt;/code&gt;
 </span><span class='line'><span class="nb">echo</span> <span class="nv">$DIR</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 ]]></content>
   </entry>
   

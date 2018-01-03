@@ -1,317 +1,290 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/09/hello-world/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/05/10/ios-duo-xian-cheng-xia-shi-yong-fmdbjin-xing-shu-ju-ku-fang-wen-he-si-suo-wen-ti/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/11/show-logs-on-ios-devices/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/13/svnqian-yi-dao-gitde-yi-xie-wen-ti/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/14/javascripthe-objectivecjiao-hu/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/16/tui-song-ji-zhu-apns-yi-yuan-li/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/16/tui-song-ji-zhu-apns-er-zheng-shu/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/17/tui-song-ji-zhu-apns-san-ke-hu-duan/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/18/tui-song-ji-zhu-apns-si-fu-wu-qi/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/05/20/arczhong-jing-que-de-dui-xiang-sheng-cun-qi/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/05/21/jin-yong-time-machine-de-ben-di-bei-fen-cun-chu/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/05/22/shi-yong-bundleguan-li-cocoapodsban-ben/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/22/macpei-zhi-wen-jian-guan-li/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/25/for-inyu-ju-zai-arczhong-de-chu-li/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/27/macosan-zhuang-cocoapodsbu-zou/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/28/fei-lu-bin-zi-you-xing/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/05/29/xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/30/fen-duan-du-qu-ren-he-ge-shi-wen-ben/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/05/31/viewwithtagde-sou-suo-luo-ji/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/06/02/wifigan-rao-pai-chu-de-yi-xie-jin-yan/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/06/04/huo-de-dang-qian-jiao-ben-wen-jian-suo-zai-mu-lu/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/06/05/sqlitejia-mi-ban-ben-sqlcipherbian-yi-guo-cheng-fu-wu-qi/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/06/05/gei-octopresszeng-jia-sheng-cheng-qrer-wei-ma-gong-neng/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/06/06/zai-xcodede-run-scriptli-diao-yong-pythonjiao-ben/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/06/09/fang-zhi-catransactiondong-hua-zui-hou-yi-zheng-shan-dong/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/06/14/huo-qu-quan-ping-uiwindow/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/06/19/xiao-xin-fu-dian-shu-zhuan-zheng-shu-fa-sheng-de-yi-wai-xing-wei/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/06/21/ke-bian-shu-zu-zai-kvozhong-de-shi-xian/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/06/24/key-valuebian-cheng-bi-ji-ji-chu/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/06/29/tui-jian-ji-kuan-bu-cuo-de-quicklookkuo-zhan-cha-jian/
-        </loc>
-        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/06/29/macoschang-yong-ruan-jian-shou-ji/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/07/01/bi-ye-2nian-de-gan-hong/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/07/18/rang-xcodejing-tai-ku-bu-xu-yao-shi-yong-zhe-link-framework/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/07/24/shi-yong-drawinrect-hui-tu-shi-diu-shi-qing-xi-du-jie-jue-fang-fa/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/08/01/shi-yong-rsynctong-bu-bu-tong-ji-qi-shang-de-wen-jian/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/12/07/bu-yao-zai-initializer-he-dealloc-fang-fa-zhong-shi-yong-setter-he-getter/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/
-        </loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/
-        </loc>
-        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/</loc>
-        <lastmod>2014-09-29T18:01:18+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2014/05/23/zai-calayer-shang-hua-xian-chu-xian-mo-hu-de-jie-jue-ban-fa/
-        </loc>
-        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/
-        </loc>
-        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/
-        </loc>
-        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
-    </url>
-    <url>
-        <loc>
-            http://dijkst.github.io/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/
-        </loc>
-        <lastmod>2015-03-03T21:02:27+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/</loc>
-        <lastmod>2014-09-29T18:00:00+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/</loc>
-        <lastmod>2015-03-22T20:26:50+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/</loc>
-        <lastmod>2015-03-22T20:27:04+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/archives/</loc>
-        <lastmod>2015-03-22T20:27:04+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/blog/archives/</loc>
-        <lastmod>2015-03-22T20:27:04+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/</loc>
-        <lastmod>2015-03-22T20:27:04+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://dijkst.github.io/robots.txt</loc>
-        <lastmod>2014-01-25T20:36:07+08:00</lastmod>
-    </url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.en/</loc>
+<lastmod>2015-02-14T13:35:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2015/02/14/bluelock-release-v1-dot-0-3.cn/</loc>
+<lastmod>2015-02-14T13:35:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2014/09/29/rang-xcode-zeng-jia-duo-sdk-zhi-chi/</loc>
+<lastmod>2014-09-29T17:21:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2014/06/25/zai-qi-ta-dian-nao-shang-liu-lan-time-machine-li-shi/</loc>
+<lastmod>2014-06-25T22:44:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2014/05/30/sourcetree-zhong-lian-jie-zhu-shi-zhong-de-issue-id-dao-kelude/</loc>
+<lastmod>2014-05-30T16:30:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2014/05/24/goagent-ti-shi-sslerror-eof-occurred-in-violation-of-protocol-jie-jue-ban-fa/</loc>
+<lastmod>2014-05-24T21:31:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2014/05/23/zai-calayer-shang-hua-xian-chu-xian-mo-hu-de-jie-jue-ban-fa/</loc>
+<lastmod>2014-05-23T20:34:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2014/02/10/git-tong-bu-yuan-cheng-tags/</loc>
+<lastmod>2014-02-10T11:35:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2014/01/16/zai-ios6-xi-tong-de-ipad-she-bei-zhong-da-kai-appstore-xia-zai-ye-mian/</loc>
+<lastmod>2014-01-16T14:58:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/12/07/octopresszai-zshxia-wu-fa-xin-jian-bo-ke-de-wen-ti/</loc>
+<lastmod>2013-12-07T23:27:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/12/07/bu-yao-zai-initializer-he-dealloc-fang-fa-zhong-shi-yong-setter-he-getter/</loc>
+<lastmod>2013-12-07T22:39:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/11/29/nagios4-plus-nginx-plus-gangliapei-zhi/</loc>
+<lastmod>2013-11-29T20:14:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/09/04/uiscrollview-he-swipe-shou-shi-de-shi-bie-wen-ti/</loc>
+<lastmod>2013-09-04T15:40:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/08/29/ios5-shang-gesture-he-uibutton-shou-shi-chong-tu-jie-jue-fang-fa/</loc>
+<lastmod>2013-08-29T10:09:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/08/13/she-zhi-ubuntucheng-xu-kai-ji-qi-dong/</loc>
+<lastmod>2013-08-13T00:02:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/08/09/zhong-guo-di-tu-zuo-biao-pian-yi-suan-fa-zheng-li/</loc>
+<lastmod>2013-08-09T15:04:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/08/09/adobe-cs6-guan-fang-jian-ti-zhong-wen-yuan-ban-xia-zai-shou-ji/</loc>
+<lastmod>2013-08-09T13:08:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/08/01/shi-yong-rsynctong-bu-bu-tong-ji-qi-shang-de-wen-jian/</loc>
+<lastmod>2013-08-01T16:28:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/07/24/shi-yong-drawinrect-hui-tu-shi-diu-shi-qing-xi-du-jie-jue-fang-fa/</loc>
+<lastmod>2013-07-24T18:40:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/07/18/rang-xcodejing-tai-ku-bu-xu-yao-shi-yong-zhe-link-framework/</loc>
+<lastmod>2013-07-18T20:06:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/07/18/rang-rails-zhi-chi-response-shu-ju-gzip-ya-suo/</loc>
+<lastmod>2013-07-18T18:46:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/07/17/pch-wen-jian-zhong-dao-ru-de-zhu-yi-shi-xiang/</loc>
+<lastmod>2013-07-17T19:05:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/07/11/rootviewcontroller-geng-gai-dong-hua-de-zhu-yi-shi-xiang/</loc>
+<lastmod>2013-07-11T20:17:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/07/07/shi-yong-bbuncrustifyrang-iosdai-ma-geng-piao-liang/</loc>
+<lastmod>2013-07-07T12:12:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/07/02/shi-yong-cocoaasyncsocketfa-song-tcp-slash-udpxiao-xi/</loc>
+<lastmod>2013-07-02T17:19:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/07/01/bi-ye-2nian-de-gan-hong/</loc>
+<lastmod>2013-07-01T19:37:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/29/macoschang-yong-ruan-jian-shou-ji/</loc>
+<lastmod>2013-06-29T15:17:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/29/tui-jian-ji-kuan-bu-cuo-de-quicklookkuo-zhan-cha-jian/</loc>
+<lastmod>2013-06-29T12:22:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/24/key-valuebian-cheng-bi-ji-ji-chu/</loc>
+<lastmod>2013-06-24T19:40:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/21/ke-bian-shu-zu-zai-kvozhong-de-shi-xian/</loc>
+<lastmod>2013-06-21T16:40:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/19/xiao-xin-fu-dian-shu-zhuan-zheng-shu-fa-sheng-de-yi-wai-xing-wei/</loc>
+<lastmod>2013-06-19T20:45:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/14/huo-qu-quan-ping-uiwindow/</loc>
+<lastmod>2013-06-14T20:42:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/09/fang-zhi-catransactiondong-hua-zui-hou-yi-zheng-shan-dong/</loc>
+<lastmod>2013-06-09T09:11:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/06/zai-xcodede-run-scriptli-diao-yong-pythonjiao-ben/</loc>
+<lastmod>2013-06-06T20:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/06/shi-yong-cygwingei-windowsan-zhuang-linuxming-ling-xing/</loc>
+<lastmod>2013-06-06T13:44:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/05/gei-octopresszeng-jia-sheng-cheng-qrer-wei-ma-gong-neng/</loc>
+<lastmod>2013-06-05T18:38:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/05/sqlitejia-mi-ban-ben-sqlcipherbian-yi-guo-cheng-fu-wu-qi/</loc>
+<lastmod>2013-06-05T10:42:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/04/huo-de-dang-qian-jiao-ben-wen-jian-suo-zai-mu-lu/</loc>
+<lastmod>2013-06-04T23:35:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/06/02/wifigan-rao-pai-chu-de-yi-xie-jin-yan/</loc>
+<lastmod>2013-06-02T16:17:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/31/viewwithtagde-sou-suo-luo-ji/</loc>
+<lastmod>2013-05-31T19:13:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/30/fen-duan-du-qu-ren-he-ge-shi-wen-ben/</loc>
+<lastmod>2013-05-30T23:20:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/29/xiang-yi-jing-cun-zai-de-iosxiang-mu-zhong-ji-cheng-octest/</loc>
+<lastmod>2013-05-29T15:58:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/27/macosan-zhuang-cocoapodsbu-zou/</loc>
+<lastmod>2013-05-27T19:24:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/25/for-inyu-ju-zai-arczhong-de-chu-li/</loc>
+<lastmod>2013-05-25T09:13:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/22/macpei-zhi-wen-jian-guan-li/</loc>
+<lastmod>2013-05-22T23:24:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/22/shi-yong-bundleguan-li-cocoapodsban-ben/</loc>
+<lastmod>2013-05-22T18:15:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/21/jin-yong-time-machine-de-ben-di-bei-fen-cun-chu/</loc>
+<lastmod>2013-05-21T22:33:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/20/arczhong-jing-que-de-dui-xiang-sheng-cun-qi/</loc>
+<lastmod>2013-05-20T22:55:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/18/tui-song-ji-zhu-apns-si-fu-wu-qi/</loc>
+<lastmod>2013-05-18T20:18:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/17/tui-song-ji-zhu-apns-san-ke-hu-duan/</loc>
+<lastmod>2013-05-17T22:38:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/16/tui-song-ji-zhu-apns-er-zheng-shu/</loc>
+<lastmod>2013-05-16T11:40:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/16/tui-song-ji-zhu-apns-yi-yuan-li/</loc>
+<lastmod>2013-05-16T10:23:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/14/javascripthe-objectivecjiao-hu/</loc>
+<lastmod>2013-05-14T20:13:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/13/svnqian-yi-dao-gitde-yi-xie-wen-ti/</loc>
+<lastmod>2013-05-13T17:02:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/11/show-logs-on-ios-devices/</loc>
+<lastmod>2013-05-11T21:11:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/10/ios-duo-xian-cheng-xia-shi-yong-fmdbjin-xing-shu-ju-ku-fang-wen-he-si-suo-wen-ti/</loc>
+<lastmod>2013-05-10T19:07:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/2013/05/09/hello-world/</loc>
+<lastmod>2013-05-09T10:28:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/archives/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/archives/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/ios/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/sqlite/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/osx/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/ruby/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/jie-jue-wen-ti/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/bash/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/octopress/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/windows/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/sheng-huo-sui-bi/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/linux/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/suan-fa/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/git/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/mac/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/blog/categories/xcode/</loc>
+</url>
+<url>
+<loc>http://dijkst.github.io/bluelock/index.html</loc>
+<lastmod>2018-01-03T13:35:43+08:00</lastmod>
+</url>
+<url>
+<loc>http://dijkst.github.io/bluelock-en/index.html</loc>
+<lastmod>2018-01-03T13:35:43+08:00</lastmod>
+</url>
 </urlset>

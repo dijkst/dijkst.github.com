@@ -4,7 +4,7 @@
   <title><![CDATA[Category: linux | 第九块石头]]></title>
   <link href="http://dijkst.github.io/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://dijkst.github.io/"/>
-  <updated>2015-03-22T20:51:42+08:00</updated>
+  <updated>2018-01-03T13:35:42+08:00</updated>
   <id>http://dijkst.github.io/</id>
   <author>
     <name><![CDATA[dijkst]]></name>
@@ -158,7 +158,7 @@ apt-get install spawn-fcgi fcgiwrap
 
 <p>添加nginx配置</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/etc/nginx/sites-available/nagios </span></figcaption>
+<p><figure class='code'><figcaption><span>/etc/nginx/sites-available/nagios </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -216,7 +216,7 @@ apt-get install spawn-fcgi fcgiwrap
 </span><span class='line'>    }
 </span><span class='line'>&lt;/code>&lt;/pre>
 </span><span class='line'>
-</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'>&lt;p>}</span></code></pre></td></tr></table></div></figure></p>
 
 <p>启动nginx <code>service nginx start</code>, 这时打开 <a href="http://localhost:9981/nagios">http://localhost:9981/nagios</a> 应该可以看到打开监控网页了。</p>
 
@@ -231,8 +231,8 @@ vi check_ganglia.py
 </code>
 贴下面代码</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>/usr/local/nagios/libexec/check_ganglia.py </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>/usr/local/nagios/libexec/check_ganglia.py </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -498,7 +498,7 @@ vi check_ganglia.py
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>在 <code>/etc/nagios/objects/commands.cfg</code> 添加上</p>
 
@@ -525,7 +525,7 @@ service nagios restart
 
 <h4>附带 /etc/init.d/nagios</h4>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>nagios </span></figcaption>
+<p><figure class='code'><figcaption><span>nagios </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -909,7 +909,7 @@ service nagios restart
 </span><span class='line'>&lt;/code>&lt;/pre>
 </span><span class='line'>
 </span><span class='line'>&lt;p>esac
-</span><span class='line'>exit $?</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span><span class='line'>exit $?</span></code></pre></td></tr></table></div></figure></p>
 ]]></content>
   </entry>
   
@@ -974,7 +974,7 @@ service nagios restart
 
 <p>init.d里面的脚本模板：（<a href="https://github.com/fhd/init-script-template">https://github.com/fhd/init-script-template</a>）</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1079,9 +1079,9 @@ service nagios restart
 </span><span class='line'>
 </span><span class='line'>&lt;h1&gt;Required-Stop:     <span class="nv">$remote_fs</span> <span class="nv">$syslog</span>&lt;/h1&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;h1&gt;Default-Start:     2 3 4 5&lt;/h1&gt;
+</span><span class='line'>&lt;h1&gt;Default-Start:     <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> 5&lt;/h1&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;h1&gt;Default-Stop:      0 1 6&lt;/h1&gt;
+</span><span class='line'>&lt;h1&gt;Default-Stop:      <span class="m">0</span> <span class="m">1</span> 6&lt;/h1&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;h1&gt;Short-Description: Start daemon at boot <span class="nb">time</span>&lt;/h1&gt;
 </span><span class='line'>
@@ -1089,14 +1089,14 @@ service nagios restart
 </span><span class='line'>
 </span><span class='line'>&lt;h3&gt;END INIT INFO&lt;/h3&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;dir<span class="o">=</span>&amp;ldquo;&amp;rdquo;
-</span><span class='line'><span class="nv">user</span><span class="o">=</span>&amp;ldquo;&amp;rdquo;
-</span><span class='line'><span class="nv">cmd</span><span class="o">=</span>&amp;ldquo;&amp;rdquo;&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;dir<span class="o">=</span><span class="p">&amp;</span>ldquo<span class="p">;&amp;</span>rdquo<span class="p">;</span>
+</span><span class='line'><span class="nv">user</span><span class="o">=</span><span class="p">&amp;</span>ldquo<span class="p">;&amp;</span>rdquo<span class="p">;</span>
+</span><span class='line'><span class="nv">cmd</span><span class="o">=</span><span class="p">&amp;</span>ldquo<span class="p">;&amp;</span>rdquo<span class="p">;</span>&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;name<span class="o">=</span>&lt;code&gt;basename <span class="nv">$0</span>&lt;/code&gt;
-</span><span class='line'><span class="nv">pid_file</span><span class="o">=</span>&amp;ldquo;/var/run/<span class="nv">$name</span>.pid&amp;rdquo;
-</span><span class='line'><span class="nv">stdout_log</span><span class="o">=</span>&amp;ldquo;/var/log/<span class="nv">$name</span>.log&amp;rdquo;
-</span><span class='line'><span class="nv">stderr_log</span><span class="o">=</span>&amp;ldquo;/var/log/<span class="nv">$name</span>.err&amp;rdquo;&lt;/p&gt;
+</span><span class='line'><span class="nv">pid_file</span><span class="o">=</span><span class="p">&amp;</span>ldquo<span class="p">;</span>/var/run/<span class="nv">$name</span>.pid<span class="p">&amp;</span>rdquo<span class="p">;</span>
+</span><span class='line'><span class="nv">stdout_log</span><span class="o">=</span><span class="p">&amp;</span>ldquo<span class="p">;</span>/var/log/<span class="nv">$name</span>.log<span class="p">&amp;</span>rdquo<span class="p">;</span>
+</span><span class='line'><span class="nv">stderr_log</span><span class="o">=</span><span class="p">&amp;</span>ldquo<span class="p">;</span>/var/log/<span class="nv">$name</span>.err<span class="p">&amp;</span>rdquo<span class="p">;</span>&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;get_pid<span class="o">()</span> <span class="o">{</span>&lt;/p&gt;
 </span><span class='line'>
@@ -1107,52 +1107,52 @@ service nagios restart
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;is_running<span class="o">()</span> <span class="o">{</span>&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;<span class="o">[</span> -f <span class="s2">&quot;$pid_file&quot;</span> <span class="o">]</span> &amp;amp;&amp;amp; ps <span class="sb">`</span>get_pid<span class="sb">`</span> &amp;gt; /dev/null 2&amp;gt;&amp;amp;1
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;<span class="o">[</span> -f <span class="s2">&quot;$pid_file&quot;</span> <span class="o">]</span> <span class="p">&amp;</span>amp<span class="p">;&amp;</span>amp<span class="p">;</span> ps <span class="sb">`</span>get_pid<span class="sb">`</span> <span class="p">&amp;</span>gt<span class="p">;</span> /dev/null 2<span class="p">&amp;</span>gt<span class="p">;&amp;</span>amp<span class="p">;</span>1
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;<span class="o">}</span>&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;case &amp;ldquo;<span class="nv">$1</span>&amp;rdquo; in&lt;/p&gt;
+</span><span class='line'>&lt;p&gt;case <span class="p">&amp;</span>ldquo<span class="p">;</span><span class="nv">$1</span><span class="p">&amp;</span>rdquo<span class="p">;</span> in&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;pre&gt;&lt;code&gt;start<span class="o">)</span>
-</span><span class='line'> <span class="k">if </span>is_running; <span class="k">then</span>
-</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Already started&quot;</span>
+</span><span class='line'> <span class="k">if</span> is_running<span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>     <span class="nb">echo</span> <span class="s2">&quot;Already started&quot;</span>
 </span><span class='line'> <span class="k">else</span>
-</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Starting $name&quot;</span>
+</span><span class='line'>     <span class="nb">echo</span> <span class="s2">&quot;Starting $name&quot;</span>
 </span><span class='line'>     <span class="nb">cd</span> <span class="s2">&quot;$dir&quot;</span>
-</span><span class='line'>        sudo -u <span class="s2">&quot;$user&quot;</span> <span class="nv">$cmd</span> &amp;gt; <span class="s2">&quot;$stdout_log&quot;</span> 2&amp;gt; <span class="s2">&quot;$stderr_log&quot;</span> <span class="se">\</span>
-</span><span class='line'>      &amp;amp; <span class="nb">echo</span> <span class="nv">$!</span> &amp;gt; <span class="s2">&quot;$pid_file&quot;</span>
-</span><span class='line'>     <span class="k">if</span> ! is_running; <span class="k">then</span>
-</span><span class='line'><span class="k">      </span><span class="nb">echo</span> <span class="s2">&quot;Unable to start, see $stdout_log and $stderr_log&quot;</span>
+</span><span class='line'>        sudo -u <span class="s2">&quot;$user&quot;</span> <span class="nv">$cmd</span> <span class="p">&amp;</span>gt<span class="p">;</span> <span class="s2">&quot;$stdout_log&quot;</span> 2<span class="p">&amp;</span>gt<span class="p">;</span> <span class="s2">&quot;$stderr_log&quot;</span> <span class="se">\</span>
+</span><span class='line'>      <span class="p">&amp;</span>amp<span class="p">;</span> <span class="nb">echo</span> <span class="nv">$!</span> <span class="p">&amp;</span>gt<span class="p">;</span> <span class="s2">&quot;$pid_file&quot;</span>
+</span><span class='line'>     <span class="k">if</span> ! is_running<span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>      <span class="nb">echo</span> <span class="s2">&quot;Unable to start, see $stdout_log and $stderr_log&quot;</span>
 </span><span class='line'>      <span class="nb">exit </span>1
 </span><span class='line'>     <span class="k">fi</span>
-</span><span class='line'><span class="k"> fi</span>
-</span><span class='line'> ;;
+</span><span class='line'> <span class="k">fi</span>
+</span><span class='line'> <span class="p">;;</span>
 </span><span class='line'>stop<span class="o">)</span>
-</span><span class='line'> <span class="k">if </span>is_running; <span class="k">then</span>
-</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Stopping $name&quot;</span>
+</span><span class='line'> <span class="k">if</span> is_running<span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>     <span class="nb">echo</span> <span class="s2">&quot;Stopping $name&quot;</span>
 </span><span class='line'>     <span class="nb">kill</span> <span class="sb">`</span>get_pid<span class="sb">`</span>
 </span><span class='line'>     rm <span class="s2">&quot;$pid_file&quot;</span>
 </span><span class='line'> <span class="k">else</span>
-</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Not running&quot;</span>
+</span><span class='line'>     <span class="nb">echo</span> <span class="s2">&quot;Not running&quot;</span>
 </span><span class='line'> <span class="k">fi</span>
-</span><span class='line'> ;;
+</span><span class='line'> <span class="p">;;</span>
 </span><span class='line'>restart<span class="o">)</span>
 </span><span class='line'> <span class="nv">$0</span> stop
 </span><span class='line'> <span class="nv">$0</span> start
-</span><span class='line'> ;;
+</span><span class='line'> <span class="p">;;</span>
 </span><span class='line'>status<span class="o">)</span>
-</span><span class='line'> <span class="k">if </span>is_running; <span class="k">then</span>
-</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Running&quot;</span>
+</span><span class='line'> <span class="k">if</span> is_running<span class="p">;</span> <span class="k">then</span>
+</span><span class='line'>     <span class="nb">echo</span> <span class="s2">&quot;Running&quot;</span>
 </span><span class='line'> <span class="k">else</span>
-</span><span class='line'><span class="k">     </span><span class="nb">echo</span> <span class="s2">&quot;Stopped&quot;</span>
+</span><span class='line'>     <span class="nb">echo</span> <span class="s2">&quot;Stopped&quot;</span>
 </span><span class='line'>     <span class="nb">exit </span>1
 </span><span class='line'> <span class="k">fi</span>
-</span><span class='line'> ;;
+</span><span class='line'> <span class="p">;;</span>
 </span><span class='line'>*<span class="o">)</span>
 </span><span class='line'> <span class="nb">echo</span> <span class="s2">&quot;Usage: $0 {start|stop|restart|status}&quot;</span>
 </span><span class='line'> <span class="nb">exit </span>1
-</span><span class='line'> ;;
+</span><span class='line'> <span class="p">;;</span>
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;esac&lt;/p&gt;
@@ -1160,7 +1160,7 @@ service nagios restart
 </span><span class='line'>&lt;p&gt;exit 0&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 ]]></content>
   </entry>
   
